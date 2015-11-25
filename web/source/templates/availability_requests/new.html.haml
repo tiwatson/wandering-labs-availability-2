@@ -1,0 +1,96 @@
+.flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
+
+.card-copy
+  .row
+    .half
+      %label.required{ for: 'campground' }Where do you want to camp?
+      %angucomplete-alt{  :id => "campground",
+                                :placeholder => "Select Campground",
+                                :pause => 0,
+                                :minlength => 1,
+                                :'match-class' => "highlight",
+                                :'selected-object' => "ar.location",
+                                :'local-data' => "ar.locations",
+                                :'search-fields' => "name",
+                                :'title-field' => "name",
+                                :'description-field' => "desc",
+                                :limit => 10 }
+  .row
+    .quarter
+      %label.required{ for: 'date_start' }Date Start
+      %quick-datepicker{ 'ng-model' => 'ar.date_start', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
+
+    .quarter
+      %label.required{ for: 'date_start' }Date End
+      %quick-datepicker{ 'ng-model' => 'ar.date_end', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
+
+    .quarter
+      %label.required{ for: 'days_length' }# of nights
+      %input#days_length{ type: 'text', 'ng-model' => 'ar.days_length' }
+
+    .quarter
+      %label.required{ for: 'site_type' }Site Type
+      %select{ 'ng-model' => 'ar.site_type', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.site_type = ar.siteTypes[0]' }
+
+
+  .row
+    %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
+      Additional Campsite Options
+
+
+  .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
+    .row
+      .quarter
+        %label{ for: 'eq_len' }RV/Trailer Length (ft)
+        %input#eq_len{ type: 'text', 'ng-model' => 'ar.eq_len' }
+
+      .quarter
+        %label{ for: 'electric' }Electric
+        %select{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
+          %option{:value => "", :selected => "selected"}
+
+      .quarter
+        .row
+          .half
+            %label Water
+            %label
+              %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
+                Yes
+          .half
+            %label Sewer
+            %label
+              %input#water{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
+                Yes
+
+
+      .quarter
+        .row
+          .half
+            %label Pull-Thru
+            %label
+              %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
+                Yes
+          .half
+            %label Waterfront
+            %label
+              %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
+                Yes
+
+
+
+
+
+  .row
+    .half
+      %label.required{ for: 'user_email' }Email Address
+      %input#user_email{ type: 'text', 'ng-model' => 'ar.email' }
+
+    .half
+      %label{ for: 'user_phone' }Phone (for txt msg)
+      %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
+
+
+
+
+  .row
+    %button{ 'ng-click' => 'newRequest()' } Submit

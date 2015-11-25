@@ -1,0 +1,180 @@
+@import 'normalize-css';
+@import 'bourbon';
+@import 'base/base';
+
+$max-width: em(860);
+$medium-screen: em(640);
+$large-screen: em(860);
+
+// $visual-grid: true;
+// $visual-grid-color: red;
+// $visual-grid-index: front;
+// $visual-grid-opacity: 0.1;
+
+@import 'neat';
+
+$medium-screen-up: new-breakpoint(min-width $medium-screen 12);
+$large-screen-up: new-breakpoint(min-width $large-screen 12);
+
+$mobile: new-breakpoint(max-width 480px);
+$desktop: new-breakpoint(min-width $large-screen);
+
+@import 'flash';
+
+@import 'font-awesome';
+@import 'ng-quick-date';
+@import 'ng-quick-date-default-theme';
+@import 'angucomplete-alt';
+
+.wrap {
+  section {
+    padding-top: $base-line-height;
+    @include media($mobile) {
+      padding: $base-line-height;
+    }
+  }
+}
+
+section {
+  @include outer-container;
+  .card {
+    @include span-columns(12);
+  }
+
+}
+
+#availability_request_new {
+
+  .half {
+    //@include media($desktop) {
+      @include span-columns(6 of 12);
+    //}
+    @include media($mobile) {
+      @include span-columns(12 of 12);
+    }
+  }
+  .third {
+    @include span-columns(4 of 12);
+  }
+  .quarter {
+    @include span-columns(3 of 12);
+  }
+
+  .row {
+    @include row();
+  }
+}
+
+#availability_request_list {
+  margin-top: 1em;
+
+  .card {
+    @include span-columns(12);
+  }
+
+}
+
+.nav {
+  background-color: #77b57a;
+  border-color: #13674c;
+  .nav-inner {
+    @include outer-container;
+    padding: 6px 0;
+    a {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}
+
+.cards {
+  @include clearfix;
+}
+
+.card {
+  $card-border-color: $base-border-color;
+  $card-border: 1px solid $card-border-color;
+  $card-background: lighten($card-border-color, 10);
+  $card-header-background: #fff; //$card-background;
+  $card-hover-background: lighten($card-background, 5);
+  $card-image-background: #DBD199;
+  $card-image-hover-background: lighten($card-image-background, 5);
+  $card-stats-color: lighten($base-accent-color, 10);
+
+  @include transition (all 0.2s ease-in-out);
+  background-color: #fff; //$card-background;
+  border-radius: $base-border-radius;
+  border: $card-border;
+  box-shadow: 0 2px 4px darken($base-background-color, 10);
+  position: relative;
+
+  padding: $base-line-height/2 $gutter/2;
+
+  .card-header {
+    @include transition (all 0.2s ease-in-out);
+    background-color: $card-header-background;
+    border-bottom: $card-border;
+    border-radius: $base-border-radius $base-border-radius 0 0;
+    font-weight: bold;
+    padding: $base-line-height/3 $gutter/2;
+  }
+
+  .card-copy {
+    p {
+      font-size: $base-font-size * 1.1;
+    }
+    //line-height: 1.5em;
+  }
+
+}
+
+label {
+  &.required {
+    color: darken($error-color, 45);
+  }
+}
+
+$expander-arrow-width: 5px;
+$expander-toggle-size: 1em;
+$expander-toggle-arrow-size: $expander-toggle-size;
+$expander-toggle-margin: 1em;
+
+.expander-trigger {
+  @include user-select(none);
+  cursor: pointer;
+  display: block;
+  font-size: $expander-toggle-size;
+  margin-bottom: $expander-toggle-size;
+  padding-bottom: $expander-toggle-size / 4;
+
+  &:before {
+    content: '\25BC';
+    font-size: $expander-toggle-arrow-size;
+    margin-right: .5em;
+  }
+}
+
+.expander-hidden {
+  &:before {
+    content: '\25BA';
+  }
+}
+
+
+footer {
+  @include outer-container;
+  margin-top: $gutter * 4;
+  margin-bottom: $gutter * 2;
+  color: transparentize($base-font-color, .5);
+  text-align: center;
+
+  .footer-content {
+    @include span-columns(12);
+
+  }
+}
+
+
+table.quickdate-calendar td.disabled-date {
+  color: #ddd;
+}

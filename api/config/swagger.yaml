@@ -1,0 +1,17 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Simple API
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /availability_requests:
+    post:
+      responses:
+        '200':
+          description: OK

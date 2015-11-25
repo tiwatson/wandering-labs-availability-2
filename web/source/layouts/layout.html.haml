@@ -1,0 +1,33 @@
+!!!
+%html{ 'ng-app' => 'wl_availability' }
+  %head
+    %title Wandering Labs | Campsite Full?
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+  %body{}
+
+    .nav
+      .nav-inner
+        %a{ href: 'http://wanderinglabs.com'}
+          %i.fa.fa-cogs.fa-lg
+          WanderingLabs
+
+    = yield
+
+    %footer
+      .footer-content
+        %a{ href: 'http://wanderinglabs.com' }Wandering Labs
+        is a creation of
+        %a{ href: 'http://tiwatson.com' }Tim Watson
+        %br/
+        %br/
+        %small
+          Wandering Labs is not affiliated with, maintained by, or in any way officially connected with Reserve America or Active Network.
+
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-58156575-1', 'auto');
+      ga('send', 'pageview');
