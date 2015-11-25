@@ -31,6 +31,8 @@
     "cors": "^2.7.1",
     "source-map-support": "^0.3.2",
     "stream-buffers": "^2.2.0",
-    "swaggerize-express": "^4.0.3"
+    "swaggerize-express": "^4.0.3",
+    "mocha": "^2.3.3",
+    "chai": "^3.3.0"
   }
 }
