@@ -8,49 +8,46 @@ import { FilterAvailabilities } from './filter-availabilities';
 
 
 class ReserveAmerica {
-  constructor() {
+  constructor(availabilityRequest) {
+    this.availabilityRequest = availabilityRequest;
     this.raConnection = new RaConnection();
 
-    this.resource = {
-      "dateStart": "12/1/2015",
-      "dateEnd": "11/1/2016",
-      "query": {
-        "contractCode": "FL",
-        "parkId": "281005",
-        "siteTypeFilter": "ALL",
-        "availStatus": "",
-        "submitSiteForm": true,
-        "search": "site",
-        "campingDate": "Mon Nov 30 2015",
-        "lengthOfStay": 4,
-        "campingDateFlex": null,
-        "currentMaximumWindow": 12,
-        "contractDefaultMaxWindow": 'MS:24,LT:18,GA:24,SC:13,PA:24',
-        "stateDefaultMaxWindow": 'MS:24,GA:24,SC:13,PA:24',
-        "defaultMaximumWindow": 12,
-        "loop": "",
-        "siteCode": "",
-        "lookingFor": 2001,
-        "camping_2003_moreOptions": true,
-        "camping_2003_3011": false
-      }
-    };
+    this.dateStart = moment.unix(this.availabilityRequest.dateStart).format('M/D/YYYY')
+    this.dateEnd = moment.unix(this.availabilityRequest.dateEnd).format('M/D/YYYY')
 
+    this.query = {
+      "contractCode": this.availabilityRequest.typeSpecific.state,
+      "parkId": this.availabilityRequest.typeSpecific.parkId,
+      "siteTypeFilter": "ALL",
+      "availStatus": "",
+      "submitSiteForm": true,
+      "search": "site",
+      "campingDate": "Mon Nov 30 2015",
+      "lengthOfStay": this.availabilityRequest.lengthOfStay,
+      "campingDateFlex": null,
+      "currentMaximumWindow": 12,
+      "contractDefaultMaxWindow": 'MS:24,LT:18,GA:24,SC:13,PA:24',
+      "stateDefaultMaxWindow": 'MS:24,GA:24,SC:13,PA:24',
+      "defaultMaximumWindow": 12,
+      "loop": "",
+      "siteCode": "",
+      "lookingFor": 2001,
+      "camping_2003_moreOptions": true,
+      "camping_2003_3011": false
+    };
 
   }
 
   work() {
 
-    let lengthOfStay = this.resource.query.lengthOfStay;
+    let lengthOfStay = this.availabilityRequest.lengthOfStay;
 
     return this.raConnection.setSession().then((resp) => {
       console.log('setSession responded')
-      return this.raConnection.setFilters(this.resource.query).then((resp) => {
+      return this.raConnection.setFilters(this.query).then((resp) => {
         console.log('setFilters responded')
 
-        let nextMoment = moment(this.resource.dateStart, 'MM/DD/YYYY');
-
-        return this.allAvailabilities(nextMoment).then((returned_avails) => {
+        return this.allAvailabilities(this.dateStart).then((returned_avails) => {
           console.log('total avails', returned_avails);
           let filteredAvail = FilterAvailabilities.filter(lengthOfStay, returned_avails);
           console.log('filteredAvail', filteredAvail)
@@ -64,7 +61,7 @@ class ReserveAmerica {
 
 
   allAvailabilities(nextMoment) {
-    let endMoment = moment(this.resource.dateEnd, 'MM/DD/YYYY');
+    let endMoment = this.dateEnd;
 
     return new Promise((resolve) => {
       return this.raConnection.getNextAvail( nextMoment ).then((response) => {

@@ -2,13 +2,49 @@ import { testHelper, Factory, ModelData } from '../../../../shared/test/test-hel
 
 import { ReserveAmerica } from '../../src/reserve-america/index';
 
-// describe('ReserveAmerica', () => {
-//   this.timeout(15000);
+import { AvailabilityRequest, AvailabilityRequestRepo } from '../../src/shared/repos/availability-request'
+import moment from 'moment';
 
-//   it('#works', () => {
-//     return new ReserveAmerica().work().then(() => {
-//       console.log('worked')
-//     });
-//   })
+describe('ReserveAmerica', () => {
 
-// });
+  describe('instance methods', () => {
+    let reserveAmerica, availabilityRequest;
+
+    before(() => {
+      availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({
+        dateStart: 1445872639,
+        dateEnd: 1453825127
+      }) );
+      reserveAmerica = new ReserveAmerica(availabilityRequest);
+    })
+
+    it('formats dateStart', () => {
+      expect(reserveAmerica.dateStart).to.not.be.empty
+      expect(reserveAmerica.dateStart).to.equal('10/26/2015')
+    })
+
+    it('formats dateEnd', () => {
+      expect(reserveAmerica.dateEnd).to.not.be.empty
+      expect(reserveAmerica.dateEnd).to.equal('1/26/2016')
+    })
+
+    it('includes contractCode', () => {
+      expect(reserveAmerica.query.contractCode).to.not.be.empty
+      expect(reserveAmerica.query.contractCode).to.equal( availabilityRequest.typeSpecific.state );
+    })
+
+    it('includes contractCode', () => {
+      expect(reserveAmerica.query.lengthOfStay).to.not.be.empty
+      expect(reserveAmerica.query.lengthOfStay).to.equal( availabilityRequest.lengthOfStay );
+    })
+
+  })
+
+
+  // it('#works', () => {
+  //   return new ReserveAmerica().work().then(() => {
+  //     console.log('worked')
+  //   });
+  // })
+
+});

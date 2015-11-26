@@ -18,14 +18,24 @@ ModelData.availabilityRequest = function(attrs = {}) {
   return merge({
     "dateStart": moment().subtract(1, 'M').unix(),
     "dateEnd": moment().add(1, 'M').unix(),
-    "daysLength": "3",
+    "lengthOfStay": 3,
     "lastRun": moment().subtract(1, 'M').unix(),
     "email": "tim@example.com",
-    "location": {
-      "parkId": "281005",
-      "state": "FL"
-    },
-    "siteType": 2001
+
+    // reserve america specific
+    type: 'reserve america',
+    typeSpecific: {
+      parkName: 'Bahia Honda',
+      parkId: '666',
+      state: 'FL',
+      siteType: 2001
+      // eqLen: null,
+      // electric: null,
+      // water: null,
+      // sewer: null,
+      // pullthru: null,
+      // waterfront: null
+    }
   }, attrs);
 };
 
