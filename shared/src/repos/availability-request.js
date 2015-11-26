@@ -1,5 +1,5 @@
 
-import db from '../utils/db';
+import db, { DbHelpers } from '../utils/db';
 
 import uuid from 'node-uuid';
 import { merge } from 'lodash';
@@ -11,6 +11,16 @@ class AvailabilityRequest {
     Object.assign(this, attributes);
   }
 
+  static tableName() {
+    return DbHelpers.tableName('AvailabilityRequests');
+  }
+
+  static tableOptions() {
+    return {
+      key_schema: { hash: ['id', 'string'] },
+      throughput: { write: 1, read: 1 }
+    }
+  }
   static columns() {
     return {};
   }
@@ -45,7 +55,7 @@ class AvailabilityRequest {
 
 class AvailabilityRequestRepo {
   constructor() {
-    this.table = db.table('AvailabilityRequests');
+    this.table = db.table(AvailabilityRequest.tableName());
   }
 
   find(id) {
