@@ -19,7 +19,7 @@ afterEach(() => {
 var testHelper = {}
 
 testHelper.resetDb = function() {
-  return DbHelpers.drop().then(() => { return DbHelpers.create() })
+  return DbHelpers.clean();
 }
 
 export { testHelper, Factory, ModelData }

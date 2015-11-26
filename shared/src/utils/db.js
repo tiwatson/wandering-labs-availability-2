@@ -8,7 +8,7 @@ const credentials = {
 
 let endpoint = (process.env.NODE_ENV == 'test' && process.env.CI != true) ? 'http://localhost:8000' : null
 
-const db = dynasty(credentials, endpoint);
+const db = dynasty(credentials);
 
 export default db
 
@@ -22,16 +22,22 @@ class DbHelpers {
 
   static create() {
     return db.create(AvailabilityRequest.tableName(), AvailabilityRequest.tableOptions()).then((resp) => {
-      //console.log('Your table has been created!');
+      console.log('Your table has been created!');
     })
   }
 
   static drop() {
     return db.drop(AvailabilityRequest.tableName()).then((resp) => {
-      //console.log('Your table has been dropped!');
-    }).catch((error) => {
-      // TODO - bit of a hack as initial tests with no DB error out with "ResourceNotFoundException: Cannot do operations on a non-existent table"
+      console.log('Your table has been dropped!');
     })
+  }
+
+  static clean() {
+    return db.table(AvailabilityRequest.tableName()).scan().then((resp) => {
+      for(let obj of resp) {
+        db.table(AvailabilityRequest.tableName()).remove(obj.id);
+      }
+    });
   }
 
 }
