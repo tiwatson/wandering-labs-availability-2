@@ -6,9 +6,9 @@ const credentials = {
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 };
 
-let endpoint = (process.env.NODE_ENV == 'test' && process.env.CI != true) ? 'http://localhost:8000' : null
+let endpoint = ((process.env.NODE_ENV == 'test') && (typeof process.env.CI === 'undefined')) ? 'http://localhost:8000' : null
 
-const db = dynasty(credentials);
+const db = dynasty(credentials, endpoint);
 
 export default db
 
