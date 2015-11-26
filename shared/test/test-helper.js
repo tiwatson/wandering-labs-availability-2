@@ -9,8 +9,7 @@ import {Factory, ModelData} from './factories';
 global.expect = chai.expect;
 
 before(() => {
-  console.log('before');
-  return testHelper.resetDb().then((resp) => { return done(); });
+  return testHelper.resetDb();
 })
 
 afterEach(() => {
@@ -20,7 +19,6 @@ afterEach(() => {
 var testHelper = {}
 
 testHelper.resetDb = function() {
-  console.log('reset..');
   return DbHelpers.drop().then(() => { return DbHelpers.create() })
 }
 
