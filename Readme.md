@@ -13,6 +13,8 @@ Collection of lambda functions that handle requests from the angular app. Will b
 - Cancelation
 - User review
 - updating
+- tests
+- dateEnd and dateStart to integers (start of day)
 
 ## scraper
 
@@ -44,13 +46,15 @@ Included into the other parts codebase via symbolic links created via script in 
 Angular web app to allow users to set up an availability request.
 Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 
+`bundle exec middleman server`
+
 #### TODO
 - Non-restrict to Reserve America
 - Validation
 - Cancelation
 - User review
 - updating
-
+- deploy
 
 ***
 

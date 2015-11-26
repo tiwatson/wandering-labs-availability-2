@@ -20,14 +20,14 @@ angular.module('availability_requests.controllers', [])
     };
 
     $scope.dateEndFilter = function(d) {
-      return((typeof $scope.ar.date_start !== 'undefined') && (d > $scope.ar.date_start));
+      return((typeof $scope.ar.dateStart !== 'undefined') && (d > $scope.ar.dateStart));
     };
 
   }])
 
   .controller('AvailabilityRequestsController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
     $scope.ar = availabilityRequestsService;
-    $scope.predicate = '[-active, -date_start]';
+    $scope.predicate = '[-active, -dateStart]';
 
     availabilityRequestsService.getList();
 

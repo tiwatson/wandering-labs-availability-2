@@ -31,26 +31,30 @@ angular.module('availability_requests.services', [ ]).
       post: function() {
         console.log('serivce', service.location)
         return service.base.post({
+          // required
           email: service.email,
-          location: {
-            name: service.location.originalObjectname,
-            park_id: service.location.originalObject.park_id,
-            state: service.location.originalObject.state
-          },
-          date_start: service.date_start,
-          date_end: service.date_end,
-          days_length: service.days_length,
-          site_type: service.site_type.value,
-          eq_len: service.eq_len,
-          electric: service.electric,
-          water: service.water,
-          sewer: service.sewer,
-          pullthru: service.pullthru,
-          waterfront: service.waterfront
+          dateStart: service.dateStart,
+          dateEnd: service.dateEnd,
+          lengthOfStay: service.lengthOfStay,
+
+          // reserve america specific
+          type: 'reserve america',
+          typeSpecific: {
+            parkName: service.location.originalObjectname,
+            parkId: service.location.originalObject.park_id,
+            state: service.location.originalObject.state,
+            siteType: service.siteType.value,
+            eqLen: service.eqLen,
+            electric: service.electric,
+            water: service.water,
+            sewer: service.sewer,
+            pullthru: service.pullthru,
+            waterfront: service.waterfront
+          }
         }).then( function(result) {
           service.all.push(result);
-          service.date_start = null;
-          service.date_end = null;
+          service.dateStart = null;
+          service.dateEnd = null;
         });
       },
 

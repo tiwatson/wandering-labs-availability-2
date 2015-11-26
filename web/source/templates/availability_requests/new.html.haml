@@ -17,20 +17,20 @@
                                 :limit => 10 }
   .row
     .quarter
-      %label.required{ for: 'date_start' }Date Start
-      %quick-datepicker{ 'ng-model' => 'ar.date_start', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
+      %label.required{ for: 'dateStart' }Date Start
+      %quick-datepicker{ 'ng-model' => 'ar.dateStart', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
 
     .quarter
-      %label.required{ for: 'date_start' }Date End
-      %quick-datepicker{ 'ng-model' => 'ar.date_end', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
+      %label.required{ for: 'dateEnd' }Date End
+      %quick-datepicker{ 'ng-model' => 'ar.dateEnd', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
 
     .quarter
-      %label.required{ for: 'days_length' }# of nights
-      %input#days_length{ type: 'text', 'ng-model' => 'ar.days_length' }
+      %label.required{ for: 'lengthOfStay' }# of nights
+      %input#lengthOfStay{ type: 'text', 'ng-model' => 'ar.lengthOfStay' }
 
     .quarter
-      %label.required{ for: 'site_type' }Site Type
-      %select{ 'ng-model' => 'ar.site_type', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.site_type = ar.siteTypes[0]' }
+      %label.required{ for: 'siteType' }Site Type
+      %select{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
 
 
   .row
@@ -41,8 +41,8 @@
   .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
     .row
       .quarter
-        %label{ for: 'eq_len' }RV/Trailer Length (ft)
-        %input#eq_len{ type: 'text', 'ng-model' => 'ar.eq_len' }
+        %label{ for: 'eqLen' }RV/Trailer Length (ft)
+        %input#eqLen{ type: 'text', 'ng-model' => 'ar.eqLen' }
 
       .quarter
         %label{ for: 'electric' }Electric
