@@ -1,4 +1,6 @@
 
+import Promise from 'bluebird';
+
 import dynasty from 'dynasty';
 
 const credentials = {
@@ -34,9 +36,9 @@ class DbHelpers {
 
   static clean() {
     return db.table(AvailabilityRequest.tableName()).scan().then((resp) => {
-      for(let obj of resp) {
-        db.table(AvailabilityRequest.tableName()).remove(obj.id);
-      }
+      return Promise.map(resp, (obj) => {
+        return db.table(AvailabilityRequest.tableName()).remove(obj.id);
+      });
     });
   }
 
