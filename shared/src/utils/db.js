@@ -21,17 +21,23 @@ class DbHelpers {
   }
 
   static create() {
+    console.log('create');
     return db.create(AvailabilityRequest.tableName(), AvailabilityRequest.tableOptions()).then((resp) => {
       //console.log('Your table has been created!');
     })
   }
 
   static drop() {
-    return db.drop(AvailabilityRequest.tableName()).then((resp) => {
-      //console.log('Your table has been dropped!');
-    }).catch((error) => {
-      // TODO - bit of a hack as initial tests with no DB error out with "ResourceNotFoundException: Cannot do operations on a non-existent table"
-    })
+    console.log('drop..');
+    return db.list().then((resp) => {
+      console.log('list resp..', resp);
+      return db.drop(AvailabilityRequest.tableName()).then((resp) => {
+        //console.log('Your table has been dropped!');
+      }).catch((error) => {
+        console.log('Drop error', error)
+        // TODO - bit of a hack as initial tests with no DB error out with "ResourceNotFoundException: Cannot do operations on a non-existent table"
+      })
+    });
   }
 
 }
