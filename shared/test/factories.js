@@ -40,7 +40,10 @@ ModelData.availabilityRequest = function(attrs = {}) {
 };
 
 Factory.availabilityRequestRepo = function(attrs = {}) {
-  return new AvailabilityRequestRepo().create( new AvailabilityRequest( ModelData.availabilityRequest(attrs) ) );
+  let availabilityRequestRepo = new AvailabilityRequestRepo()
+  return availabilityRequestRepo.create( new AvailabilityRequest( ModelData.availabilityRequest(attrs) ) ).then((id) => {
+    return availabilityRequestRepo.find(id);
+  });
 }
 
 export { Factory, ModelData }

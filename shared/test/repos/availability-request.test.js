@@ -80,8 +80,8 @@ describe('AvailabilityRequestRepo', () => {
     var arId;
 
     beforeEach(() => {
-      return Factory.availabilityRequestRepo().then((id) => {
-        arId = id;
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
+        arId = factoryObj.id;
       })
     })
 
@@ -96,7 +96,7 @@ describe('AvailabilityRequestRepo', () => {
   describe('#active', () => {
 
     it('returns an availability request that is active and valid', () => {
-      return Factory.availabilityRequestRepo().then((id) => {
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
         return new AvailabilityRequestRepo().active().then((objs) => {
           expect(objs).to.not.be.empty;
           expect(objs).to.be.instanceOf(Array);
@@ -112,7 +112,7 @@ describe('AvailabilityRequestRepo', () => {
         dateEnd: moment().subtract(1, 'w').unix()
       }
 
-      return Factory.availabilityRequestRepo(attrs).then((id) => {
+      return Factory.availabilityRequestRepo(attrs).then((factoryObj) => {
         return new AvailabilityRequestRepo().active().then((objs) => {
           expect(objs).to.be.empty;
           expect(objs).to.be.instanceOf(Array);
@@ -126,7 +126,7 @@ describe('AvailabilityRequestRepo', () => {
         status: 'paused'
       }
 
-      return Factory.availabilityRequestRepo(attrs).then((id) => {
+      return Factory.availabilityRequestRepo(attrs).then((factoryObj) => {
         return new AvailabilityRequestRepo().active().then((objs) => {
           expect(objs).to.be.empty;
           expect(objs).to.be.instanceOf(Array);
@@ -141,7 +141,7 @@ describe('AvailabilityRequestRepo', () => {
         daysLength: 7
       }
 
-      return Factory.availabilityRequestRepo(attrs).then((id) => {
+      return Factory.availabilityRequestRepo(attrs).then((factoryObj) => {
         return new AvailabilityRequestRepo().active().then((objs) => {
           expect(objs).to.be.empty;
           expect(objs).to.be.instanceOf(Array);
@@ -152,11 +152,11 @@ describe('AvailabilityRequestRepo', () => {
   })
 
   describe('#updateAvailabilities', ()=> {
-    var arId;
+    var availabilityRequest;
 
     beforeEach(() => {
-      return Factory.availabilityRequestRepo().then((id) => {
-        arId = id;
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
+        availabilityRequest = factoryObj;
       })
     })
 
@@ -164,12 +164,12 @@ describe('AvailabilityRequestRepo', () => {
       let newAvails = [
         { siteId: 100, arrivalDate: moment().unix(), daysLength: 7 }
       ]
-      return new AvailabilityRequestRepo().updateAvailabilities(arId, newAvails).then((obj) => {
-        return new AvailabilityRequestRepo().find(arId).then((availabilityRequest) => {
-          expect(availabilityRequest.availabilities).to.not.be.empty;
-          expect(availabilityRequest.availabilities).to.be.instanceOf(Array);
-          expect(availabilityRequest.availabilities.length).to.equal(1);
-          expect(availabilityRequest.availabilities[0].avail).to.equal(true);
+      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvails).then((obj) => {
+        return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
+          expect(resource.availabilities).to.not.be.empty;
+          expect(resource.availabilities).to.be.instanceOf(Array);
+          expect(resource.availabilities.length).to.equal(1);
+          expect(resource.availabilities[0].avail).to.equal(true);
         })
       });
     })

@@ -106,13 +106,10 @@ class AvailabilityRequestRepo {
     });
   }
 
-  updateAvailabilities(id, newAvailabilities) {
-    return this.find(id).then((availabilityRequest) => {
-      availabilityRequest.mergeAvailabilities(newAvailabilities);
-      return this.update(availabilityRequest)
-    });
+  updateAvailabilities(availabilityRequest, newAvailabilities) {
+    availabilityRequest.mergeAvailabilities(newAvailabilities);
+    return this.update(availabilityRequest);
   }
-
 
   wrapResource(obj) {
     return new AvailabilityRequest(obj);
