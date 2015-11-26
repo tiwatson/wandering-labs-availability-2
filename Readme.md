@@ -1,5 +1,7 @@
 # Notification system for campsite availabilities
 
+[![Build Status](https://travis-ci.org/tiwatson/wandering-labs-availability-2.svg?branch=master)](https://travis-ci.org/tiwatson/wandering-labs-availability-2)
+
 ### Current in development and not production ready.
 
 In 4 parts. To be completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
