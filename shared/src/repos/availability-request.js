@@ -30,6 +30,8 @@ class AvailabilityRequest {
     return moment().isBefore(dateLastCheckable);
   }
 
+  // this should probably be immutable but it is not.
+  // also needs a good refactor.
   mergeAvailabilities(newAvailabilities) {
     if (typeof this.availabilities === 'undefined') {
       this.availabilities = [];
@@ -49,6 +51,16 @@ class AvailabilityRequest {
     for (let newAvail of _.compact(newAvailabilities)) {
       this.availabilities.push(_.merge(newAvail, {avail: true, notified: false}));
     }
+  }
+
+  notificationNeeded() {
+    let needed = [];
+    if (typeof this.availabilities !== 'undefined') {
+      needed = this.availabilities.filter((availability) => {
+        return availability.avail === true;
+      });
+    }
+    return needed.length > 0;
   }
 
 }
