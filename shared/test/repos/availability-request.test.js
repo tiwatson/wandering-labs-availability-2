@@ -152,11 +152,12 @@ describe('AvailabilityRequestRepo', () => {
   })
 
   describe('#updateAvailabilities', ()=> {
-    var availabilityRequest;
+    var availabilityRequest, checkedAt;
 
     beforeEach(() => {
       return Factory.availabilityRequestRepo().then((factoryObj) => {
         availabilityRequest = factoryObj;
+        checkedAt = factoryObj.checkedAt;
       })
     })
 
@@ -170,6 +171,9 @@ describe('AvailabilityRequestRepo', () => {
           expect(resource.availabilities).to.be.instanceOf(Array);
           expect(resource.availabilities.length).to.equal(1);
           expect(resource.availabilities[0].avail).to.equal(true);
+
+          expect(resource.checkedAt).to.not.be.empty;
+          expect(resource.checkedAt).to.be.above(checkedAt);
         })
       });
     })

@@ -59,9 +59,7 @@ class AvailabilityRequestRepo {
   }
 
   find(id) {
-    console.log('find', id)
     return this.table.find(id).then((resp) => {
-      console.log('found', resp);
       return this.wrapResource(resp);
     });
   }
@@ -108,7 +106,7 @@ class AvailabilityRequestRepo {
 
   updateAvailabilities(availabilityRequest, newAvailabilities) {
     availabilityRequest.mergeAvailabilities(newAvailabilities);
-    return this.update(availabilityRequest);
+    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix() }));
   }
 
   wrapResource(obj) {
