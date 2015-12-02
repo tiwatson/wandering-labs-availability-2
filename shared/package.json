@@ -9,6 +9,7 @@
   "license": "ISC",
 
   "dependencies": {
+    "aws-sdk": "^2.2.20",
     "dotenv": "1.2.0",
     "dynasty": "0.2.3",
     "lodash": "3.10.1",
@@ -22,6 +23,7 @@
     "mocha": "^2.3.3",
     "chai": "^3.3.0",
     "bluebird": "*",
-    "nock": "^3.3.2"
+    "nock": "^3.3.2",
+    "sinon": "^1.17.2"
   }
 }

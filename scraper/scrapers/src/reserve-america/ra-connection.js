@@ -21,7 +21,7 @@ class RaConnection {
     };
 
     return this.rp(options).then(function (response) {
-      console.log('setSession Statuscode', response.statusCode)
+      // console.log('setSession Statuscode', response.statusCode)
     }).catch(console.error);
   };
 
@@ -33,7 +33,7 @@ class RaConnection {
     };
 
     return this.rp(options).then(function (response) {
-      console.log('setFilters Statuscode', response.statusCode);
+      // console.log('setFilters Statuscode', response.statusCode);
       // const doc = cheerio.load(response.body);
       // const lengthOfStay = doc('#lengthOfStay').val();
       // console.log('lengthOfStay', lengthOfStay);
@@ -47,7 +47,7 @@ class RaConnection {
       method: 'GET'
     };
 
-    console.log('getNextAvail', options)
+    // console.log('getNextAvail', options)
     return this.rp(options);
   }
 

@@ -53,10 +53,9 @@ class ReserveAmerica {
       // camping_3102_3012:
     };
 
-
   }
 
-  work() {
+  perform() {
     let lengthOfStay = this.availabilityRequest.lengthOfStay;
 
     return this.raConnection.setSession().then((resp) => {
@@ -65,35 +64,39 @@ class ReserveAmerica {
       return this.allAvailabilities(this.dateStart);
     }).then((returned_avails) => {
       let filteredAvail = FilterAvailabilities.filter(lengthOfStay, returned_avails);
+      return filteredAvail;
     });
   }
 
-  allAvailabilities(nextMoment) {
+  allAvailabilities(firstMoment) {
     let endMoment = moment.unix(this.availabilityRequest.dateEnd);
 
-    return new Promise((resolve) => {
-      return this.raConnection.getNextAvail( nextMoment ).then((response) => {
-        let foundAvail = new ParseAvailabilities(response.body).parse();
-
-        if (foundAvail.length > 0) {
-          console.log('arrivalDate', foundAvail[0].arrivalDate)
-          let nextMoment = moment(foundAvail[0].arrivalDate, 'MM/DD/YYYY').add(13, 'days');
-          console.log('nextMoment', nextMoment.format('M/D/YYYY'))
-          if (nextMoment.isBefore(endMoment)) {
-            return this.allAvailabilities(nextMoment.format('M/D/YYYY')).then((newlyFoundAvail) => {
-              foundAvail = foundAvail.concat(newlyFoundAvail);
+    let newlyFoundAvail = []
+    let getAvailabilities = (nextMoment) => {
+      return new Promise(resolve => {
+        return this.raConnection.getNextAvail( nextMoment ).then((response) => {
+          let foundAvail = new ParseAvailabilities(response.body).parse();
+          if (foundAvail.length > 0) {
+            // console.log('arrivalDate', foundAvail[0].arrivalDate)
+            let nextMoment = moment(foundAvail[0].arrivalDate, 'MM/DD/YYYY').add(13, 'days');
+            // console.log('nextMoment', nextMoment.format('M/D/YYYY'))
+            if (nextMoment.isBefore(endMoment)) {
+              getAvailabilities(nextMoment.format('M/D/YYYY')).then((av) => {
+                resolve(foundAvail.concat(av));
+              });
+            }
+            else {
               resolve(foundAvail);
-            });
+            }
           }
           else {
-            resolve(foundAvail);
+            resolve([])
           }
-        }
-        else {
-          resolve([]);
-        }
+        });
       });
-    });
+    };
+
+    return getAvailabilities(firstMoment);
   }
 
 };

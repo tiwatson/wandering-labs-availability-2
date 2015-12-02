@@ -45,5 +45,11 @@ Nocks.getNextAvail = (nextDate)=> {
     .reply(200, nockText('getNextAvail-' + moment(nextDate, 'M/D/YYYY').format('M-D-YYYY')) );
 };
 
+Nocks.setAll = (filter)=> {
+  Nocks.setSession();
+  Nocks.setFilters(filter);
+  Nocks.getNextAvail('12/5/2015');
+  Nocks.getNextAvail('12/19/2015');
+};
 
 export { testHelper, Factory, ModelData, Nocks }

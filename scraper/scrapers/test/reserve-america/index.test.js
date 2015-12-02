@@ -40,7 +40,7 @@ describe('ReserveAmerica', () => {
 
   });
 
-  describe('#work', () => {
+  describe('#perform', () => {
 
     let reserveAmerica, availabilityRequest;
 
@@ -51,19 +51,13 @@ describe('ReserveAmerica', () => {
       }) );
       reserveAmerica = new ReserveAmerica(availabilityRequest);
 
-      Nocks.setSession();
-      Nocks.setFilters(reserveAmerica.query);
-      Nocks.getNextAvail('12/5/2015');
-      Nocks.getNextAvail('12/19/2015');
+      Nocks.setAll(reserveAmerica.query);
     });
 
-    it('updates', (done) => {
-      reserveAmerica.work().then(() => {
-        console.log('worked')
-        done();
-      }).catch((e) => {
-        console.log('ERRROR', e);
-        done(e);
+    it('updates', () => {
+      reserveAmerica.perform().then((availabilities) => {
+        console.log('worked', availabilities)
+        expect(availabilities.length).to.equal(7)
       });
     });
   });

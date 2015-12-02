@@ -2,9 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 class FilterAvailabilities {
-
   static filter(daysLength,avails) {
-    console.log('daysLength', daysLength)
     let bySiteId = {};
     let siteNumbers = {};
 
