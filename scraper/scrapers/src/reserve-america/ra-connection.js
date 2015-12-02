@@ -1,6 +1,8 @@
 
 import rp from 'request-promise';
 import toughCookie from 'tough-cookie';
+import cheerio from 'cheerio';
+import chai from 'chai';
 
 const headers = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.32 Safari/537.36'
@@ -31,18 +33,21 @@ class RaConnection {
     };
 
     return this.rp(options).then(function (response) {
-      console.log('setFilters Statuscode', response.statusCode)
-    })
+      console.log('setFilters Statuscode', response.statusCode);
+      // const doc = cheerio.load(response.body);
+      // const lengthOfStay = doc('#lengthOfStay').val();
+      // console.log('lengthOfStay', lengthOfStay);
+      // chai.expect(lengthOfStay).to.equal(filters.lengthOfStay.toString());
+    });
   };
 
   getNextAvail(nextDate) {
     let options = {
-      url: 'http://www.reserveamerica.com/campsiteCalendar.do?page=calendar&contractCode=FL&parkId=281005&calarvdate=' + nextDate.format('MM/DD/YYYY') + '&findavail=next',
+      url: `http://www.reserveamerica.com/campsiteCalendar.do?page=calendar&contractCode=FL&parkId=281005&calarvdate=${nextDate}&findavail=next`,
       method: 'GET'
     };
 
     console.log('getNextAvail', options)
-
     return this.rp(options);
   }
 

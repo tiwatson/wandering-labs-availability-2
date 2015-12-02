@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "ln -svf ../../../shared/src ./src/shared",
     "start": "babel-node --stage 0 src/app.js",
-    "test": "NODE_ENV=test mocha --compilers js:babel/register test/**/*.test.js",
+    "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register test/**/*.test.js",
     "clean": "rm -rf dist",
     "build": "babel src -d dist --source-maps inline"
   },
@@ -21,7 +21,8 @@
     "bluebird": "2.9.34",
     "cheerio": "0.19.0",
     "request-promise": "0.4.2",
-    "tough-cookie": "2.0.0"
+    "tough-cookie": "2.0.0",
+    "chai": "^3.4.1"
   },
   "devDependencies": {
     "babel": "^5.8.23",

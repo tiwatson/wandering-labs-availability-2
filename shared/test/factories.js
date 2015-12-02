@@ -27,7 +27,7 @@ ModelData.availabilityRequest = function(attrs = {}) {
     type: 'reserve america',
     typeSpecific: {
       parkName: 'Bahia Honda',
-      parkId: '666',
+      parkId: 281005,
       state: 'FL',
       siteType: 2001
       // eqLen: null,
