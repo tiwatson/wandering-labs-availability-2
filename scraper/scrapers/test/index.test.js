@@ -6,7 +6,7 @@ import { testHelper, Factory, ModelData, Nocks } from '../../../shared/test/test
 import { Scraper } from '../src/index';
 import { ReserveAmerica } from '../src/reserve-america/index';
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../src/shared/repos/availability-request';
-import { NotificationSns } from '../src/shared/helpers/notification-sns';
+import { Sns } from '../src/shared/utils/sns';
 
 describe('Scraper', () => {
   describe('#scrape', ()=> {
@@ -26,7 +26,7 @@ describe('Scraper', () => {
       let reserveAmerica = new ReserveAmerica(availabilityRequest)
       Nocks.setAll(reserveAmerica.query);
 
-      sinon.stub(NotificationSns.prototype, 'publish').returns(new Promise(resolve=> {resolve({})}));
+      sinon.stub(Sns.prototype, 'publish').returns(new Promise(resolve=> {resolve({})}));
     });
 
     it('calls scrape', ()=> {

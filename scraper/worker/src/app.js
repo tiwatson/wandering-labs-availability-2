@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
-import { NotificationSns } from './shared/helpers/notification-sns';
+import { Sns } from './shared/utils/sns';
 
 exports.handler = function(event,context) {
   return new AvailabilityRequestRepo().active().then((availabilityRequests) => {
@@ -10,7 +10,7 @@ exports.handler = function(event,context) {
     });
     if (ids.length > 0) {
       let idsString = ids.join(',');
-      return new NotificationSns('scraper', idsString).publish().then(()=> {
+      return new Sns('scraper').publish(idsString).then(()=> {
         context.success('sent active requests');
       });
     }
