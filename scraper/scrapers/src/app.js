@@ -1,21 +1,20 @@
 import { Scraper } from './index';
-import { AvailabilityRequest, AvailabilityRequestRepo } from '../shared/repos/availability-request';
+import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 
-function main() {
-  lets ids = [];
+export.handler = function(event, context) {
 
-  return Promise.each(ids, (id) => {
+  let idsString = event.Records[0].Sns.Message;
+  console.log('idsString', idsString);
+  let ids = idsString.split(',');
+  console.log('ids', ids);
+
+  Promise.each(ids, (id) => {
     return new AvailabilityRequestRepo().find(id).then((availabilityRequest) => {
       return new Scraper(availabilityRequest).then(() => {
-        console.log('Complete')
+        console.log('Completed scrape')
       });
     });
+  }).then(()=> {
+    context.done(null, "Done");
   });
-
-}
-
-main();
-// export.handler = function(event, context) {
-
-
-// }
+};
