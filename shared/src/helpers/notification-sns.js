@@ -18,7 +18,6 @@ class NotificationSns {
   }
 
   publish() {
-    console.log('publish', this.params);
     return this.sns.publishAsync(this.params);
   }
 }

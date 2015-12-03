@@ -1,4 +1,3 @@
-
 import db, { DbHelpers } from '../utils/db';
 
 import uuid from 'node-uuid';
@@ -85,15 +84,11 @@ class AvailabilityRequestRepo {
   }
 
   update(obj) {
-    return this.table.update(obj.id, _.omit(obj, 'id')).then((resp) => {
-      console.log('obj updated', resp)
-    })
+    return this.table.update(obj.id, _.omit(obj, 'id'));
   }
 
   cancel(id) {
-    return this.table.update(id, { status: 'canceled' }).then((resp) => {
-      console.log('canceled', resp);
-    })
+    return this.table.update(id, { status: 'canceled' });
   }
 
   active() {
