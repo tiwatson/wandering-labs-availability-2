@@ -1,18 +1,33 @@
-// import testHelper from './test-helper'
 
-// import app from '../src/app'
+import moment from 'moment';
+import sinon from 'sinon';
 
+import { testHelper, Factory, ModelData, Nocks } from '../../../shared/test/test-helper';
+import { AvailabilityRequest, AvailabilityRequestRepo } from '../src/shared/repos/availability-request';
+import { NotificationSns } from '../src/shared/helpers/notification-sns';
 
-// describe('app', function() {
+import app from '../src/app';
 
-//   before(() => {
-//     return testHelper.factory();
-//   })
+describe('Worker', () => {
+  describe('#handler', ()=> {
+    let availabilityRequest;
+    let spy;
 
-//   it ('should run a test', function() {
-//     console.log('app.test')
-//     return app.handler({},{});
+    before(()=> {
+      sinon.stub(NotificationSns.prototype, 'publish').returns(new Promise(resolve=> { resolve({})}));
 
-//   })
+      spy = sinon.spy(testHelper.context, 'success');
 
-// });
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
+        availabilityRequest = factoryObj.id;
+      });
+
+    });
+
+    it ('should run a test', function() {
+      return app.handler({},testHelper.context).then(() => {
+        assert(spy.withArgs('sent active requests').calledOnce);
+      });
+    });
+  });
+});

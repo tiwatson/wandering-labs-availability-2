@@ -21,7 +21,7 @@ class Scraper {
     })
     .then(()=> {
       if (availabilityRequest.notificationNeeded()) {
-        return new NotificationSns(availabilityRequest).publish().then(() => {
+        return new NotificationSns('notify', availabilityRequest.id).publish().then(() => {
           console.log('delivered.')
         });
       }

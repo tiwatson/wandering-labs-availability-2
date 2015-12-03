@@ -2,8 +2,8 @@ import Aws from 'aws-sdk';
 import Promise from 'bluebird';
 
 class NotificationSns {
-  constructor(availabilityRequest) {
-    this.availabilityRequest = availabilityRequest;
+  constructor(target, message) {
+    this.message = message;
 
     this.sns = new Promise.promisifyAll(new Aws.SNS({
       apiVersion: '2010-03-31',
@@ -12,7 +12,7 @@ class NotificationSns {
 
     this.params = {
       TargetArn: process.env.AWS_SNS_NOTIFICATION,
-      Message: availabilityRequest.id,
+      Message: message,
       MessageStructure: 'string',
     };
   }

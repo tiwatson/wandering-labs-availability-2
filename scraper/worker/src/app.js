@@ -1,8 +1,21 @@
-require('dotenv').config({path: '/Users/tiwatson/Development/wandering-labs/wandering-labs-availability-2/.env'});
+import _ from 'lodash';
 
-import { AvailabilityRequest, AvailabilityRequestRepo } from './shared/repos/availability-request'
+import { AvailabilityRequestRepo } from './shared/repos/availability-request';
+import { NotificationSns } from './shared/helpers/notification-sns';
 
 exports.handler = function(event,context) {
-  console.log('app.handler');
-  return new AvailabilityRequestRepo().active()
-}
+  return new AvailabilityRequestRepo().active().then((availabilityRequests) => {
+    let ids = _.map(availabilityRequests, (availabilityRequest) => {
+      return availabilityRequest.id;
+    });
+    if (ids.length > 0) {
+      let idsString = ids.join(',');
+      return new NotificationSns('scraper', idsString).publish().then(()=> {
+        context.success('sent active requests');
+      });
+    }
+    else {
+      context.success('No active requests');
+    }
+  });
+};

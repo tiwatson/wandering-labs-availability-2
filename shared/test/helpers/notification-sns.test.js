@@ -21,7 +21,7 @@ describe('NotificationSns', () => {
     beforeEach(() => {
       return Factory.availabilityRequestRepo().then((factoryObj) => {
         availabilityRequest = factoryObj;
-        notificationSns = new NotificationSns(availabilityRequest);
+        notificationSns = new NotificationSns('notify', availabilityRequest.id);
 
         sinon.stub(notificationSns.sns, 'publishAsync').returns(new Promise(resolve=> {resolve(snsResponse)}));
       });

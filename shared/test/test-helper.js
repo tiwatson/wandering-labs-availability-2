@@ -8,6 +8,7 @@ import db, { DbHelpers } from '../src/utils/db';
 import {Factory, ModelData} from './factories';
 
 global.expect = chai.expect;
+global.assert = chai.assert;
 
 before(() => {
   return testHelper.resetDb();
@@ -22,6 +23,12 @@ var testHelper = {}
 testHelper.resetDb = function() {
   return DbHelpers.clean();
 }
+
+testHelper.context = {
+  success: function(obj) {
+    console.log('context: success', obj)
+  }
+};
 
 function nockText(filename) {
   const fullFilename = __dirname + '/../../scraper/scrapers/test/nocks/' + filename + '.html';
