@@ -4,7 +4,7 @@
 
 ### Current in development and not production ready.
 
-In 4 parts. To be completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
+In 5 parts. To be completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
 
 ## api
 
@@ -18,6 +18,10 @@ Collection of lambda functions that handle requests from the angular app. Will b
 - tests
 - dateEnd and dateStart to integers (start of day)
 
+## notifications
+
+Email notifications to end users
+
 ## scraper
 
 Scrapers and worker.
@@ -27,10 +31,9 @@ Scrapers is a lambda function (1 for each provider, currently only Reserve Ameri
 Worker is a scheduled lambda function that filters the availability requests in the database and sends off SNS notifications for scrapers to be run.
 
 #### TODO
-- lambda integration
-- SNS
-- blocks of X (run syncron)
-- email notifications (this the proper spot for them?!?)
+- worker splits ids into multiple blocks of 10 ids and send each block to lambda (via sns)
+- Move worker out of this folder? (worker can do/should do other notifications... trigger search has ended.. etc)
+- Deployment
 
 ## shared
 
@@ -42,6 +45,8 @@ Included into the other parts codebase via symbolic links created via script in 
 - DB envinronment config
 - RA subclass
 - Validation
+- email notifications
+- SNS Target ARN config
 
 ## web
 
