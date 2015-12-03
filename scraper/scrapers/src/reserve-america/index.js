@@ -10,7 +10,7 @@ import { FilterAvailabilities } from './filter-availabilities';
 class ReserveAmerica {
   constructor(availabilityRequest) {
     this.availabilityRequest = availabilityRequest;
-    this.raConnection = new RaConnection();
+    this.raConnection = new RaConnection(this.availabilityRequest.typeSpecific);
 
     this.dateStart = moment.unix(this.availabilityRequest.dateStart).format('M/D/YYYY')
     this.dateEnd = moment.unix(this.availabilityRequest.dateEnd).format('M/D/YYYY')

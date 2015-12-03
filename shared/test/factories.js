@@ -29,7 +29,8 @@ ModelData.availabilityRequest = function(attrs = {}) {
       parkName: 'Bahia Honda',
       parkId: 281005,
       state: 'FL',
-      siteType: 2001
+      slug: 'bahia-honda-sp',
+      siteType: 2001,
       // eqLen: null,
       // electric: null,
       // water: null,
