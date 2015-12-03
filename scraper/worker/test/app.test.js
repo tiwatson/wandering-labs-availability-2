@@ -4,7 +4,7 @@ import sinon from 'sinon';
 
 import { testHelper, Factory, ModelData, Nocks } from '../../../shared/test/test-helper';
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../src/shared/repos/availability-request';
-import { NotificationSns } from '../src/shared/helpers/notification-sns';
+import { Sns } from '../src/shared/utils/sns';
 
 import app from '../src/app';
 
@@ -14,7 +14,7 @@ describe('Worker', () => {
     let spy;
 
     before(()=> {
-      sinon.stub(NotificationSns.prototype, 'publish').returns(new Promise(resolve=> { resolve({})}));
+      sinon.stub(Sns.prototype, 'publish').returns(new Promise(resolve=> { resolve({})}));
 
       spy = sinon.spy(testHelper.context, 'success');
 

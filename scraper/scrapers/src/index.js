@@ -1,6 +1,6 @@
 import { ReserveAmerica } from './reserve-america/index';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
-import { NotificationSns } from './shared/helpers/notification-sns';
+import { Sns } from './shared/utils/sns';
 
 const ScraperTypes = { ReserveAmerica: ReserveAmerica };
 
@@ -21,7 +21,7 @@ class Scraper {
     })
     .then(()=> {
       if (availabilityRequest.notificationNeeded()) {
-        return new NotificationSns('notify', availabilityRequest.id).publish().then(() => {
+        return new Sns('notify').publish(availabilityRequest.id).then(() => {
           console.log('delivered.')
         });
       }
