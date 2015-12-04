@@ -10,6 +10,7 @@ class Component {
   constructor(component) {
     this.componentName = component;
     this.settings = JSON.parse(fs.readFileSync(this.packageJson, 'utf8'))
+    this.settingsShared = JSON.parse(fs.readFileSync(this.packageJsonShared, 'utf8'))
   }
 
   deploy() {
@@ -27,6 +28,10 @@ class Component {
 
   get packageJson() {
     return __dirname + '/../../' + this.componentName + '/package.json'
+  }
+
+  get packageJsonShared() {
+    return __dirname + '/../../shared/package.json'
   }
 
 }
@@ -62,7 +67,8 @@ class Deploy {
 
   _codeDirectory() {
     var epoch_time = +new Date();
-    let codeDirectory =  __dirname + '/../deploys/' + this.params.functionName; // + '-' + epoch_time;
+    let codeDirectory =  os.tmpDir() +'/' + this.params.functionName + '-' + epoch_time;
+    //let codeDirectory =  __dirname + '/../deploys/' + this.params.functionName; // + '-' + epoch_time;
     if (!fs.existsSync(codeDirectory)) {
       fs.mkdirSync(codeDirectory);
     }
@@ -87,7 +93,8 @@ class Deploy {
     let newPackageJson = this.codeDirectory + '/package.json';
 
     if (!fs.existsSync(newPackageJson)) {
-      fs.writeFileSync(newPackageJson, fs.readFileSync(this.component.packageJson));
+      this.component.settings.dependencies = _.merge(this.component.settings.dependencies, this.component.settingsShared.dependencies);
+      fs.writeFileSync(newPackageJson, JSON.stringify(this.component.settings));
       console.log(newPackageJson + ' file successfully created');
     }
   }
@@ -107,7 +114,6 @@ class Deploy {
     let cmd = 'zip -r ' + this.zipFile + ' .';
     console.log('cmd', cmd)
     exec(cmd, { cwd: this.codeDirectory, maxBuffer: 50 * 1024 * 1024 }, function(err, stdout, stderr) {
-      //console.log('ERROR?', err, stderr, stdout)
       return callback(err, true);
     });
   }
@@ -131,15 +137,6 @@ class Deploy {
 
   }
 
-  // list() {
-  //   this.lambda.listFunctions({}, function(err, data) {
-  //     if (err) console.log(err, err.stack); // an error occurred
-  //     else     console.log(data);           // successful response
-  //   });
-  // }
-
-
 }
-
 
 new Component('api').deploy();

@@ -7,10 +7,6 @@
     {
       "functionName": "api-availability-requests-create",
       "handler": "app.availabilityRequestCreate"
-    },
-    {
-      "functionName": "api-availability-requests-cancel",
-      "handler": "app.availabilityRequestCancel"
     }
   ],
   "scripts": {
