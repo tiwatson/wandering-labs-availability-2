@@ -20,7 +20,7 @@ ModelData.availabilityRequest = function(attrs = {}) {
     "dateEnd": moment().add(1, 'M').unix(),
     "lengthOfStay": 3,
     "lastRun": moment().subtract(1, 'M').unix(),
-    "email": "tim@example.com",
+    "email": "tiwatson@example.com",
     checkedAt: moment().subtract(5, 'm').unix(),
 
     // reserve america specific

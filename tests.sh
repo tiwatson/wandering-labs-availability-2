@@ -2,7 +2,7 @@
 set -e
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-components="shared scraper/scrapers scraper/worker"
+components="notify shared scraper/scrapers scraper/worker"
 
 for component in $components
 do
