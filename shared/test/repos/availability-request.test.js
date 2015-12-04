@@ -64,23 +64,29 @@ describe('AvailabilityRequest', () => {
     it ('returns false if no available campsites', () => {
       let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
       expect(availabilityRequest.notificationNeeded()).to.equal(false);
-    })
+    });
 
-    it ('returns false if no available campsites (previously notified)', () => {
-      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: false }];
+    it ('returns false if no available campsites', () => {
+      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: false, notified: false }];
       let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ availabilities: existingAvails }) );
       expect(availabilityRequest.notificationNeeded()).to.equal(false);
-    })
+    });
 
     it ('returns true if available campsites', () => {
-      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true }];
+      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: false }];
       let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ availabilities: existingAvails }) );
       expect(availabilityRequest.notificationNeeded()).to.equal(true);
-    })
+    });
 
-  })
+    it ('returns false if available campsites and already notified', () => {
+      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: true }];
+      let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ availabilities: existingAvails }) );
+      expect(availabilityRequest.notificationNeeded()).to.equal(false);
+    });
 
-})
+  });
+
+});
 
 describe('AvailabilityRequestRepo', () => {
 

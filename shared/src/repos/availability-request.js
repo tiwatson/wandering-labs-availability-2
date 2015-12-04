@@ -1,4 +1,5 @@
 import db, { DbHelpers } from '../utils/db';
+import { Availability } from './availability';
 
 import uuid from 'node-uuid';
 import { merge } from 'lodash';
@@ -56,10 +57,35 @@ class AvailabilityRequest {
     let needed = [];
     if (typeof this.availabilities !== 'undefined') {
       needed = this.availabilities.filter((availability) => {
-        return availability.avail === true;
+        return availability.avail === true && availability.notified === false; // TODO - Check this is tested correctly
       });
     }
     return needed.length > 0;
+  }
+
+  get dateStartFormatted() {
+    return moment.unix(this.dateStart).format('MM/DD/YYYY');
+  }
+
+  get dateEndFormatted() {
+    return moment.unix(this.dateEnd).format('MM/DD/YYYY');
+  }
+
+  get availabilitiesNew() {
+    // TODO add test
+    return _.map(this.availabilities.filter((availability) => {
+      return availability.avail === true && availability.notified === false; // TODO - Check this is tested correctly
+    }), (availability) => {
+      return new Availability(availability);
+    });
+  }
+
+  get availabilitiesOld() {
+    return _.map(this.availabilities.filter((availability) => {
+      return availability.avail === true && availability.notified === true; // TODO - Check this is tested correctly
+    }), (availability) => {
+      return new Availability(availability);
+    });
   }
 
 }
