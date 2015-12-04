@@ -1,13 +1,12 @@
-require('dotenv').config({path: '/Users/tiwatson/Development/wandering-labs/wandering-labs-availability-2/.env'});
 
-import { AvailabilityRequestCreate } from './endpoints/availability-request-create';
-import { AvailabilityRequestCancel } from './endpoints/availability-request-cancel';
+import { AvailabilityRequestCreate } from './endpoints/availability-requests/create';
+import { AvailabilityRequestCancel } from './endpoints/availability-requests/cancel';
 
 exports.availabilityRequestCreate = function(event, context) {
   console.log('availabilityRequestCreate')
-  return AvailabilityRequestCreate.run(event).then((obj) => {
+  return AvailabilityRequestCreate(event.Records[0]).create().then((obj) => {
     console.log('app success', obj)
-    context.success(obj);
+    context.succeed(obj);
   });
 }
 
