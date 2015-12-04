@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "NODE_ENV=test mocha --compilers js:babel/register test/**/*.test.js"
+    "test": "NODE_ENV=test mocha --compilers js:babel/register $(find test -name '*.test.js')"
   },
   "author": "",
   "license": "ISC",
-
   "dependencies": {
     "aws-sdk": "^2.2.20",
     "dotenv": "1.2.0",
     "dynasty": "0.2.3",
     "lodash": "3.10.1",
     "moment": "2.10.6",
-    "node-uuid": "1.4.7"
+    "node-uuid": "1.4.7",
+    "request-promise": "^1.0.2"
   },
   "devDependencies": {
     "babel": "^5.8.23",

@@ -59,4 +59,17 @@ Nocks.setAll = (filter)=> {
   Nocks.getNextAvail('12/19/2015');
 };
 
+
+Nocks.sendgrid = ()=> {
+  nock('https://api.sendgrid.com:443', {"encodedQueryParams":true})
+    .post('/api/mail.send.json', "to=tiwatson%40gmail.com&from=tiwatson%40gmail.com&subject=Email%20subject&text=Body%20goes%20here")
+    .reply(200, {"message":"success"}, { server: 'nginx',
+    date: 'Fri, 04 Dec 2015 01:37:15 GMT',
+    'content-type': 'application/json',
+    'content-length': '21',
+    connection: 'close',
+    'x-frame-options': 'DENY, DENY',
+    'access-control-allow-origin': 'https://sendgrid.com' });
+}
+
 export { testHelper, Factory, ModelData, Nocks }
