@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "ln -svf ../../shared/src ./src/shared",
     "start": "babel-node --stage 0 src/server.js",
-    "test": "mocha --compilers js:babel/register test/**/*.test.js",
+    "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register $(find test -name '*.test.js')",
     "clean": "rm -rf dist",
     "build": "babel src -d dist --source-maps inline"
   },
