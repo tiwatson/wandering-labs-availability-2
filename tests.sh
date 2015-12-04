@@ -2,7 +2,8 @@
 set -e
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-components="notify shared scraper/scrapers scraper/worker"
+# shared always needs to come first
+components="shared notify scraper/scrapers scraper/worker"
 
 for component in $components
 do

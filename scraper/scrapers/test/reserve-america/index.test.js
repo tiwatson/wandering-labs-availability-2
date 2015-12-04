@@ -29,12 +29,12 @@ describe('ReserveAmerica', () => {
     });
 
     it('includes contractCode', () => {
-      expect(reserveAmerica.query.contractCode).to.not.be.empty;
+      expect(reserveAmerica.query.contractCode).to.exist;
       expect(reserveAmerica.query.contractCode).to.equal( availabilityRequest.typeSpecific.state );
     });
 
     it('includes contractCode', () => {
-      expect(reserveAmerica.query.lengthOfStay).to.not.be.empty;
+      expect(reserveAmerica.query.lengthOfStay).to.exist;
       expect(reserveAmerica.query.lengthOfStay).to.equal( availabilityRequest.lengthOfStay );
     });
 
