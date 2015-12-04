@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
+  "lambda": [
+    {
+      "functionName": "api-availability-requests-create",
+      "handler": "app.availabilityRequestCreate"
+    },
+    {
+      "functionName": "api-availability-requests-cancel",
+      "handler": "app.availabilityRequestCancel"
+    }
+  ],
   "scripts": {
-    "postinstall": "ln -svf ../../shared/src ./src/shared",
+    "postinstall": "if [ -z \"$npm_config_production\" ]; then ln -svf ../../shared/src ./src/shared; fi",
     "start": "babel-node --stage 0 src/server.js",
     "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register $(find test -name '*.test.js')",
     "clean": "rm -rf dist",
