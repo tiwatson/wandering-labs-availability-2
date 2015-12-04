@@ -192,7 +192,6 @@ describe('AvailabilityRequestRepo', () => {
       ]
       return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvails).then((obj) => {
         return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
-          console.log('resource -- ', resource)
           expect(resource.availabilities).to.not.be.empty;
           expect(resource.availabilities).to.be.instanceOf(Array);
           expect(resource.availabilities.length).to.equal(1);

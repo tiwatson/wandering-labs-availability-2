@@ -20,7 +20,7 @@ describe('NotificationsAvailabilities', ()=> {
 
     notificationsAvailabilities = new NotificationsAvailabilities(availabilityRequest);
 
-    Nocks.notificationsAvailabilitySendgrid();
+    Nocks.sendgrid();
   });
 
   describe('#compileTemplate', ()=> {
