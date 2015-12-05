@@ -1,10 +1,16 @@
 {
   "name": "wandering-labs-availability-notify",
   "version": "1.0.0",
-  "description": "",
+  "description": "Function that sends email notifications to users",
   "main": "src/app.js",
+  "lambda": [
+    {
+      "functionName": "wl-ar-notify",
+      "handler": "app.hander"
+    }
+  ],
   "scripts": {
-    "postinstall": "ln -svf ../../shared/src ./src/shared",
+    "postinstall": "if [ -z \"$npm_config_production\" ]; then ln -svf ../../shared/src ./src/shared; fi",
     "start": "babel-node --stage 0 src/app.js",
     "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register $(find test -name '*.test.js')",
     "clean": "rm -rf dist",

@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",
+  "lambda": [
+    {
+      "functionName": "wl-ar-scraper",
+      "handler": "app.handler"
+    }
+  ],
   "scripts": {
-    "postinstall": "ln -svf ../../shared/src ./src/shared",
+    "postinstall": "if [ -z \"$npm_config_production\" ]; then ln -svf ../../shared/src ./src/shared; fi",
     "start": "babel-node --stage 0 src/app.js",
     "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register $(find test -name '*.test.js')",
     "clean": "rm -rf dist",

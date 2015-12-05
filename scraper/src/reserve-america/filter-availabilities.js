@@ -6,20 +6,22 @@ class FilterAvailabilities {
     let bySiteId = {};
     let siteNumbers = {};
 
-    for (let avail of avails) {
+    console.log('Avails', avails);
+
+    avails.forEach((avail) => {
       siteNumbers[avail.siteId] = avail.siteNumber;
       if (typeof bySiteId[avail.siteId] === 'undefined') {
         bySiteId[avail.siteId] = [];
       }
       bySiteId[avail.siteId].push(moment(avail.arrivalDate, "M-D-YYYY"));
-    }
+    });
 
     let groupedAvails = []
     _.forIn(bySiteId, (days, key) => {
       let firstDay = days[0].clone();
 
       let currentAvailLength = 0;
-      for (let day of days) {
+      days.forEach((day)=> {
         let nextDay = firstDay.clone().add(currentAvailLength,'d');
 
         if (nextDay.isSame(day)) {
@@ -32,7 +34,7 @@ class FilterAvailabilities {
           currentAvailLength = 1;
           firstDay = day;
         }
-      }
+      });
       if (currentAvailLength >= daysLength) {
         groupedAvails.push({siteId: key, siteNumber: siteNumbers[key], dateStart: firstDay.unix(), daysLength: currentAvailLength});
       }

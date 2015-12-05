@@ -73,8 +73,8 @@ class Deploy {
 
   _codeDirectory() {
     var epoch_time = +new Date();
-    let codeDirectory =  os.tmpDir() +'/' + this.params.functionName + '-' + epoch_time;
-    //let codeDirectory =  __dirname + '/../deploys/' + this.params.functionName; // + '-' + epoch_time;
+    let codeDirectory =  os.tmpDir() + this.params.functionName + '-' + epoch_time;
+    // let codeDirectory =  __dirname + '/../deploys/' + this.params.functionName; // + '-' + epoch_time;
     if (!fs.existsSync(codeDirectory)) {
       fs.mkdirSync(codeDirectory);
     }
@@ -84,13 +84,13 @@ class Deploy {
   _zipfileTmpPath() {
     let ms_since_epoch = +new Date();
     let filename = this.params.functionName + '-' + ms_since_epoch + '.zip';
-    let zipfile = os.tmpDir() + '/' + filename;
+    let zipfile = os.tmpDir() + filename;
     return zipfile;
   }
 
   _buildDist() {
     let execCmd = `babel ${this.component.srcDir} -d ${this.codeDirectory}`;
-    console.log('build', execCmd)
+    console.log('babel build'); //, execCmd)
     exec(execCmd);
 
   }
@@ -101,7 +101,7 @@ class Deploy {
     if (!fs.existsSync(newPackageJson)) {
       this.component.settings.dependencies = _.merge(this.component.settings.dependencies, this.component.settingsShared.dependencies);
       fs.writeFileSync(newPackageJson, JSON.stringify(this.component.settings));
-      console.log(newPackageJson + ' file successfully created');
+      console.log('package.json successfully created');
     }
   }
 
@@ -110,18 +110,19 @@ class Deploy {
 
     if (!fs.existsSync(newEnv)) {
       fs.writeFileSync(newEnv, fs.readFileSync(this.component.envFilename));
-      console.log(newEnv + ' file successfully created');
+      console.log('.env successfully created');
     }
   }
 
   _npmInstall(callback) {
-    npm.load({prefix: this.codeDirectory, production: true, silent: true}, function (er) {
+    npm.load({prefix: this.codeDirectory, production: true, loglevel: 'silent'}, function (er) {
       npm.commands.install([], function (er, data) {
         if (er) {
           console.log("Error", er)
         }
         return callback(null,true);
       });
+      npm.registry.log.on("log", function (message) {  });
     });
   }
 

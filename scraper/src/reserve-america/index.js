@@ -1,6 +1,6 @@
 
 import moment from 'moment';
-import promise from 'bluebird';
+import Promise from 'bluebird';
 
 import { RaConnection } from './ra-connection';
 import { ParseAvailabilities } from './parse-availabilities';

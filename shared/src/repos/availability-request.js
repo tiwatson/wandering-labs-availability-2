@@ -37,20 +37,23 @@ class AvailabilityRequest {
       this.availabilities = [];
     }
 
-    for (let availability of this.availabilities) {
+    this.availabilities.forEach((availability) => {
       availability.avail = false;
-      for (let i = newAvailabilities.length - 1; i >= 0; i--) {
-        let newAvail = newAvailabilities[i]
-        let matchedAvail = (availability.siteId == newAvail.siteId && availability.arrivalDate == newAvail.arrivalDate && availability.daysLength == newAvail.daysLength)
-        if (matchedAvail) {
-          availability.avail = true;
-          newAvailabilities[i] = null;
+      newAvailabilities.forEach((newAvail, i) => {
+        if (typeof newAvail !== 'undefined') {
+          let newAvail = newAvailabilities[i];
+
+          let matchedAvail = (availability.siteId == newAvail.siteId && availability.arrivalDate == newAvail.arrivalDate && availability.daysLength == newAvail.daysLength)
+          if (matchedAvail) {
+            availability.avail = true;
+            newAvailabilities[i] = undefined;
+          }
         }
-      }
-    }
-    for (let newAvail of _.compact(newAvailabilities)) {
+      });
+    });
+    _.compact(newAvailabilities).forEach((newAvail) => {
       this.availabilities.push(_.merge(newAvail, {avail: true, notified: false}));
-    }
+    });
   }
 
   notificationNeeded() {
