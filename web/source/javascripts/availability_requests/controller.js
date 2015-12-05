@@ -36,4 +36,15 @@ angular.module('availability_requests.controllers', [])
       availabilityRequestsService.put(item);
     };
 
-  }]);
+  }])
+
+
+  .controller('AvailabilityRequestCancelController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
+    $scope.ar = availabilityRequestsService;
+
+    console.log('just go ahead and cancel???')
+
+  }])
+
+
+  ;

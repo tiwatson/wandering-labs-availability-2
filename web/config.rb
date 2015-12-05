@@ -5,6 +5,7 @@ helpers do
 end
 
 page "/templates/*", :layout => false
+proxy "/availability_requests/*", 'index.html'
 
 set :css_dir, 'stylesheets'
 

@@ -86,8 +86,9 @@
       %input#user_email{ type: 'text', 'ng-model' => 'ar.email' }
 
     .half
-      %label{ for: 'user_phone' }Phone (for txt msg)
-      %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
+      .hide{style: 'display: none'}
+        %label{ for: 'user_phone' }Phone (for txt msg)
+        %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
 
 
 
