@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import { config } from './shared/utils/config';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 import { Sns } from './shared/utils/sns';
 
@@ -11,11 +12,11 @@ exports.handler = function(event,context) {
     if (ids.length > 0) {
       let idsString = ids.join(',');
       return new Sns('scraper').publish(idsString).then(()=> {
-        context.success('sent active requests');
+        context.succeed('sent active requests', ids);
       });
     }
     else {
-      context.success('No active requests');
+      context.succeed('No active requests');
     }
   });
 };
