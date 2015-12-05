@@ -2,7 +2,7 @@
 import fs from 'fs'
 import _ from 'lodash'
 
-import { testHelper, Factory, ModelData } from '../../../../shared/test/test-helper';
+import { testHelper, Factory, ModelData } from '../../../shared/test/test-helper';
 import { ParseAvailabilities } from '../../src/reserve-america/parse-availabilities';
 
 const RaFixtures = __dirname + '/../../fixtures/has-availabilities.txt';

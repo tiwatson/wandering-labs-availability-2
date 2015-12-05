@@ -2,7 +2,7 @@
 import fs from 'fs'
 import _ from 'lodash'
 
-import { testHelper, Factory, ModelData } from '../../../../shared/test/test-helper';
+import { testHelper, Factory, ModelData } from '../../../shared/test/test-helper';
 import { FilterAvailabilities } from '../../src/reserve-america/filter-availabilities';
 
 

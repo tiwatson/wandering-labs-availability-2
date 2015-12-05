@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "postinstall": "ln -svf ../../../shared/src ./src/shared",
+    "postinstall": "ln -svf ../../shared/src ./src/shared",
     "start": "babel-node --stage 0 test/app.test.js",
     "test": "NODE_ENV=test mocha --compilers js:babel/register test/*.test.js",
     "clean": "rm -rf dist",

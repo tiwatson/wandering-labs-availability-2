@@ -33,7 +33,7 @@ testHelper.context = {
 };
 
 function nockText(filename) {
-  const fullFilename = __dirname + '/../../scraper/scrapers/test/nocks/' + filename + '.html';
+  const fullFilename = __dirname + '/../../scraper/test/nocks/' + filename + '.html';
   return fs.readFileSync(fullFilename, { encoding: 'utf8' });
 }
 

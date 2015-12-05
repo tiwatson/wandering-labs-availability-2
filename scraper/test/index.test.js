@@ -2,7 +2,7 @@
 import moment from 'moment';
 import sinon from 'sinon';
 
-import { testHelper, Factory, ModelData, Nocks } from '../../../shared/test/test-helper';
+import { testHelper, Factory, ModelData, Nocks } from '../../shared/test/test-helper';
 import { Scraper } from '../src/index';
 import { ReserveAmerica } from '../src/reserve-america/index';
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../src/shared/repos/availability-request';

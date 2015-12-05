@@ -3,7 +3,7 @@ angular.module('wl_a.restangular_config', [ ])
     // Will want to figure how to turn on for production
     RestangularProvider.setDefaultHttpFields({cache: false});
 
-    RestangularProvider.setBaseUrl('http://localhost:3000/api');
+    RestangularProvider.setBaseUrl('https://ev1wtvxg13.execute-api.us-east-1.amazonaws.com/prod');
 
     // // add a response intereceptor
     // RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {

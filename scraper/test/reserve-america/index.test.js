@@ -1,7 +1,7 @@
 
 import moment from 'moment';
 
-import { testHelper, Factory, ModelData, Nocks } from '../../../../shared/test/test-helper';
+import { testHelper, Factory, ModelData, Nocks } from '../../../shared/test/test-helper';
 import { ReserveAmerica } from '../../src/reserve-america/index';
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../../src/shared/repos/availability-request'
 

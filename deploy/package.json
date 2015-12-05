@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "babel-node --stage 0 src/index.js"
+    "deploy": "babel-node --stage 0 src/index.js"
   },
   "author": "",
   "license": "ISC",

@@ -154,4 +154,12 @@ class Deploy {
 
 }
 
-new Component('api').deploy();
+
+console.log('process.argv', process.env.DEPLOY)
+
+process.env.DEPLOY.split(',').forEach(function (val, index) {
+  console.log('Deploying: ' + index + ': ' + val);
+  new Component(val).deploy();
+});
+
+//new Component('api').deploy();
