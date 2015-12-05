@@ -26,6 +26,7 @@ Email notifications to end users
 - Uncouple from Reserve America
 - Date period ended email
 - Welcome email?
+- Twilio SMS ?
 
 ## scraper
 
@@ -33,6 +34,7 @@ Scrapers is a lambda function that grabs web pages and parses them for matching 
 
 #### TODO
 - Drop availabilites that are after dateEnd
+- send over filters to RA
 
 ## shared
 

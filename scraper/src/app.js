@@ -16,8 +16,7 @@ exports.handler = function(event,context) {
   Promise.each(ids, (id) => {
     return new AvailabilityRequestRepo().find(id).then((availabilityRequest) => {
       return new Scraper(availabilityRequest).scrape().then(() => {
-        console.log('Completed scrape')
-        context.done(null, "Completed scrape");
+        console.log('Completed scrape for: ', id);
       });
     });
   }).then(()=> {

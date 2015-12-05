@@ -31,7 +31,7 @@ class ReserveAmerica {
       defaultMaximumWindow:12,
       // loop:
       // siteCode:
-      // lookingFor:
+      lookingFor: this.availabilityRequest.typeSpecific.siteType,
       // camping_2001_3013:
       // camping_2001_218:
       // camping_2002_3013:
