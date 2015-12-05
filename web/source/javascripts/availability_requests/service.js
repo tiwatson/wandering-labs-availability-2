@@ -40,8 +40,9 @@ angular.module('availability_requests.services', [ ]).
           // reserve america specific
           type: 'reserve america',
           typeSpecific: {
-            parkName: service.location.originalObjectname,
-            parkId: service.location.originalObject.park_id,
+            parkName: service.location.originalObject.name,
+            parkId: service.location.originalObject.parkId,
+            slug: service.location.originalObject.slug,
             state: service.location.originalObject.state,
             siteType: service.siteType.value,
             eqLen: service.eqLen,
