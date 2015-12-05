@@ -2,7 +2,7 @@ angular.module('availability_requests.services', [ ]).
   factory('availabilityRequestsService', ['Restangular', 'LocationsService',  function(Restangular, LocationsService){
 
     var service = {
-      base: Restangular.all('api-availability-requests-create'),
+      base: Restangular.all('availability-requests'),
 
       all: [],
 

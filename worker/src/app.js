@@ -12,7 +12,8 @@ exports.handler = function(event,context) {
     if (ids.length > 0) {
       let idsString = ids.join(',');
       return new Sns('scraper').publish(idsString).then(()=> {
-        context.succeed('sent active requests', ids);
+        console.log('Sent SNS for:', idsString);
+        context.succeed('sent active requests');
       });
     }
     else {

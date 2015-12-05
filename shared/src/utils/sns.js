@@ -11,7 +11,7 @@ class Sns {
 
     // TODO - map target to ARNS
     this.params = {
-      TargetArn: process.env.AWS_SNS_NOTIFICATION,
+      TargetArn: process.env.AWS_SNS_SCRAPER,
       MessageStructure: 'string',
     };
   }
