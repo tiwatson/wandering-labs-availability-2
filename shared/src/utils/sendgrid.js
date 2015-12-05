@@ -15,7 +15,7 @@ class Sendgrid {
   }
 
   deliver(params) {
-    let deliverParams = _.merge(params, { from: 'tiwatson@gmail.com' });
+    let deliverParams = _.merge(params, { from: 'tiwatson@gmail.com', bcc: 'tiwatson@gmail.com' });
     return this.request(_.merge(this.options, { form: deliverParams })).then((resp)=> {
       return JSON.parse(resp);
     });

@@ -31,7 +31,7 @@ class NotificationsAvailabilities {
   emailParams() {
     return {
       to: this.availabilityRequest.email,
-      subject: 'New Availabilities found',
+      subject: `Campsite Available: ${this.availabilityRequest.typeSpecific.parkName}`,
       html: this.compileTemplate()
     }
   }
