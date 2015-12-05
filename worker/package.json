@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "lambda": [
     {
-      "functionName": "ar-worker",
+      "functionName": "wl-ar-worker",
       "handler": "app.handler"
     }
   ],

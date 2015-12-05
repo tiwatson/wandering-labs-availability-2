@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "lambda": [
     {
-      "functionName": "api-availability-requests-create",
+      "functionName": "wl-ar-api-availability-requests-create",
       "handler": "app.availabilityRequestCreate"
     }
   ],
