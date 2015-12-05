@@ -29,14 +29,14 @@ class FilterAvailabilities {
         }
         else {
           if (currentAvailLength >= daysLength) {
-            groupedAvails.push({siteId: key, siteNumber: siteNumbers[key], dateStart: firstDay.unix(), daysLength: currentAvailLength});
+            groupedAvails.push({siteId: key, siteNumber: siteNumbers[key], arrivalDate: firstDay.unix(), daysLength: currentAvailLength});
           }
           currentAvailLength = 1;
           firstDay = day;
         }
       });
       if (currentAvailLength >= daysLength) {
-        groupedAvails.push({siteId: key, siteNumber: siteNumbers[key], dateStart: firstDay.unix(), daysLength: currentAvailLength});
+        groupedAvails.push({siteId: key, siteNumber: siteNumbers[key], arrivalDate: firstDay.unix(), daysLength: currentAvailLength});
       }
     });
     return groupedAvails;

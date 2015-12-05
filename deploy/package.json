@@ -12,7 +12,8 @@
     "aws-sdk": "^2.2.20",
     "dotenv": "1.2.0",
     "lodash": "3.10.1",
-    "npm": "3.5.1"
+    "npm": "3.5.1",
+    "wrench": "^1.5.8"
   },
   "devDependencies": {
     "babel": "^5.8.23",

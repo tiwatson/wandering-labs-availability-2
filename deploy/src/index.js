@@ -3,6 +3,7 @@ import AWS from 'aws-sdk';
 import fs from 'fs';
 import npm from 'npm';
 import os from 'os';
+import wrench from 'wrench';
 
 var exec = require('child_process').exec;
 
@@ -56,6 +57,7 @@ class Deploy {
     this._buildDist();
     this._copyPackageJson();
     this._copyEnv();
+    this._extras();
     this._npmInstall((err) => {
       console.log('_npmInstall done')
       this._zipComponent((err) => {
@@ -151,6 +153,13 @@ class Deploy {
       callback(err, data);
     });
 
+  }
+
+  _extras() {
+    if (this.component.componentName == 'notify') {
+      wrench.copyDirSyncRecursive(this.component.srcDir + '/templates', this.codeDirectory + '/templates');
+      console.log('Notify: Copied template directory')
+    }
   }
 
 }

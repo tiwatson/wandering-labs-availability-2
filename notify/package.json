@@ -6,7 +6,7 @@
   "lambda": [
     {
       "functionName": "wl-ar-notify",
-      "handler": "app.hander"
+      "handler": "app.handler"
     }
   ],
   "scripts": {
@@ -19,8 +19,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "2.9.34",
-    "dotenv": "1.2.0",
     "handlebars": "^4.0.5",
     "lodash": "3.10.1",
     "moment": "2.10.6"
