@@ -43,6 +43,7 @@ angular.module('availability_requests.services', [ ]).
             parkName: service.location.originalObject.name,
             parkId: service.location.originalObject.parkId,
             slug: service.location.originalObject.slug,
+            code: service.location.originalObject.code,
             state: service.location.originalObject.state,
             siteType: service.siteType.value,
             eqLen: service.eqLen,

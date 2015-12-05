@@ -79,7 +79,7 @@ class AvailabilityRequest {
     return _.map(this.availabilities.filter((availability) => {
       return availability.avail === true && availability.notified === false; // TODO - Check this is tested correctly
     }), (availability) => {
-      return new Availability(availability);
+      return new Availability(availability, this);
     });
   }
 
@@ -87,7 +87,7 @@ class AvailabilityRequest {
     return _.map(this.availabilities.filter((availability) => {
       return availability.avail === true && availability.notified === true; // TODO - Check this is tested correctly
     }), (availability) => {
-      return new Availability(availability);
+      return new Availability(availability, this);
     });
   }
 
