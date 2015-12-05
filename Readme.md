@@ -4,7 +4,7 @@
 
 ### Current in development and not production ready.
 
-In 5 parts. To be completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
+In 7 parts. Completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
 
 ## api
 
@@ -16,24 +16,23 @@ Collection of lambda functions that handle requests from the angular app. Will b
 - User review
 - updating
 - tests
-- dateEnd and dateStart to integers (start of day)
 
-## notifications
+## notify
 
 Email notifications to end users
 
+#### TODO
+- Reserve now url
+- Uncouple from Reserve America
+- Date period ended email
+- Welcome email?
+
 ## scraper
 
-Scrapers and worker.
-
-Scrapers is a lambda function (1 for each provider, currently only Reserve America) that grabs web pages and parses them for matching campsite availabilities.
-
-Worker is a scheduled lambda function that filters the availability requests in the database and sends off SNS notifications for scrapers to be run.
+Scrapers is a lambda function that grabs web pages and parses them for matching campsite availabilities.
 
 #### TODO
-- worker splits ids into multiple blocks of 10 ids and send each block to lambda (via sns)
-- Move worker out of this folder? (worker can do/should do other notifications... trigger search has ended.. etc)
-- Deployment
+- Drop availabilites that are after dateEnd
 
 ## shared
 
@@ -45,8 +44,6 @@ Included into the other parts codebase via symbolic links created via script in 
 - DB envinronment config
 - RA subclass
 - Validation
-- email notifications
-- SNS Target ARN config
 
 ## web
 
@@ -63,9 +60,27 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 - updating
 - deploy
 
+
+## worker
+
+Worker is a scheduled lambda function that filters the availability requests in the database and sends off SNS notifications for scrapers to be run.
+
+#### TODO
+- worker splits ids into multiple blocks of 10 ids and send each block to lambda (via sns)
+
+
 ***
 
 ### Helpful info
+
+
+##### Deploy
+
+Deploys lambda functions.
+./deploy.sh {component},{component}
+
+./deploy.sh api,scraper
+
 
 Amazons DynamoDBLocal app can be used for local development and testing.
 ```
