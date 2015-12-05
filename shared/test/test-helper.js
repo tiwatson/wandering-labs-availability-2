@@ -27,7 +27,7 @@ testHelper.resetDb = function() {
 }
 
 testHelper.context = {
-  success: function(obj) {
+  succeed: function(obj) {
     console.log('context: success', obj)
   }
 };

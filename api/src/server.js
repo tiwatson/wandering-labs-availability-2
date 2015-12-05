@@ -23,7 +23,7 @@ class Context {
     this.response = response;
   }
 
-  success(obj) {
+  succeed(obj) {
     this.response.status(200).json(obj).end();
   }
 }
