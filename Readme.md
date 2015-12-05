@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tiwatson/wandering-labs-availability-2.svg?branch=master)](https://travis-ci.org/tiwatson/wandering-labs-availability-2)
 
-### Current in development and not production ready.
+### Current in development and just about production ready.
 
 In 7 parts. Completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
 
@@ -16,13 +16,14 @@ Collection of lambda functions that handle requests from the angular app. Will b
 - User review
 - updating
 - tests
+- unpause
 
 ## notify
 
 Email notifications to end users
 
 #### TODO
-- Reserve now url
+- Sort by date the availabilities
 - Uncouple from Reserve America
 - Date period ended email
 - Welcome email?
@@ -34,6 +35,7 @@ Scrapers is a lambda function that grabs web pages and parses them for matching 
 
 #### TODO
 - send over filters to RA
+- pause request after X amount of availabilites found
 
 ## shared
 
