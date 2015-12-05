@@ -1,9 +1,10 @@
+import _ from 'lodash';
 
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../../shared/repos/availability-request';
 
 class AvailabilityRequestCreate {
   constructor(attributes) {
-    Object.assign(this, attributes);
+    _.assign(this, attributes);
   }
 
   valid() {

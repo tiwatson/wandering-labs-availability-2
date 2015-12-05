@@ -34,6 +34,11 @@ class Component {
     return __dirname + '/../../shared/package.json'
   }
 
+  get envFilename() {
+    return __dirname + '/../../.env';
+  }
+
+
 }
 
 class Deploy {
@@ -50,6 +55,7 @@ class Deploy {
     console.log('codeDirectory', this.codeDirectory);
     this._buildDist();
     this._copyPackageJson();
+    this._copyEnv();
     this._npmInstall((err) => {
       console.log('_npmInstall done')
       this._zipComponent((err) => {
@@ -99,8 +105,17 @@ class Deploy {
     }
   }
 
+  _copyEnv() {
+    let newEnv = this.codeDirectory + '/.env';
+
+    if (!fs.existsSync(newEnv)) {
+      fs.writeFileSync(newEnv, fs.readFileSync(this.component.envFilename));
+      console.log(newEnv + ' file successfully created');
+    }
+  }
+
   _npmInstall(callback) {
-    npm.load({prefix: this.codeDirectory, production: true}, function (er) {
+    npm.load({prefix: this.codeDirectory, production: true, silent: true}, function (er) {
       npm.commands.install([], function (er, data) {
         if (er) {
           console.log("Error", er)

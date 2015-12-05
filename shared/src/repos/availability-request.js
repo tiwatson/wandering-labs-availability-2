@@ -8,7 +8,7 @@ import moment from 'moment'
 
 class AvailabilityRequest {
   constructor(attributes) {
-    Object.assign(this, attributes);
+    _.assign(this, attributes);
   }
 
   static tableName() {

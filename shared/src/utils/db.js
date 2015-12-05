@@ -4,8 +4,8 @@ import Promise from 'bluebird';
 import dynasty from 'dynasty';
 
 const credentials = {
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID_WL,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_WL
 };
 
 let endpoint = ((process.env.NODE_ENV == 'test') && (typeof process.env.CI === 'undefined')) ? 'http://localhost:8000' : null

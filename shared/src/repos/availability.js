@@ -1,8 +1,9 @@
+import _ from 'lodash';
 import moment from 'moment';
 
 class Availability {
   constructor(attributes) {
-    Object.assign(this, attributes);
+    _.assign(this, attributes);
   }
 
   get arrivalDateFormatted() {
