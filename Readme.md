@@ -33,7 +33,6 @@ Email notifications to end users
 Scrapers is a lambda function that grabs web pages and parses them for matching campsite availabilities.
 
 #### TODO
-- Drop availabilites that are after dateEnd
 - send over filters to RA
 
 ## shared

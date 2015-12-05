@@ -56,8 +56,7 @@ describe('ReserveAmerica', () => {
 
     it('updates', () => {
       reserveAmerica.perform().then((availabilities) => {
-        console.log('worked', availabilities)
-        expect(availabilities.length).to.equal(7)
+        expect(availabilities.length).to.equal(3);
       });
     });
   });

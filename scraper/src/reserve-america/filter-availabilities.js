@@ -2,18 +2,21 @@ import moment from 'moment';
 import _ from 'lodash';
 
 class FilterAvailabilities {
-  static filter(daysLength,avails) {
+  static filter(dateEnd, daysLength,avails) {
     let bySiteId = {};
     let siteNumbers = {};
 
     console.log('Avails', avails);
 
     avails.forEach((avail) => {
-      siteNumbers[avail.siteId] = avail.siteNumber;
-      if (typeof bySiteId[avail.siteId] === 'undefined') {
-        bySiteId[avail.siteId] = [];
+      let arrivalDate = moment(avail.arrivalDate, "M/D/YYYY");
+      if (arrivalDate.isBefore(dateEnd)) {
+        siteNumbers[avail.siteId] = avail.siteNumber;
+        if (typeof bySiteId[avail.siteId] === 'undefined') {
+          bySiteId[avail.siteId] = [];
+        }
+        bySiteId[avail.siteId].push(arrivalDate);
       }
-      bySiteId[avail.siteId].push(moment(avail.arrivalDate, "M-D-YYYY"));
     });
 
     let groupedAvails = []

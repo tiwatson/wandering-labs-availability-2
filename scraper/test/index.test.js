@@ -31,7 +31,7 @@ describe('Scraper', () => {
 
     it('calls scrape', ()=> {
       return scraper.scrape().then(() => {
-        expect(availabilityRequest.availabilities.length).to.equal(7);
+        expect(availabilityRequest.availabilities.length).to.equal(3);
         expect(availabilityRequest.checkedAt).to.be.above(moment().subtract(1, 'm').unix());
       });
     });
