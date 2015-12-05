@@ -16,7 +16,7 @@ describe('Worker', () => {
     before(()=> {
       sinon.stub(Sns.prototype, 'publish').returns(new Promise(resolve=> { resolve({})}));
 
-      spy = sinon.spy(testHelper.context, 'success');
+      spy = sinon.spy(testHelper.context, 'succeed');
 
       return Factory.availabilityRequestRepo().then((factoryObj) => {
         availabilityRequest = factoryObj.id;
