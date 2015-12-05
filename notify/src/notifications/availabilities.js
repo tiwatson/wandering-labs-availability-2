@@ -2,6 +2,7 @@ import fs from 'fs';
 import Handlebars from 'handlebars';
 
 import { Sendgrid } from '../shared/utils/sendgrid';
+import { AvailabilityRequestRepo } from '../shared/repos/availability-request';
 
 class NotificationsAvailabilities {
   constructor(availabilityRequest) {
@@ -10,7 +11,11 @@ class NotificationsAvailabilities {
   }
 
   deliver() {
-    return this.sendgrid.deliver(this.emailParams());
+    return this.sendgrid.deliver(this.emailParams()).then((response)=> {
+      return new AvailabilityRequestRepo().notifiedAvailabilities(this.availabilityRequest).then(() => {
+        return response;
+      });
+    });
   }
 
   // private

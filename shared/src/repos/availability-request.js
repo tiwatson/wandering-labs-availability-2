@@ -145,6 +145,13 @@ class AvailabilityRequestRepo {
     return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix() }));
   }
 
+  notifiedAvailabilities(availabilityRequest) {
+    availabilityRequest.availabilities.forEach((availability) => {
+      availability.notified = true;
+    });
+    return this.update(availabilityRequest);
+  }
+
   wrapResource(obj) {
     return new AvailabilityRequest(obj);
   }

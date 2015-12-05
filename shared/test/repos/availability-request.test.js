@@ -199,10 +199,33 @@ describe('AvailabilityRequestRepo', () => {
 
           expect(resource.checkedAt).to.exist;
           expect(resource.checkedAt).to.be.above(checkedAt);
-        })
+        });
       });
-    })
+    });
 
-  })
+  });
+
+  describe('#notifiedAvailabilities', ()=> {
+    var availabilityRequest;
+
+    beforeEach(() => {
+      let existingAvails = [{ siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: false, notified: false }];
+      return Factory.availabilityRequestRepo({availabilities: existingAvails}).then((factoryObj) => {
+        availabilityRequest = factoryObj;
+      });
+    });
+
+    it ('updates the resource in the database', () => {
+      return new AvailabilityRequestRepo().notifiedAvailabilities(availabilityRequest).then((obj) => {
+        return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
+          expect(resource.availabilities).to.not.be.empty;
+          expect(resource.availabilities).to.be.instanceOf(Array);
+          expect(resource.availabilities.length).to.equal(1);
+          expect(resource.availabilities[0].notified).to.equal(true);
+        });
+      });
+    });
+
+  });
 
 });

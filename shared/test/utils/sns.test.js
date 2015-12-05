@@ -32,7 +32,7 @@ describe('Sns', () => {
   describe('#publish', () => {
     it('Calls the amazon sdk', () => {
       let mock = sinon.mock(snsInstance.sns).expects('publishAsync').once().withArgs({
-        TargetArn: process.env.AWS_SNS_NOTIFICATION,
+        TargetArn: process.env.AWS_SNS_NOTIFY,
         Message: availabilityRequest.id,
         MessageStructure: 'string',
       });
