@@ -1,3 +1,6 @@
+import moment from 'moment';
+import _ from 'lodash';
+
 import { ReserveAmerica } from './reserve-america/index';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 import { Sns } from './shared/utils/sns';
@@ -16,16 +19,22 @@ class Scraper {
     console.log('Scrape#scrape called')
     let availabilityRequest = this.availabilityRequest;
     return this.scraperInstance.perform().then((newAvailabilities) => {
-      console.log('Scrape RETURNS........', newAvailabilities.length);
-      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvailabilities);
+      console.log('Found availabilities: ', newAvailabilities.length);
+      if (newAvailabilities.length > 0) {
+        return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvailabilities);
+      }
+      else {
+        // TODO - test/refactor whatever.
+        return new AvailabilityRequestRepo().update(_.merge(availabilityRequest, { checkedAt: moment().unix() }));
+      }
     })
     .then(()=> {
       if (availabilityRequest.notificationNeeded()) {
         return new Sns('notify').publish(availabilityRequest.id).then(() => {
-          console.log('delivered.')
+          console.log('User notified.')
         });
       }
-      console.log('Really done now.', availabilityRequest.notificationNeeded());
+      console.log('No new requests');
       // TODO - update availabilityRequest
     });
   }
