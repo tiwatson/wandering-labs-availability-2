@@ -9,9 +9,14 @@ class Sns {
       region: process.env.AWS_REGION,
     }));
 
-    // TODO - map target to ARNS
+    // TODO - Refactor
+    let arn = process.env.AWS_SNS_SCRAPER
+    if (target == 'notify') {
+      arn = process.env.AWS_SNS_NOTIFY
+    }
+
     this.params = {
-      TargetArn: process.env.AWS_SNS_SCRAPER,
+      TargetArn: arn,
       MessageStructure: 'string',
     };
   }
