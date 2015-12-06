@@ -1,96 +1,121 @@
-.flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
-
-.card-copy
+.container
   .row
-    .half
-      %label.required{ for: 'campground' }Where do you want to camp?
-      %angucomplete-alt{  :id => "campground",
-                                :placeholder => "Select Campground",
-                                :pause => 0,
-                                :minlength => 1,
-                                :'match-class' => "highlight",
-                                :'selected-object' => "ar.location",
-                                :'local-data' => "ar.locations",
-                                :'search-fields' => "name",
-                                :'title-field' => "name",
-                                :'description-field' => "desc",
-                                :limit => 10 }
-  .row
-    .quarter
-      %label.required{ for: 'dateStart' }Date Start
-      %quick-datepicker{ 'ng-model' => 'ar.dateStart', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
-
-    .quarter
-      %label.required{ for: 'dateEnd' }Date End
-      %quick-datepicker{ 'ng-model' => 'ar.dateEnd', 'placeholder' => 'Set Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
-
-    .quarter
-      %label.required{ for: 'lengthOfStay' }# of nights
-      %input#lengthOfStay{ type: 'text', 'ng-model' => 'ar.lengthOfStay' }
-
-    .quarter
-      %label.required{ for: 'siteType' }Site Type
-      %select{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
+    .col-md-10
+      %p
+        Start typing the name of the campground you want to stay at. Next select a date range and the number of nights you would like to stay.
+      %p
+        For example you could request a stay at Bahia Honda State Park in Florida for 5 consecutive nights anytime between January 1 and March 1.
+      %p
+        We will check Reserve America every few minutes to see if any sites become available. If any do, we will email you.
 
 
-  .row
-    %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
-      Additional Campsite Options
+.container
+  .flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
 
-
-  .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
+  %form
     .row
-      .quarter
-        %label{ for: 'eqLen' }RV/Trailer Length (ft)
-        %input#eqLen{ type: 'text', 'ng-model' => 'ar.eqLen' }
+      .col-md-8
+        .panel.panel-default
+          .panel-body
 
-      .quarter
-        %label{ for: 'electric' }Electric
-        %select{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
-          %option{:value => "", :selected => "selected"}
+            .row.campground
+              .col-md-12
+                .form-group.form-group-lg
+                  %label.control-label.required{ for: 'campground' }Where do you want to camp?
+                  %angucomplete-alt{  :id => "campground",
+                                            :'input-class' => "form-control",
+                                            :placeholder => "Select Campground",
+                                            :pause => 0,
+                                            :minlength => 1,
+                                            :'match-class' => "highlight",
+                                            :'selected-object' => "ar.location",
+                                            :'local-data' => "ar.locations",
+                                            :'search-fields' => "name",
+                                            :'title-field' => "name",
+                                            :'description-field' => "desc",
+                                            :limit => 10 }
+            .row
+              .col-sm-3
+                .form-group
+                  %label.control-label.required{ for: 'dateStart' }Date Start
+                  %quick-datepicker{ 'ng-model' => 'ar.dateStart', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
 
-      .quarter
-        .row
-          .half
-            %label Water
-            %label
-              %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
-                Yes
-          .half
-            %label Sewer
-            %label
-              %input#water{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
-                Yes
+              .col-sm-3
+                .form-group
+                  %label.control-label.required{ for: 'dateEnd' }Date End
+                  %quick-datepicker{ 'class' => '', 'ng-model' => 'ar.dateEnd', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
+
+              .col-sm-3
+                .form-group
+                  %label.control-label.required{ for: 'lengthOfStay' }# of nights
+                  %input.form-control#lengthOfStay{ type: 'text', 'ng-model' => 'ar.lengthOfStay' }
+
+              .col-sm-3
+                .form-group
+                  %label.control-label.required{ for: 'siteType' }Site Type
+                  %select.form-control{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
+
+            .row{ style: 'display: none;' }
+              %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
+                Additional Campsite Options
+
+            .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
+              .row
+                .col-md-3
+                  %label{ for: 'eqLen' }RV/Trailer Length (ft)
+                  %input#eqLen{ type: 'text', 'ng-model' => 'ar.eqLen' }
+
+                .col-md-3
+                  %label{ for: 'electric' }Electric
+                  %select{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
+                    %option{:value => "", :selected => "selected"}
+
+                .col-md-3
+                  .row
+                    .half
+                      %label Water
+                      %label
+                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
+                          Yes
+                    .half
+                      %label Sewer
+                      %label
+                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
+                          Yes
 
 
-      .quarter
-        .row
-          .half
-            %label Pull-Thru
-            %label
-              %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
-                Yes
-          .half
-            %label Waterfront
-            %label
-              %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
-                Yes
+                .col-md-3
+                  .row
+                    .half
+                      %label Pull-Thru
+                      %label
+                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
+                          Yes
+                    .half
+                      %label Waterfront
+                      %label
+                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
+                          Yes
 
 
 
 
 
-  .row
-    .half
-      %label.required{ for: 'user_email' }Email Address
-      %input#user_email{ type: 'text', 'ng-model' => 'ar.email' }
+            .row
+              .col-sm-6
+                .form-group
+                  %label.control-label.required{ for: 'user_email' }Email Address
+                  %input.form-control#user_email{ type: 'text', 'ng-model' => 'ar.email' }
 
-    .half
-      %label{ for: 'user_phone' }Phone (for txt msg)
-      %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
+              .col-sm-6
+                .form-group
+                  .hide{style: 'display: none'}
+                    %label{ for: 'user_phone' }Phone (for txt msg)
+                    %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
 
 
 
 
-  .row
-    %button{ 'ng-click' => 'newRequest()' } Submit
+            .row
+              .col-sm-3
+                %button.btn.btn-success{ 'ng-click' => 'newRequest()' } Submit

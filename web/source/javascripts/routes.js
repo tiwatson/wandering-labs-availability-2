@@ -20,10 +20,8 @@
           templateUrl: 'templates/availability_requests/new.html',
           controller: 'AvailabilityRequestController'
         }
-
       }
     });
-
   };
 
 })();
