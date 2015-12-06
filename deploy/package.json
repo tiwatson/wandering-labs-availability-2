@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.2.20",
+    "bluebird": "^3.0.6",
     "dotenv": "1.2.0",
     "lodash": "3.10.1",
     "npm": "3.5.1",

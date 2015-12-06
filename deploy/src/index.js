@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import AWS from 'aws-sdk';
 import fs from 'fs';
-import npm from 'npm';
+
 import os from 'os';
 import wrench from 'wrench';
+import Promise from 'bluebird';
+import npm from 'npm';
 
 var exec = require('child_process').exec;
 
@@ -15,12 +17,8 @@ class Component {
   }
 
   deploy() {
-    let lambdas = this.settings.lambda
-    _.forEach(lambdas, (params) =>{
-      console.log('Deploying: ', params.functionName);
-      let deploy = new Deploy(this, params);
-      deploy.update();
-    });
+    let deploy = new Deploy(this);
+    return deploy.update();
   }
 
   get srcDir() {
@@ -43,31 +41,43 @@ class Component {
 }
 
 class Deploy {
-  constructor(component, params) {
+  constructor(component) {
     this.component = component;
-    this.params = params
 
     this.lambda = new AWS.Lambda({apiVersion: '2014-11-11'});
   }
 
   update() {
-    this.codeDirectory = this._codeDirectory();
-    this.zipFile = this._zipfileTmpPath();
-    console.log('codeDirectory', this.codeDirectory);
-    this._buildDist();
-    this._copyPackageJson();
-    this._copyEnv();
-    this._extras();
-    this._npmInstall((err) => {
-      console.log('_npmInstall done')
-      this._zipComponent((err) => {
-        console.log('zip complete', this.zipFile);
-        this._lambdaUpload((err,data) => {
-          console.log('lambda upload complete', err, data);
+    let lambdas = this.component.settings.lambda;
+
+    return new Promise((resolve, reject) => {
+      console.log('deploy')
+      this.codeDirectory = this._codeDirectory();
+      this.zipFile = this._zipfileTmpPath();
+      console.log('codeDirectory', this.codeDirectory);
+      this._buildDist();
+      this._copyPackageJson();
+      this._copyEnv();
+      this._extras();
+
+      this._npmInstall((err) => {
+        console.log('_npmInstall done')
+        this._zipComponent((err) => {
+          console.log('zip complete', this.zipFile);
+          console.log('lambdas',lambdas)
+          return Promise.each(lambdas, (params) =>{
+            console.log('Upload zip for Function: ', params.functionName);
+
+            return new Promise((resolve2, reject2) => {
+              this._lambdaUpload(params, (err,data) => {
+                console.log('lambda upload complete', err, data);
+                resolve2();
+              });
+            });
+          });
         });
       });
     });
-
   }
 
 
@@ -75,7 +85,7 @@ class Deploy {
 
   _codeDirectory() {
     var epoch_time = +new Date();
-    let codeDirectory =  os.tmpDir() + this.params.functionName + '-' + epoch_time;
+    let codeDirectory =  os.tmpDir() + this.component.componentName + '-' + epoch_time;
     // let codeDirectory =  __dirname + '/../deploys/' + this.params.functionName; // + '-' + epoch_time;
     if (!fs.existsSync(codeDirectory)) {
       fs.mkdirSync(codeDirectory);
@@ -85,7 +95,7 @@ class Deploy {
 
   _zipfileTmpPath() {
     let ms_since_epoch = +new Date();
-    let filename = this.params.functionName + '-' + ms_since_epoch + '.zip';
+    let filename = this.component.componentName + '-' + ms_since_epoch + '.zip';
     let zipfile = os.tmpDir() + filename;
     return zipfile;
   }
@@ -136,11 +146,11 @@ class Deploy {
     });
   }
 
-  _lambdaUpload(callback) {
+  _lambdaUpload(params, callback) {
     var functionParams = {
-      FunctionName: this.params.functionName,
+      FunctionName: params.functionName,
       FunctionZip: fs.readFileSync(this.zipFile),
-      Handler: this.params.handler,
+      Handler: params.handler,
       Mode: 'event',
       Role: process.env.AWS_IAM,
       Runtime: 'nodejs',
