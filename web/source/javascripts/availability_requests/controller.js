@@ -39,11 +39,9 @@ angular.module('availability_requests.controllers', [])
   }])
 
 
-  .controller('AvailabilityRequestCancelController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
-    $scope.ar = availabilityRequestsService;
-
-    console.log('just go ahead and cancel???')
-
+  .controller('AvailabilityRequestCancelController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
+    console.log('just go ahead and cancel???',availabilityRequest);
+    availabilityRequestsService.cancel(availabilityRequest.id);
   }])
 
 

@@ -101,6 +101,7 @@ class AvailabilityRequestRepo {
   find(id) {
     return this.table.find(id).then((resp) => {
       return this.wrapResource(resp);
+      // TODO - throw error on not found
     });
   }
 
@@ -117,7 +118,9 @@ class AvailabilityRequestRepo {
   }
 
   cancel(id) {
-    return this.table.update(id, { status: 'canceled' });
+    return this.table.find(id).then((resp) => {
+      return this.update(_.merge(resp, { status: 'canceled' }));
+    });
   }
 
   active() {
