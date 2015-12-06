@@ -3,14 +3,14 @@ import moment from 'moment';
 
 import { AvailabilityRequest, AvailabilityRequestRepo } from '../../shared/repos/availability-request';
 
-class AvailabilityRequestCancel {
+class AvailabilityRequestFind {
   constructor(id) {
     this.id = id;
   }
 
-  cancel() {
-    return new AvailabilityRequestRepo().cancel(this.id);
+  find() {
+    return new AvailabilityRequestRepo().find(this.id);
   }
 }
 
-export { AvailabilityRequestCancel }
+export { AvailabilityRequestFind }

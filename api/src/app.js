@@ -1,16 +1,23 @@
 import { config } from './shared/utils/config';
 
+import { AvailabilityRequestFind } from './endpoints/availability-requests/find';
 import { AvailabilityRequestCreate } from './endpoints/availability-requests/create';
 import { AvailabilityRequestCancel } from './endpoints/availability-requests/cancel';
 
+exports.availabilityRequestFind = function(event, context) {
+  return new AvailabilityRequestFind(event).find().then((obj) => {
+    context.succeed(obj);
+  });
+}
+
 exports.availabilityRequestCreate = function(event, context) {
-  console.log('availabilityRequestCreate', event)
   return new AvailabilityRequestCreate(event).create().then((obj) => {
-    console.log('app success', obj)
     context.succeed(obj);
   });
 }
 
 exports.availabilityRequestCancel = function(event, context) {
-  AvailabilityRequestCancel.run(event);
+  return new AvailabilityRequestCancel(event).cancel().then(() => {
+    context.succeed({});
+  });
 }

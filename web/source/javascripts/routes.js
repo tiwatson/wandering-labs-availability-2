@@ -4,24 +4,40 @@
   .module('wl_a.routes', [ ])
   .config(routeConfig);
 
-  routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+  resolveAvailabilityRequest.$inject = ['availabilityRequestsService', '$stateParams'];
+  function resolveAvailabilityRequest(availabilityRequestsService, $stateParams) {
+    console.log('resolve', $stateParams.arId);
+    return availabilityRequestsService.base.get($stateParams.arId);
+  }
 
+  routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
   function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     //$urlRouterProvider.otherwise('/');
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
     // $locationProvider.hashPrefix('!');
 
     $stateProvider
-
     .state('availabilityRequests',{
-      url: '',
-      views: {
-        'availability_request_new': {
-          templateUrl: 'templates/availability_requests/new.html',
-          controller: 'AvailabilityRequestController'
-        }
+      url: '/',
+      templateUrl: 'templates/availability_requests/new.html',
+      controller: 'AvailabilityRequestController'
+      // views: {
+      //   'availability_request_new': {
+      //     templateUrl: 'templates/availability_requests/new.html',
+      //     controller: 'AvailabilityRequestController'
+      //   }
+      // }
+    })
+    .state('availabilityRequestsCancel',{
+      url: '/{arId:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}}/cancel',
+      templateUrl: 'templates/availability_requests/cancel.html',
+      controller: 'AvailabilityRequestCancelController',
+      resolve: {
+        availabilityRequest: resolveAvailabilityRequest
       }
-    });
+    })
+
+    ;
   };
 
 })();

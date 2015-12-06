@@ -107,16 +107,35 @@ describe('AvailabilityRequestRepo', () => {
     beforeEach(() => {
       return Factory.availabilityRequestRepo().then((factoryObj) => {
         arId = factoryObj.id;
-      })
-    })
+      });
+    });
 
     it('should return a AvailabilityRequest', ()=> {
       return new AvailabilityRequestRepo().find(arId).then((obj) => {
         expect(obj.id).to.equal(arId);
+      });
+    });
+
+  });
+
+  describe('#cancel', () => {
+    var arId;
+
+    beforeEach(() => {
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
+        arId = factoryObj.id;
       })
     })
 
-  })
+    it('should cancel AvailabilityRequest', ()=> {
+      return new AvailabilityRequestRepo().cancel(arId).then(() => {
+        return new AvailabilityRequestRepo().find(arId).then((obj) => {
+          expect(obj.status).to.equal('canceled');
+        });
+      });
+    });
+
+  });
 
   describe('#active', () => {
 

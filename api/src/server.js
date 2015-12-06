@@ -32,8 +32,19 @@ const handlers = {
   'availability-requests': {
     '$post': function(req, res) {
       app.availabilityRequestCreate(req.body, new Context(res));
+    },
+    '{id}': {
+      '$get': function(req, res) {
+        app.availabilityRequestFind(req.params.id, new Context(res));
+      },
+      'cancel': {
+        '$post': function(req, res) {
+          app.availabilityRequestCancel(req.params.id, new Context(res));
+        }
+      }
     }
   }
+
 }
 
 serverApp.use(swaggerize({

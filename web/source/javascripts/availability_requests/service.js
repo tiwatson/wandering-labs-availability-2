@@ -60,6 +60,10 @@ angular.module('availability_requests.services', [ ]).
         });
       },
 
+      cancel: function(id) {
+        return service.base.customPOST({}, id + '/cancel');
+      },
+
       put: function(item) {
         return item.put().then(function(results) {
 

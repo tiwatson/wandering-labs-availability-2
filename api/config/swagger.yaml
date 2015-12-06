@@ -15,3 +15,13 @@ paths:
       responses:
         '200':
           description: OK
+  '/availability-requests/{id}':
+    get:
+      responses:
+        '200':
+          description: OK
+  '/availability-requests/{id}/cancel':
+    post:
+      responses:
+        '200':
+          description: OK
