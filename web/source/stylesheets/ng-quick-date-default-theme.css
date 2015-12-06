@@ -1,14 +1,14 @@
-.quickdate {
+/*.quickdate {
   display: inline-block;
   vertical-align: bottom;
   font-size: 15px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+}*/
 .quickdate input,
 .quickdate select {
   font-size: 13px;
 }
-.quickdate-button {
+/*.quickdate-button {
   background: #ffffff;
   color: #333333;
   border: solid 1px #cccccc;
@@ -17,7 +17,7 @@
   padding: 4px 8px;
   display: inline-block;
   text-decoration: none;
-}
+}*/
 .quickdate-button:hover {
   text-decoration: underline;
 }

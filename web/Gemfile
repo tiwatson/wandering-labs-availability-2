@@ -18,15 +18,19 @@ gem "tzinfo-data", platforms: [:mswin, :mingw, :jruby]
 
 gem 'bitters'
 
+gem "bootstrap-sass", :require => false
+
 source 'https://rails-assets.org' do
   # Bower based assets files
   gem 'rails-assets-angular'
   gem 'rails-assets-angular-ui-router'
   gem 'rails-assets-lodash'
   gem 'rails-assets-restangular'
-  #gem 'rails-assets-angucomplete-alt'
-  gem 'rails-assets-normalize-css'
-  gem 'rails-assets-bourbon'
-  gem 'rails-assets-neat'
+
+
+  # gem 'rails-assets-angucomplete-alt'
+  # gem 'rails-assets-normalize-css'
+  # gem 'rails-assets-bourbon'
+  # gem 'rails-assets-neat'
   gem 'rails-assets-font-awesome'
 end

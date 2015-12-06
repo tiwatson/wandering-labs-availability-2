@@ -4,7 +4,7 @@ angular.module('wl_a.restangular_config', [ ])
     RestangularProvider.setDefaultHttpFields({cache: false});
 
     // RestangularProvider.setBaseUrl('https://z9uurypend.execute-api.us-east-1.amazonaws.com/production');
-    RestangularProvider.setBaseUrl('http://localhost:3000');
+    RestangularProvider.setBaseUrl('http://localhost:3000/api');
 
     // // add a response intereceptor
     // RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {

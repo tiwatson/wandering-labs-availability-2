@@ -29,7 +29,7 @@ class Context {
 }
 
 const handlers = {
-  'availability_requests': {
+  'availability-requests': {
     '$post': function(req, res) {
       app.availabilityRequestCreate(req.body, new Context(res));
     }

@@ -1,0 +1,23 @@
+$navbar-border-radius: 0;
+$navbar-margin-bottom: 0;
+$navbar-inverse-bg: #77b57a;
+$navbar-inverse-border: #77b57a;
+$navbar-inverse-link-color: #fff;
+$navbar-inverse-brand-color: $navbar-inverse-link-color;
+
+$jumbotron-padding: $padding-large-vertical;
+$jumbotron-font-size: ceil(($font-size-base * 1.25));
+
+
+$input-border-focus: #77b57a;
+
+$container-large-desktop:      (940px + $grid-gutter-width);
+//** For `$screen-lg-min` and up.
+$container-lg:                 $container-large-desktop;
+
+// // Large screen / wide desktop
+// // ** Deprecated `$screen-lg` as of v3.0.1
+// $screen-lg: 922px,
+// $screen-lg-min: $screen-lg;
+// // ** Deprecated `$screen-lg-desktop` as of v3.0.1
+// $screen-lg-desktop: $screen-lg-min;

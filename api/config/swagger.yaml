@@ -10,7 +10,7 @@ consumes:
 produces:
   - application/json
 paths:
-  /availability_requests:
+  /availability-requests:
     post:
       responses:
         '200':

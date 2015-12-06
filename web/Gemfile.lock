@@ -9,10 +9,16 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     ansi (1.5.0)
+    autoprefixer-rails (6.1.2)
+      execjs
+      json
     bitters (0.10.1)
       bourbon (>= 3.2)
       sass (>= 3.2)
       thor
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     bourbon (4.0.2)
       sass (~> 3.3)
       thor
@@ -143,12 +149,8 @@ GEM
     rails-assets-angular (1.4.3)
     rails-assets-angular-ui-router (0.2.15)
       rails-assets-angular (>= 1.0.8)
-    rails-assets-bourbon (4.2.3)
     rails-assets-font-awesome (4.3.0)
     rails-assets-lodash (3.10.0)
-    rails-assets-neat (1.7.2)
-      rails-assets-bourbon (>= 4.0)
-    rails-assets-normalize-css (3.0.3)
     rails-assets-restangular (1.5.1)
       rails-assets-angular (~> 1.0)
       rails-assets-lodash (>= 1.3.0)
@@ -187,17 +189,15 @@ PLATFORMS
 
 DEPENDENCIES
   bitters
+  bootstrap-sass
   middleman
   middleman-livereload (~> 3.1.0)
   middleman-s3_sync (= 3.3.7)
   mime-types (~> 3.0.0)
   rails-assets-angular!
   rails-assets-angular-ui-router!
-  rails-assets-bourbon!
   rails-assets-font-awesome!
   rails-assets-lodash!
-  rails-assets-neat!
-  rails-assets-normalize-css!
   rails-assets-restangular!
   tzinfo-data
   wdm (~> 0.1.0)

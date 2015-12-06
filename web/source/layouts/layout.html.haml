@@ -6,23 +6,26 @@
     = javascript_include_tag "application"
   %body{}
 
-    .nav
-      .nav-inner
-        %a{ href: 'http://wanderinglabs.com'}
-          %i.fa.fa-cogs.fa-lg
-          WanderingLabs
+    %nav.navbar.navbar-inverse
+      .container
+        .navbar-header
+          %a.navbar-brand{ href: 'http://wanderinglabs.com'}
+            %i.fa.fa-cogs.fa-lg
+            WanderingLabs
 
     = yield
 
-    %footer
-      .footer-content
-        %a{ href: 'http://wanderinglabs.com' }Wandering Labs
-        is a creation of
-        %a{ href: 'http://tiwatson.com' }Tim Watson
-        %br/
-        %br/
-        %small
-          Wandering Labs is not affiliated with, maintained by, or in any way officially connected with Reserve America or Active Network.
+    .container
+      .row
+        .col-md-12
+          .footer-content
+            %a{ href: 'http://wanderinglabs.com' }Wandering Labs
+            is a creation of
+            %a{ href: 'http://tiwatson.com' }Tim Watson
+            %br/
+            %br/
+            %small
+              Wandering Labs is not affiliated with, maintained by, or in any way officially connected with Reserve America or Active Network.
 
     :javascript
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
