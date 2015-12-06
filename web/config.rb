@@ -25,7 +25,6 @@ helpers do
 end
 
 page "/templates/*", :layout => false
-proxy "/availability_requests/*", 'index.html'
 
 set :css_dir, 'stylesheets'
 
@@ -54,7 +53,7 @@ after_configuration do
 end
 
 activate :s3_sync do |s3_sync|
-  s3_sync.bucket  = 'wandering-labs-availability-2'
+  s3_sync.bucket  = 'reserve.wanderinglabs.com'
   s3_sync.region  = 'us-east-1'
   s3_sync.verbose = true
   s3_sync.delete  = false
