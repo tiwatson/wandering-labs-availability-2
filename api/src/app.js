@@ -5,7 +5,7 @@ import { AvailabilityRequestCreate } from './endpoints/availability-requests/cre
 import { AvailabilityRequestCancel } from './endpoints/availability-requests/cancel';
 
 exports.availabilityRequestFind = function(event, context) {
-  return new AvailabilityRequestFind(event).find().then((obj) => {
+  return new AvailabilityRequestFind(event.id).find().then((obj) => {
     context.succeed(obj);
   });
 }
@@ -17,7 +17,7 @@ exports.availabilityRequestCreate = function(event, context) {
 }
 
 exports.availabilityRequestCancel = function(event, context) {
-  return new AvailabilityRequestCancel(event).cancel().then(() => {
+  return new AvailabilityRequestCancel(event.id).cancel().then(() => {
     context.succeed({});
   });
 }

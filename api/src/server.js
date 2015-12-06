@@ -35,11 +35,11 @@ const handlers = {
     },
     '{id}': {
       '$get': function(req, res) {
-        app.availabilityRequestFind(req.params.id, new Context(res));
+        app.availabilityRequestFind(req.params, new Context(res));
       },
       'cancel': {
         '$post': function(req, res) {
-          app.availabilityRequestCancel(req.params.id, new Context(res));
+          app.availabilityRequestCancel(req.params, new Context(res));
         }
       }
     }
