@@ -12,7 +12,6 @@ Collection of lambda functions that handle requests from the angular app. Will b
 
 #### TODO
 - Validation
-- Cancelation
 - User review
 - updating
 - tests
@@ -58,11 +57,8 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 #### TODO
 - Non-restrict to Reserve America
 - Validation
-- Cancelation
 - User review
 - updating
-- deploy
-
 
 ## worker
 
@@ -89,3 +85,12 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 ```
 [~/Development/tools/dynamodb] java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 ```
+
+
+##### Priorities
+
+- front end validation
+- user review
+- welcome email
+- auto pausing
+- breaking scraping to blocks of ids
