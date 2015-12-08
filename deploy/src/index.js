@@ -156,7 +156,7 @@ class Deploy {
       Runtime: 'nodejs',
       Description: 'TODO',
       MemorySize: 128,
-      Timeout: 30
+      Timeout: params.timeout || 30
     };
 
     this.lambda.uploadFunction(functionParams, function (err, data) {

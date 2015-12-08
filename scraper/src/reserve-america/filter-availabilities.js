@@ -6,8 +6,6 @@ class FilterAvailabilities {
     let bySiteId = {};
     let siteNumbers = {};
 
-    console.log('Avails', avails);
-
     avails.forEach((avail) => {
       let arrivalDate = moment(avail.arrivalDate, "M/D/YYYY");
       if (arrivalDate.isBefore(dateEnd)) {

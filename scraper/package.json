@@ -6,7 +6,8 @@
   "lambda": [
     {
       "functionName": "wl-ar-scraper",
-      "handler": "app.handler"
+      "handler": "app.handler",
+      "timeout": 300
     }
   ],
   "scripts": {
