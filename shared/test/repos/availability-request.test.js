@@ -6,6 +6,13 @@ import { AvailabilityRequest, AvailabilityRequestRepo } from '../../src/repos/av
 
 
 describe('AvailabilityRequest', () => {
+  describe('#description', ()=> {
+    let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
+    it('includes the email', ()=> {
+      expect(availabilityRequest.description).to.contain(availabilityRequest.email);
+    });
+  });
+
   describe('#mergeAvailabilities', () => {
 
     it('adds new availabilities', () => {

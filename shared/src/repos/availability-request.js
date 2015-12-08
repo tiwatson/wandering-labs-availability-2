@@ -91,6 +91,9 @@ class AvailabilityRequest {
     });
   }
 
+  get description() {
+    return `${this.id} for ${this.email} at ${this.typeSpecific.state}:${this.typeSpecific.parkName} staying ${this.lengthOfStay} days between ${this.dateStartFormatted} and ${this.dateEndFormatted}`
+  }
 }
 
 class AvailabilityRequestRepo {
