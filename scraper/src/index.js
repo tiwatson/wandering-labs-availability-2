@@ -20,13 +20,7 @@ class Scraper {
     let availabilityRequest = this.availabilityRequest;
     return this.scraperInstance.perform().then((newAvailabilities) => {
       console.log('Found availabilities: ', newAvailabilities.length);
-      if (newAvailabilities.length > 0) {
-        return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvailabilities);
-      }
-      else {
-        // TODO - test/refactor whatever.
-        return new AvailabilityRequestRepo().update(_.merge(availabilityRequest, { checkedAt: moment().unix() }));
-      }
+      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvailabilities);
     })
     .then(()=> {
       if (availabilityRequest.notificationNeeded()) {

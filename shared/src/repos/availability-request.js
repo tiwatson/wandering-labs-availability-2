@@ -117,6 +117,11 @@ class AvailabilityRequestRepo {
     return this.table.update(obj.id, _.omit(obj, 'id'));
   }
 
+  updateFromScraper(obj) {
+
+    return this.update(_.merge(obj, { checkedAt: moment().unix(),  checkedCount: checkedCount}));
+  }
+
   cancel(id) {
     return this.table.find(id).then((resp) => {
       return this.update(_.merge(resp, { status: 'canceled' }));
@@ -144,8 +149,11 @@ class AvailabilityRequestRepo {
   }
 
   updateAvailabilities(availabilityRequest, newAvailabilities) {
-    availabilityRequest.mergeAvailabilities(newAvailabilities);
-    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix() }));
+    if (newAvailabilities.length > 0) {
+      availabilityRequest.mergeAvailabilities(newAvailabilities);
+    }
+    let checkedCount = availabilityRequest.checkedCount + 1 || 1;
+    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount: checkedCount }));
   }
 
   notifiedAvailabilities(availabilityRequest) {

@@ -199,25 +199,40 @@ describe('AvailabilityRequestRepo', () => {
     var availabilityRequest, checkedAt;
 
     beforeEach(() => {
-      return Factory.availabilityRequestRepo().then((factoryObj) => {
-        availabilityRequest = factoryObj;
-        checkedAt = factoryObj.checkedAt;
-      })
-    })
-
-    it ('updates the resource in the database', () => {
       let newAvails = [
         { siteId: 100, arrivalDate: moment().unix(), daysLength: 7 }
       ]
-      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvails).then((obj) => {
-        return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
-          expect(resource.availabilities).to.not.be.empty;
-          expect(resource.availabilities).to.be.instanceOf(Array);
-          expect(resource.availabilities.length).to.equal(1);
-          expect(resource.availabilities[0].avail).to.equal(true);
 
-          expect(resource.checkedAt).to.exist;
-          expect(resource.checkedAt).to.be.above(checkedAt);
+      return Factory.availabilityRequestRepo().then((factoryObj) => {
+        checkedAt = factoryObj.checkedAt;
+        return new AvailabilityRequestRepo().updateAvailabilities(factoryObj, newAvails).then((obj) => {
+          return new AvailabilityRequestRepo().find(factoryObj.id).then((resource) => {
+            availabilityRequest = resource;
+          });
+        });
+      });
+    });
+
+    it ('updates the resource in the database', () => {
+      expect(availabilityRequest.availabilities).to.not.be.empty;
+      expect(availabilityRequest.availabilities).to.be.instanceOf(Array);
+      expect(availabilityRequest.availabilities.length).to.equal(1);
+      expect(availabilityRequest.availabilities[0].avail).to.equal(true);
+    });
+
+    it ('updates the checkedAt', ()=> {
+      expect(availabilityRequest.checkedAt).to.exist;
+      expect(availabilityRequest.checkedAt).to.be.above(checkedAt);
+    });
+
+    it ('updates the checkedCount', ()=> {
+      expect(availabilityRequest.checkedCount).to.equal(1);
+    });
+
+    it ('updates the checkedCount again', ()=> {
+      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, []).then((obj) => {
+        return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
+          expect(resource.checkedCount).to.equal(2);
         });
       });
     });
