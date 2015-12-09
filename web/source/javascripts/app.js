@@ -11,4 +11,11 @@ angular.module('wl_availability', [
 ])
 .config(['$httpProvider', function($httpProvider){
   // $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
-}]);
+}])
+
+.directive('tableScope', function() {
+  return {
+    scope: true,
+    priority: 450
+  };
+});

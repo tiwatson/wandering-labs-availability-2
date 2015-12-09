@@ -7,7 +7,6 @@
   resolveAvailabilityRequest.$inject = ['availabilityRequestsService', '$stateParams'];
 
   function resolveAvailabilityRequest(availabilityRequestsService, $stateParams) {
-    console.log('RESOLVE....', $stateParams.arId)
     return availabilityRequestsService.base.get($stateParams.arId);
   }
 

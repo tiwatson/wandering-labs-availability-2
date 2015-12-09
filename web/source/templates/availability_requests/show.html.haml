@@ -1,48 +1,16 @@
-
 .container
   .row
     .col-md-12
+      %a.pull-right{ 'ui-sref' => 'availabilityRequestNew' }
+        %button.btn.btn-success
+          Create a new request
       %h3 Review Request:
-      .table-responsive
-        %table.table.table-striped
-          %thead
-            %tr
-              %th Status
-              %th Campground
-              %th Dates
-              %th Nights
-              %th Last Checked
-              %th Times Checked
-              %th
+      %div{ 'ng-repeat' => "items in [ ar_array ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }
 
-          %tbody
-            %tr
-              %td {{ar.status}}
-              %td
-                {{ar.typeSpecific.parkName}}
-                \-
-                {{ar.typeSpecific.state}}
-              %td
-                {{ar.dateStart | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
-                \-
-                {{ar.dateEnd | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
-              %td
-                {{ar.lengthOfStay}}
-              %td
-                {{ar.checkedAt | amFromUnix | amDateFormat:'M/D/YYYY h:mm a'}}
-              %td
-                {{ar.checkedCount}}
-              %td
-                %a{ 'ui-sref' => 'availabilityRequestsCancel({arId:ar.id})', 'ng-show' => "ar.status == 'active'" }
-                  %button.btn.btn-sm.btn-warning
-                    Cancel
-
-
-  .row
+  .row{ 'ng-show' => "ar.availabilities.length > 0" }
     .col-md-6
       %h3 Found Availabilities
-  .row
-    .col-md-6
+
       .table-responsive
         %table.table.table-striped
           %thead
@@ -60,8 +28,8 @@
               %td {{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY  h:mm a'}}
               %td {{avail.daysLength}}
               %td {{avail.siteNumber}}
-    .col-md-6
-      %a{ 'ui-sref' => 'availabilityRequestNew' }
-        %button.btn.btn-success
-          Create a new request
 
+  .row
+    .col-md-12
+      %h3 Your Other Requests:
+      %div{ 'ng-repeat' => "items in [ all_requests ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }

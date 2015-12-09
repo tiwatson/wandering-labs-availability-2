@@ -40,6 +40,12 @@ angular.module('availability_requests.controllers', [])
   .controller('AvailabilityRequestController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
     console.log('controller - ', availabilityRequest)
     $scope.ar = availabilityRequest;
+    $scope.ar_array = [availabilityRequest];
+
+    availabilityRequestsService.base.get(availabilityRequest.id + '/all').then( function(results) {
+      $scope.all_requests = results;
+    });
+
   }])
 
 

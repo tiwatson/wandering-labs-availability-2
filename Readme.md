@@ -56,7 +56,6 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 
 #### TODO
 - Non-restrict to Reserve America
-- User review
 - updating
 
 ## worker
@@ -88,7 +87,6 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 
 ##### Priorities
 
-- user review
 - welcome email
 - auto pausing
 - breaking scraping to blocks of ids
