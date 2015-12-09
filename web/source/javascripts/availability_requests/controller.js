@@ -4,14 +4,26 @@ angular.module('availability_requests.controllers', [])
     $scope.ar = availabilityRequestsService;
     $scope.siteOptionsCollapsed = true;
 
+    $scope.submitted = false;
+
     $scope.newRequest = function() {
-      availabilityRequestsService.post().then( function(result) {
-        availabilityRequestsService.flash = 'Success. Feel free to add another.';
-        availabilityRequestsService.flashClass = 'flash-success';
-      }, function(result) {
-        availabilityRequestsService.flash = 'Error. Please fix the following and try again: ' + result.data.error;
+      $scope.submitted = true;
+
+      if (availabilityRequestsService.valid() && $scope.arform.$valid) {
+        availabilityRequestsService.post().then( function(result) {
+          availabilityRequestsService.flash = 'Success. Feel free to add another.';
+          availabilityRequestsService.flashClass = 'flash-success';
+          $scope.submitted = false;
+        }, function(result) {
+          availabilityRequestsService.flash = 'Error. Please fix the following and try again: ' + result.data.error;
+          availabilityRequestsService.flashClass = 'flash-error';
+        });
+      }
+      else {
+        availabilityRequestsService.flash = 'Error. Please complete all required fields';
         availabilityRequestsService.flashClass = 'flash-error';
-      });
+      }
+
     };
 
     $scope.dateStartFilter = function(d) {

@@ -22,6 +22,15 @@ angular.module('availability_requests.services', [ ]).
 
       locations: LocationsService.locations,
 
+      valid: function() {
+        return (angular.isDefined(service.email) &&
+          angular.isDefined(service.location) &&
+          angular.isDefined(service.location.originalObject) &&
+          angular.isDefined(service.dateStart) &&
+          angular.isDefined(service.dateEnd) &&
+          angular.isDefined(service.lengthOfStay));
+      },
+
       getList: function(params){
         return service.base.getList(params).then(function(results) {
           service.all = results;
