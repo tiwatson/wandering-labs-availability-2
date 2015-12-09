@@ -5,18 +5,21 @@
   "main": "src/server.js",
   "lambda": [
     {
+      "functionName": "wl-ar-api-availability-requests-all",
+      "handler": "app.availabilityRequestAll"
+    },
+    {
+      "functionName": "wl-ar-api-availability-requests-cancel",
+      "handler": "app.availabilityRequestCancel"
+    },
+    {
       "functionName": "wl-ar-api-availability-requests-create",
       "handler": "app.availabilityRequestCreate"
     },
     {
       "functionName": "wl-ar-api-availability-requests-find",
       "handler": "app.availabilityRequestFind"
-    },
-    {
-      "functionName": "wl-ar-api-availability-requests-cancel",
-      "handler": "app.availabilityRequestCancel"
     }
-
   ],
   "scripts": {
     "postinstall": "if [ -z \"$npm_config_production\" ]; then ln -svf ../../shared/src ./src/shared; fi",

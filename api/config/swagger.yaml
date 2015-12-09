@@ -25,3 +25,8 @@ paths:
       responses:
         '200':
           description: OK
+  '/availability-requests/{id}/all':
+    get:
+      responses:
+        '200':
+          description: OK

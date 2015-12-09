@@ -41,6 +41,11 @@ const handlers = {
         '$post': function(req, res) {
           app.availabilityRequestCancel(req.params, new Context(res));
         }
+      },
+      'all': {
+        '$get': function(req, res) {
+          app.availabilityRequestAll(req.params, new Context(res));
+        }
       }
     }
   }
