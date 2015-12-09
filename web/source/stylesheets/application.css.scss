@@ -46,3 +46,10 @@ table.quickdate-calendar td.disabled-date {
   text-align: center;
   color: $gray-light;
 }
+
+
+.table {
+  th {
+    background: lighten($the-green, 35%);
+  }
+}

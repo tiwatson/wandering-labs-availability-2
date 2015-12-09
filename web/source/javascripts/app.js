@@ -3,6 +3,7 @@ angular.module('wl_availability', [
   'restangular',
   'angucomplete-alt',
   'ngQuickDate',
+  'angularMoment',
   'wl_a.routes',
   'wl_a.restangular_config',
   'wl_a.quickDatePickerDefaults',

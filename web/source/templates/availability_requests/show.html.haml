@@ -1,0 +1,67 @@
+
+.container
+  .row
+    .col-md-12
+      %h3 Review Request:
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Status
+              %th Campground
+              %th Dates
+              %th Nights
+              %th Last Checked
+              %th Times Checked
+              %th
+
+          %tbody
+            %tr
+              %td {{ar.status}}
+              %td
+                {{ar.typeSpecific.parkName}}
+                \-
+                {{ar.typeSpecific.state}}
+              %td
+                {{ar.dateStart | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
+                \-
+                {{ar.dateEnd | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
+              %td
+                {{ar.lengthOfStay}}
+              %td
+                {{ar.checkedAt | amFromUnix | amDateFormat:'M/D/YYYY h:mm a'}}
+              %td
+                {{ar.checkedCount}}
+              %td
+                %a{ 'ui-sref' => 'availabilityRequestsCancel({arId:ar.id})', 'ng-show' => "ar.status == 'active'" }
+                  %button.btn.btn-sm.btn-warning
+                    Cancel
+
+
+  .row
+    .col-md-6
+      %h3 Found Availabilities
+  .row
+    .col-md-6
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Available?
+              %th Arrival Date
+              %th Nights
+              %th Site #
+          %tbody
+            %tr{ 'ng-repeat' => "avail in ar.availabilities | orderBy: ['-avail', 'arrivalDate']", 'ng-class' => "{'text-muted': avail.avail == false}"}
+              %td
+                %a{ 'ng-show' => 'avail.avail == true', href: "http://www.reserveamerica.com/camping/{{ar.typeSpecific.slug}}/r/campsiteDetails.do?siteId={{avail.siteId}}&contractCode={{ar.typeSpecific.code}}&parkId={{ar.typeSpecific.parkId}}&offset=0&arvdate={{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY'}}", target: 'BLANK' }
+                  %button.btn.btn-sm.btn-success
+                    Reserve Now
+              %td {{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY  h:mm a'}}
+              %td {{avail.daysLength}}
+              %td {{avail.siteNumber}}
+    .col-md-6
+      %a{ 'ui-sref' => 'availabilityRequestNew' }
+        %button.btn.btn-success
+          Create a new request
+

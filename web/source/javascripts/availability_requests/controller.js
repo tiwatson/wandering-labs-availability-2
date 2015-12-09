@@ -1,6 +1,6 @@
 angular.module('availability_requests.controllers', [])
 
-  .controller('AvailabilityRequestController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
+  .controller('AvailabilityRequestNewController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
     $scope.ar = availabilityRequestsService;
     $scope.siteOptionsCollapsed = true;
 
@@ -37,22 +37,13 @@ angular.module('availability_requests.controllers', [])
 
   }])
 
-  .controller('AvailabilityRequestsController', ['$scope', '$state', 'availabilityRequestsService', function($scope, $state, availabilityRequestsService) {
-    $scope.ar = availabilityRequestsService;
-    $scope.predicate = '[-active, -dateStart]';
-
-    availabilityRequestsService.getList();
-
-    $scope.pauseRequest = function(item) {
-      item.active = !item.active;
-      availabilityRequestsService.put(item);
-    };
-
+  .controller('AvailabilityRequestController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
+    console.log('controller - ', availabilityRequest)
+    $scope.ar = availabilityRequest;
   }])
 
 
   .controller('AvailabilityRequestCancelController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
-    console.log('just go ahead and cancel???',availabilityRequest);
     availabilityRequestsService.cancel(availabilityRequest.id);
   }])
 

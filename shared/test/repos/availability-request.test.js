@@ -1,9 +1,10 @@
+import sinon from 'sinon';
+import moment from 'moment';
+import Promise from 'bluebird';
 
-import moment from 'moment'
-
-import { testHelper, Factory, ModelData } from '../test-helper'
-import { AvailabilityRequest, AvailabilityRequestRepo } from '../../src/repos/availability-request'
-
+import { testHelper, Factory, ModelData } from '../test-helper';
+import { AvailabilityRequest, AvailabilityRequestRepo, AvailabilityRequestFilters } from '../../src/repos/availability-request';
+import db, { DbHelpers } from '../../src/utils/db';
 
 describe('AvailabilityRequest', () => {
   describe('#description', ()=> {
@@ -266,7 +267,26 @@ describe('AvailabilityRequestRepo', () => {
         });
       });
     });
-
   });
+
+  describe('#scan', ()=> {
+    let sandbox;
+
+    beforeEach(()=> {
+      sandbox = sinon.sandbox.create();
+    });
+
+    afterEach(()=> {
+      sandbox.restore();
+    });
+
+    it('makes a db scan call', ()=> {
+      let availabilityRequestRepo = new AvailabilityRequestRepo()
+      let mock = sandbox.mock(availabilityRequestRepo.table).expects('scan').once().withArgs({ attrsGet: AvailabilityRequest.columns(), filters: AvailabilityRequestFilters.byEmail('test@example.com') }).returns(Promise.resolve([]));
+
+      return availabilityRequestRepo.scan(AvailabilityRequestFilters.byEmail('test@example.com'));
+    })
+
+  })
 
 });

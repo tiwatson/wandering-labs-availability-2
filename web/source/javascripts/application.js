@@ -5,4 +5,6 @@
 //= require restangular
 //= require ng-quick-date
 //= require angucomplete-alt
+//= require moment
+//= require angular-moment
 //= require_tree .

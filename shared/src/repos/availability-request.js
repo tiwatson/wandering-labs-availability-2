@@ -22,7 +22,19 @@ class AvailabilityRequest {
     }
   }
   static columns() {
-    return {};
+    return [
+      'id',
+      'checkedAt',
+      'checkedCount',
+      'dateEnd',
+      'dateStart',
+      'email',
+      'lengthOfStay',
+      'status',
+      'type',
+      'typeSpecific',
+      'availabilities',
+    ];
   }
 
   checkable() {
@@ -131,7 +143,16 @@ class AvailabilityRequestRepo {
     });
   }
 
+  scan(filters) {
+    return this.table.scan({ attrsGet: AvailabilityRequest.columns(), filters: filters }).then((aRequests) => {
+      return aRequests.map( aRequest => {
+        return this.wrapResource(aRequest);
+      });
+    });
+  }
+
   active() {
+    // TODO - refactor to use #scan
     return this.table.scan(
       {
         attrsGet: ['id', 'email', 'status', 'dateEnd', 'dateStart', 'daysLength'],
@@ -172,4 +193,12 @@ class AvailabilityRequestRepo {
 
 }
 
-export { AvailabilityRequest, AvailabilityRequestRepo }
+class AvailabilityRequestFilters {
+  static byEmail(email) {
+    return [
+      { column: 'email',    value: email},
+    ]
+  }
+}
+
+export { AvailabilityRequest, AvailabilityRequestFilters, AvailabilityRequestRepo }
