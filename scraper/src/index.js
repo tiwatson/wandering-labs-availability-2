@@ -24,7 +24,7 @@ class Scraper {
     })
     .then(()=> {
       if (availabilityRequest.notificationNeeded()) {
-        return new Sns('notify').publish(availabilityRequest.id).then(() => {
+        return new Sns('notify').publish({id: availabilityRequest.id, type: 'availabilities'}).then(() => {
           console.log('User notified.')
         });
       }

@@ -9,6 +9,8 @@ class Sns {
       region: process.env.AWS_REGION,
     }));
 
+    this.target = target;
+
     // TODO - Refactor
     let arn = process.env.AWS_SNS_SCRAPER
     if (target == 'notify') {
@@ -22,6 +24,9 @@ class Sns {
   }
 
   publish(message) {
+    if (this.target == 'notify') {
+      message = JSON.stringify(message)
+    }
     return this.sns.publishAsync(_.merge(this.params, { Message: message }));
   }
 }
