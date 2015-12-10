@@ -63,6 +63,8 @@ class ReserveAmerica {
     }).then((resp) => {
       return this.allAvailabilities(this.dateStart);
     }).then((returned_avails) => {
+      console.log('returned_avails', returned_avails.length);
+      console.log('returned_avail', returned_avails[0]);
       let filteredAvail = FilterAvailabilities.filter(moment.unix(this.availabilityRequest.dateEnd), lengthOfStay, returned_avails);
       return filteredAvail;
     });

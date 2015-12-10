@@ -17,6 +17,7 @@ exports.handler = function(event,context) {
       });
     });
   }).then(()=> {
+    console.log('All Scraping complete: ', ids.length)
     context.done(null, "Done");
   });
 
