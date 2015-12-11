@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import sinon from 'sinon';
 import moment from 'moment';
 import Promise from 'bluebird';
@@ -63,10 +64,15 @@ describe('AvailabilityRequest', () => {
 
       expect(availabilityRequest.availabilities.length).to.equal(1);
       expect(availabilityRequest.availabilities[0].avail).to.equal(false);
-    })
+    });
 
+    it ('allows availabilites to remain undefined', ()=> {
+      let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
+      availabilityRequest.mergeAvailabilities([]);
 
-  })
+      expect(availabilityRequest.availabilities).to.be.undefined;
+    });
+  });
 
   describe('#notificationNeeded', () => {
     it ('returns false if no available campsites', () => {
@@ -204,46 +210,93 @@ describe('AvailabilityRequestRepo', () => {
   })
 
   describe('#updateAvailabilities', ()=> {
-    var availabilityRequest, checkedAt;
 
-    beforeEach(() => {
-      let newAvails = [
-        { siteId: 100, arrivalDate: moment().unix(), daysLength: 7 }
-      ]
+    context('with db calls', ()=> {
+      var availabilityRequest, checkedAt;
 
-      return Factory.availabilityRequestRepo().then((factoryObj) => {
-        checkedAt = factoryObj.checkedAt;
-        return new AvailabilityRequestRepo().updateAvailabilities(factoryObj, newAvails).then((obj) => {
-          return new AvailabilityRequestRepo().find(factoryObj.id).then((resource) => {
-            availabilityRequest = resource;
+      beforeEach(() => {
+        let newAvails = [
+          { siteId: 100, arrivalDate: moment().unix(), daysLength: 7 }
+        ]
+
+        return Factory.availabilityRequestRepo().then((factoryObj) => {
+          checkedAt = factoryObj.checkedAt;
+          return new AvailabilityRequestRepo().updateAvailabilities(factoryObj, newAvails).then((obj) => {
+            return new AvailabilityRequestRepo().find(factoryObj.id).then((resource) => {
+              availabilityRequest = resource;
+            });
+          });
+        });
+      });
+
+      it ('updates the resource in the database', () => {
+        expect(availabilityRequest.availabilities).to.not.be.empty;
+        expect(availabilityRequest.availabilities).to.be.instanceOf(Array);
+        expect(availabilityRequest.availabilities.length).to.equal(1);
+        expect(availabilityRequest.availabilities[0].avail).to.equal(true);
+      });
+
+      it ('updates the checkedAt', ()=> {
+        expect(availabilityRequest.checkedAt).to.exist;
+        expect(availabilityRequest.checkedAt).to.be.above(checkedAt);
+      });
+
+      it ('updates the checkedCount', ()=> {
+        expect(availabilityRequest.checkedCount).to.equal(1);
+      });
+
+      it ('updates the checkedCount again', ()=> {
+        return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, []).then((obj) => {
+          return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
+            expect(resource.checkedCount).to.equal(2);
           });
         });
       });
     });
 
-    it ('updates the resource in the database', () => {
-      expect(availabilityRequest.availabilities).to.not.be.empty;
-      expect(availabilityRequest.availabilities).to.be.instanceOf(Array);
-      expect(availabilityRequest.availabilities.length).to.equal(1);
-      expect(availabilityRequest.availabilities[0].avail).to.equal(true);
-    });
+    context('proper unit test', ()=> {
+      let sandbox;
 
-    it ('updates the checkedAt', ()=> {
-      expect(availabilityRequest.checkedAt).to.exist;
-      expect(availabilityRequest.checkedAt).to.be.above(checkedAt);
-    });
-
-    it ('updates the checkedCount', ()=> {
-      expect(availabilityRequest.checkedCount).to.equal(1);
-    });
-
-    it ('updates the checkedCount again', ()=> {
-      return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, []).then((obj) => {
-        return new AvailabilityRequestRepo().find(availabilityRequest.id).then((resource) => {
-          expect(resource.checkedCount).to.equal(2);
-        });
+      beforeEach(()=> {
+        sandbox = sinon.sandbox.create();
       });
+
+      afterEach(()=> {
+        sandbox.restore();
+      });
+
+      it('marks an existing availability as not avail when updating with no availabilities', ()=> {
+        let availabilityRequestRepo = new AvailabilityRequestRepo()
+        let existingAvails = [
+          { siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true }
+        ]
+        let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234, availabilities: existingAvails }) );
+
+        let existingAvailsFalse = _.merge(existingAvails, { avail: false });
+        let mock = sandbox.mock(availabilityRequestRepo.table)
+          .expects('update')
+          .once()
+          .withArgs(1234, sinon.match((obj)=> { return obj.availabilities[0].avail === false; }))
+          .returns(Promise.resolve([]));
+
+        return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
+      });
+
+      it('has not availabilities attribute when updating with no availabilities', ()=> {
+        let availabilityRequestRepo = new AvailabilityRequestRepo()
+        let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234 }) );
+
+        let mock = sandbox.mock(availabilityRequestRepo.table)
+          .expects('update')
+          .once()
+          .withArgs(1234, sinon.match((obj)=> { return _.isArray(obj.availabilities) === false; }))
+          .returns(Promise.resolve([]));
+
+        return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
+      });
+
     });
+
 
   });
 

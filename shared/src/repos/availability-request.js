@@ -66,6 +66,11 @@ class AvailabilityRequest {
     _.compact(newAvailabilities).forEach((newAvail) => {
       this.availabilities.push(_.merge(newAvail, {avail: true, notified: false}));
     });
+
+    if (this.availabilities.length == 0) {
+      delete this.availabilities;
+    }
+
   }
 
   notificationNeeded() {
@@ -173,9 +178,7 @@ class AvailabilityRequestRepo {
   }
 
   updateAvailabilities(availabilityRequest, newAvailabilities) {
-    if (newAvailabilities.length > 0) {
-      availabilityRequest.mergeAvailabilities(newAvailabilities);
-    }
+    availabilityRequest.mergeAvailabilities(newAvailabilities);
     let checkedCount = availabilityRequest.checkedCount + 1 || 1;
     return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount: checkedCount }));
   }
