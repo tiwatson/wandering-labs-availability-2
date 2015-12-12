@@ -6,6 +6,8 @@ import { AvailabilityRequest, AvailabilityRequestRepo, AvailabilityRequestFilter
 import { NotificationsAvailabilities } from '../src/notifications/availabilities';
 import { NotificationsWelcome } from '../src/notifications/welcome';
 
+const NotificationClasses = { availabilities: NotificationsAvailabilities, welcome: NotificationsWelcome }
+
 import app from '../src/app';
 
 describe('#handler', ()=> {
@@ -22,14 +24,13 @@ describe('#handler', ()=> {
 
   it('calls the correct class', ()=> {
     let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
-    let event = { Records: [ { Sns: { Message: JSON.stringify({id: 1234, type: 'availabilities'}) } } ] };
-    let availabilityRequestRepo = new AvailabilityRequestRepo()
-    let stub = sandbox.stub(availabilityRequestRepo, 'find').returns( Promise.resolve(availabilityRequest) );
+    let event = { Records: [ { Sns: { Message: JSON.stringify({id: '1234', type: 'availabilities'}) } } ] };
+    let stub = sandbox.stub(AvailabilityRequestRepo.prototype, 'find').onCall(0).returns( Promise.resolve(availabilityRequest) )
 
-    let notificationsAvailabilities = new NotificationsAvailabilities(availabilityRequest);
-    let mock = sandbox.mock(notificationsAvailabilities).expects('deliver').once().returns(Promise.resolve({}));
-    app.handler(event)
-    mock.verify();
+    let mock = sandbox.mock(NotificationsAvailabilities.prototype).expects('deliver').once().returns(Promise.resolve({}));
+    app.handler(event, testHelper.context).then(()=> {
+      mock.verify();
+    });
 
 
   });

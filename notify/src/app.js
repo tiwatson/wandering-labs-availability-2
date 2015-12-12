@@ -7,10 +7,8 @@ const NotificationClasses = { availabilities: NotificationsAvailabilities, welco
 
 exports.handler = function(event,context) {
   let message = JSON.parse(event.Records[0].Sns.Message);
-  console.log('message:', message);
   return new AvailabilityRequestRepo().find(message.id).then((availabilityRequest) => {
     const notificationClassInstance = new NotificationClasses[message.type](availabilityRequest);
-    console.log('WHAT?', availabilityRequest)
     return notificationClassInstance.deliver().then(() => {
       context.succeed('delivery success');
     });

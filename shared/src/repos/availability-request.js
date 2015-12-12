@@ -119,6 +119,7 @@ class AvailabilityRequestRepo {
   }
 
   find(id) {
+    console.log('#FIND', id)
     return this.table.find(id).then((resp) => {
       return this.wrapResource(resp);
       // TODO - throw error on not found
