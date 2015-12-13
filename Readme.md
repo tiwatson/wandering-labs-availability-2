@@ -33,7 +33,7 @@ Scrapers is a lambda function that grabs web pages and parses them for matching 
 #### TODO
 - send over filters to RA
 - pause request after X amount of availabilites found
-- handle 404 response
+- handle errors better
 
 ## shared
 
@@ -86,6 +86,6 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 
 ##### Priorities
 
-- handle scraping 404
 - breaking scraping to blocks of ids
 - auto pausing
+- alert me on errors. Airbrake?

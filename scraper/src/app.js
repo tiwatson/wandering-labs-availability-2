@@ -14,6 +14,9 @@ exports.handler = function(event,context) {
       console.log('Scraping: ', availabilityRequest.description)
       return new Scraper(availabilityRequest).scrape().then(() => {
         console.log('Scraping Complete');
+      }).catch((e) => {
+        console.log('Scraping Error:', e);
+        // TODO - more than just log the error. Alert me.
       });
     });
   }).then(()=> {

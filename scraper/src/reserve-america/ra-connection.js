@@ -13,7 +13,7 @@ class RaConnection {
     let j = rp.jar()
     this.rp = rp.defaults({jar: j, headers: headers, followRedirect: true, resolveWithFullResponse: true});
     this.raDetails = raDetails;
-    this.campingUrl = `http://www.reserveamerica.com/camping/${raDetails.slug}/r/campgroundDetails.do?contractCode=${raDetails.state}&parkId=${raDetails.parkId}`;
+    this.campingUrl = `http://www.reserveamerica.com/camping/${raDetails.slug}/r/campgroundDetails.do?contractCode=${raDetails.code}&parkId=${raDetails.parkId}`;
   }
 
   setSession() {
@@ -45,7 +45,7 @@ class RaConnection {
 
   getNextAvail(nextDate) {
     let options = {
-      url: `http://www.reserveamerica.com/campsiteCalendar.do?page=calendar&contractCode=${this.raDetails.state}&parkId=${this.raDetails.parkId}&calarvdate=${nextDate}&findavail=next`,
+      url: `http://www.reserveamerica.com/campsiteCalendar.do?page=calendar&contractCode=${this.raDetails.code}&parkId=${this.raDetails.parkId}&calarvdate=${nextDate}&findavail=next`,
       method: 'GET'
     };
 
