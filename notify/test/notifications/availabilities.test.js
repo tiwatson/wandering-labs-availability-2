@@ -27,7 +27,7 @@ describe('NotificationsAvailabilities', ()=> {
     let html;
 
     before(() => {
-      html = notificationsAvailabilities.compileTemplate();
+      html = notificationsAvailabilities._compileTemplate();
     });
 
     it('compiles the template', ()=> {

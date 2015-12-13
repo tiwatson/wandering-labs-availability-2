@@ -1,5 +1,6 @@
 import db, { DbHelpers } from '../utils/db';
 import { Availability } from './availability';
+import { Sns } from '../utils/sns';
 
 import uuid from 'node-uuid';
 import { merge } from 'lodash';
@@ -129,7 +130,9 @@ class AvailabilityRequestRepo {
     let id = uuid.v1();
     let insertData = merge({id: id, status: 'active'}, obj);
     return this.table.insert(insertData).then((resp) => {
-      return id;
+      return new Sns('notify').publish({id: id, type: 'welcome'}).then(() => {
+        return id;
+      });
     });
   }
 

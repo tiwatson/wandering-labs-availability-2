@@ -3,24 +3,52 @@ import fs from 'fs';
 import moment from 'moment'
 import nock from 'nock';
 import querystring from 'querystring';
+import sinon from 'sinon';
+import Promise from 'bluebird';
 
 import db, { DbHelpers } from '../src/utils/db';
 import {Factory, ModelData} from './factories';
+
+import { Sns } from '../src/utils/sns';
 
 // nock.recorder.rec();
 
 global.expect = chai.expect;
 global.assert = chai.assert;
 
+let snsSandbox = sinon.sandbox.create();
+let snsSandboxRestored = false;
+
 before(() => {
-  return testHelper.resetDb();
+  return testHelper.stubSns() && testHelper.resetDb();
 })
+
+beforeEach(() => {
+  testHelper.stubSns();
+});
 
 afterEach(() => {
   return testHelper.resetDb();
 })
 
 var testHelper = {}
+
+testHelper.stubSns = function() {
+  if ((snsSandboxRestored == true) || (typeof snsSandbox.fakes === 'undefined')) {
+    snsSandbox.stub(Sns.prototype, 'publish').returns(
+      new Promise(resolve => {
+        console.log('SNS.publish stub called');
+        return resolve({})
+      })
+    );
+    snsSandboxRestored = false;
+  }
+}
+
+testHelper.restoreSns = function() {
+  snsSandbox.restore();
+  snsSandboxRestored = true;
+}
 
 testHelper.resetDb = function() {
   return DbHelpers.clean();
