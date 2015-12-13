@@ -7,7 +7,7 @@ import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 
 exports.handler = function(event,context) {
   let idsString = event.Records[0].Sns.Message;
-  let ids = _.shuffle(idsString.split(','));
+  let ids = idsString.split(',');
 
   Promise.each(ids, (id) => {
     return new AvailabilityRequestRepo().find(id).then((availabilityRequest) => {

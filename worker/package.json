@@ -18,13 +18,12 @@
   },
   "author": "",
   "license": "ISC",
-
   "dependencies": {
+    "bluebird": "^3.0.6",
     "dotenv": "1.2.0",
     "dynasty": "0.2.3",
     "lodash": "3.10.1",
     "moment": "2.10.6"
-
   },
   "devDependencies": {
     "babel": "^5.8.23",
