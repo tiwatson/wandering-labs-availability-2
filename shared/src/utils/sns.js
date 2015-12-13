@@ -27,7 +27,10 @@ class Sns {
     if (this.target == 'notify') {
       message = JSON.stringify(message)
     }
-    return this.sns.publishAsync(_.merge(this.params, { Message: message }));
+    return this.sns.publishAsync(_.merge(this.params, { Message: message })).then((resp) => {
+      console.log('sns publish response', resp)
+      return new Promise(resolve => { return resolve(resp); });
+    });
   }
 }
 

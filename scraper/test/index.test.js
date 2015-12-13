@@ -25,8 +25,6 @@ describe('Scraper', () => {
       // TODO - refactor to use sinon
       let reserveAmerica = new ReserveAmerica(availabilityRequest)
       Nocks.setAll(reserveAmerica.query);
-
-      sinon.stub(Sns.prototype, 'publish').returns(new Promise(resolve=> {resolve({})}));
     });
 
     it('calls scrape', ()=> {

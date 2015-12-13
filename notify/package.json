@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "handlebars": "^4.0.5",
+    "juice": "^1.8.1",
     "lodash": "3.10.1",
     "moment": "2.10.6"
   },

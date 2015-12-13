@@ -1,9 +1,8 @@
 import fs from 'fs';
 import Handlebars from 'handlebars';
+import juice from 'juice';
 
 import { Sendgrid } from '../shared/utils/sendgrid';
-import { AvailabilityRequestRepo } from '../shared/repos/availability-request';
-
 
 class NotificationsBase {
   constructor(availabilityRequest) {
@@ -12,10 +11,14 @@ class NotificationsBase {
   }
 
   deliver() {
+    return this._deliver().then((response)=> {
+      return response;
+    });
+  }
+
+  _deliver() {
     return this.sendgrid.deliver(this._emailParams()).then((response)=> {
-      return new AvailabilityRequestRepo().notifiedAvailabilities(this.availabilityRequest).then(() => {
-        return response;
-      });
+      return response;
     });
   }
 
@@ -24,7 +27,9 @@ class NotificationsBase {
     const templateFilename = __dirname + '/../templates/' + this.template;
     const templateFile = fs.readFileSync(templateFilename, { encoding: 'utf8' });
     const compiledTemplate = Handlebars.compile(templateFile);
-    return compiledTemplate(this.availabilityRequest);
+    const compiledTemplateHtml = compiledTemplate(this.availabilityRequest);
+    const compiledTemplateHtmlInlined = juice(compiledTemplateHtml);
+    return compiledTemplateHtmlInlined;
   }
 
   _emailParams() {

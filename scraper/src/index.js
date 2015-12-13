@@ -23,13 +23,13 @@ class Scraper {
       return new AvailabilityRequestRepo().updateAvailabilities(availabilityRequest, newAvailabilities);
     })
     .then(()=> {
+      // TODO - shouldn't this be in updateAvailabilities function?
       if (availabilityRequest.notificationNeeded()) {
         return new Sns('notify').publish({id: availabilityRequest.id, type: 'availabilities'}).then(() => {
           console.log('User notified.')
         });
       }
       console.log('No new requests');
-      // TODO - update availabilityRequest
     });
   }
 

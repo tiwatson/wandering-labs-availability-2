@@ -30,12 +30,17 @@ describe('Sns', () => {
   });
 
   describe('#publish', () => {
+    beforeEach(()=> {
+      testHelper.restoreSns();
+    });
+
     it('Calls the amazon sdk', () => {
       let mock = sinon.mock(snsInstance.sns).expects('publishAsync').once().withArgs({
         TargetArn: process.env.AWS_SNS_NOTIFY,
         Message: JSON.stringify({id: availabilityRequest.id, type: 'availabilities'}),
         MessageStructure: 'string',
-      });
+      }).returns(new Promise(resolve => { return resolve(snsResponse); }));
+
       snsInstance.publish({id: availabilityRequest.id, type: 'availabilities'});
       mock.verify();
     });
