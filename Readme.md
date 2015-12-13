@@ -12,7 +12,6 @@ Collection of lambda functions that handle requests from the angular app. Will b
 
 #### TODO
 - Validation
-- User review
 - updating
 - tests
 - unpause
@@ -25,7 +24,6 @@ Email notifications to end users
 - Sort by date the availabilities
 - Uncouple from Reserve America
 - Date period ended email
-- Welcome email?
 - Twilio SMS ?
 
 ## scraper
@@ -35,6 +33,7 @@ Scrapers is a lambda function that grabs web pages and parses them for matching 
 #### TODO
 - send over filters to RA
 - pause request after X amount of availabilites found
+- handle 404 response
 
 ## shared
 
@@ -87,6 +86,6 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 
 ##### Priorities
 
-- welcome email
-- auto pausing
+- handle scraping 404
 - breaking scraping to blocks of ids
+- auto pausing
