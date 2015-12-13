@@ -1,20 +1,19 @@
-.container
-  .row
-    .col-md-10
-      %p
-        Start typing the name of the campground you want to stay at. Next select a date range and the number of nights you would like to stay.
-      %p
-        For example you could request a stay at Bahia Honda State Park in Florida for 5 consecutive nights anytime between January 1 and March 1.
-      %p
-        We will check Reserve America every few minutes to see if any sites become available. If any do, we will email you.
-
 
 .container
-  .flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
 
   %form{ novalidate: true, name: 'arform' }
     .row
       .col-md-8
+
+        %p
+          Start typing the name of the campground you want to stay at. Next select a date range and the number of nights you would like to stay.
+        %p
+          For example you could request a stay at Bahia Honda State Park in Florida for 5 consecutive nights anytime between January 1 and March 1.
+        %p
+          We will check Reserve America every few minutes to see if any sites become available. If any do, we will email you.
+
+        .flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
+
         .panel.panel-default
           .panel-body
 
@@ -55,53 +54,48 @@
                   %label.control-label.required{ for: 'siteType' }Site Type
                   %select.form-control{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
 
-            .row{ style: 'display: none;' }
-              %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
-                Additional Campsite Options
+            .row{ 'ng-show' => 'siteOptionsCollapsed'}
+              .col-sm-12
+                %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
+                  Additional Campsite Options
 
             .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
               .row
                 .col-md-3
-                  %label{ for: 'eqLen' }RV/Trailer Length (ft)
-                  %input#eqLen{ type: 'text', 'ng-model' => 'ar.eqLen' }
+                  .form-group
+                    %label.control-label{ for: 'eqLen' }RV Length (ft)
+                    %input#eqLen.form-control{ type: 'text', 'ng-model' => 'ar.eqLen' }
 
                 .col-md-3
-                  %label{ for: 'electric' }Electric
-                  %select{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
-                    %option{:value => "", :selected => "selected"}
+                  .form-group
+                    %label.control-label{ for: 'electric' }Electric
+                    %select.form-control{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
+                      %option{:value => "", :selected => "selected"}
 
-                .col-md-3
-                  .row
+                .col-md-3.col-xs-6
+                  .form-checkboxes
                     .half
-                      %label Water
                       %label
                         %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
-                          Yes
+                          Water
                     .half
-                      %label Sewer
                       %label
-                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
-                          Yes
+                        %input#sewer{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
+                          Sewer
 
 
-                .col-md-3
-                  .row
+                .col-md-3.col-xs-6
+                  .form-checkboxes
                     .half
-                      %label Pull-Thru
                       %label
                         %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
-                          Yes
+                          Pull-Thru
                     .half
-                      %label Waterfront
                       %label
                         %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
-                          Yes
+                          Waterfront
 
-
-
-
-
-            .row
+            .row.contact-row
               .col-sm-6
                 .form-group{ 'ng-class' => "{ 'has-error': (submitted || arform.email.$touched) && arform.email.$invalid }" }
                   %label.control-label.required{ for: 'user_email' }Email Address
@@ -119,4 +113,12 @@
             .row
               .col-sm-3
                 %button.btn.btn-success{ 'ng-click' => 'newRequest()' } Submit
+      .col-md-4
 
+
+        .panel.panel-default
+          .panel-body
+            %h4
+              12/13/2015 - We are back.
+            %p
+              The campsite scraper is up and running. Please be kind to Reserve America and only create requests for which you are truly interested.

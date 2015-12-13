@@ -31,7 +31,6 @@ Email notifications to end users
 Scrapers is a lambda function that grabs web pages and parses them for matching campsite availabilities.
 
 #### TODO
-- send over filters to RA
 - pause request after X amount of availabilites found
 - handle errors better
 
@@ -62,7 +61,6 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 Worker is a scheduled lambda function that filters the availability requests in the database and sends off SNS notifications for scrapers to be run.
 
 #### TODO
-- worker splits ids into multiple blocks of 10 ids and send each block to lambda (via sns)
 
 
 ***
@@ -86,6 +84,5 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 
 ##### Priorities
 
-- breaking scraping to blocks of ids
 - auto pausing
 - alert me on errors. Airbrake?

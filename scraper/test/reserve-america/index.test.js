@@ -61,4 +61,16 @@ describe('ReserveAmerica', () => {
     });
   });
 
+  describe('#query', ()=> {
+    it('removes nil/empty filters', ()=> {
+      expect(new ReserveAmerica({ typeSpecific: {} }).query.camping_2001_3013).to.not.exist;
+    });
+
+    it('adjusts query based on filters', ()=> {
+      expect(new ReserveAmerica({ typeSpecific: { siteType: 2001, eqLen: 25 } }).query.camping_2001_3013).to.equal(25);
+      expect(new ReserveAmerica({ typeSpecific: { siteType: 2001, eqLen: 25 } }).query.camping_2001_218).to.not.exist;
+    });
+
+  });
+
 });

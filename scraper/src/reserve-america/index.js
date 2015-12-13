@@ -1,4 +1,4 @@
-
+import _ from 'lodash';
 import moment from 'moment';
 import Promise from 'bluebird';
 
@@ -14,8 +14,10 @@ class ReserveAmerica {
 
     this.dateStart = moment.unix(this.availabilityRequest.dateStart).format('M/D/YYYY')
     this.dateEnd = moment.unix(this.availabilityRequest.dateEnd).format('M/D/YYYY')
+  }
 
-    this.query = {
+  get query() {
+    const query = {
       contractCode: this.availabilityRequest.typeSpecific.state,
       parkId: this.availabilityRequest.typeSpecific.parkId,
       siteTypeFilter: 'ALL',
@@ -31,28 +33,51 @@ class ReserveAmerica {
       defaultMaximumWindow:12,
       // loop:
       // siteCode:
-      lookingFor: this.availabilityRequest.typeSpecific.siteType,
-      // camping_2001_3013:
-      // camping_2001_218:
-      // camping_2002_3013:
-      // camping_2002_218:
-      // camping_2003_3012:
-      // camping_3100_3012:
-      // camping_10001_3012:
-      // camping_10001_218:
-      // camping_3101_3012:
-      // camping_3101_218:
-      // camping_9002_3012:
-      // camping_9002_3013:
-      // camping_9002_218:
-      // camping_9001_3012:
-      // camping_9001_218:
-      // camping_3001_3013:
-      // camping_2004_3013:
-      // camping_2004_3012:
-      // camping_3102_3012:
+      lookingFor: this.availabilityRequest.typeSpecific.siteType
     };
+    const queryFilters = _.pick(this.siteTypeQuery, _.identity);
+    return _.merge(query, queryFilters);
+  }
 
+  get siteTypeQuery() {
+    const typeSpecific = this.availabilityRequest.typeSpecific;
+    if (this.availabilityRequest.typeSpecific.siteType == 2001) {
+      return {
+        "camping_2001_moreOptions": true,
+        "camping_2001_3013": typeSpecific.eqLen,
+        "camping_2001_218": typeSpecific.electric,
+        "camping_2001_3006": typeSpecific.water,
+        "camping_2001_3007": typeSpecific.sewer,
+        "camping_2001_3008": typeSpecific.pullthru,
+        "camping_2001_3011": typeSpecific.waterfront
+      }
+    }
+    else if (this.availabilityRequest.typeSpecific.siteType == 2002) {
+      return {
+        "camping_2002_moreOptions": true,
+        "camping_2002_3013": typeSpecific.eqLen,
+        "camping_2002_218": typeSpecific.electric,
+        "camping_2002_3006": typeSpecific.water,
+        "camping_2002_3007": typeSpecific.sewer,
+        "camping_2002_3008": typeSpecific.pullthru,
+        "camping_2002_3011": typeSpecific.waterfront
+      }
+    }
+    else if (this.availabilityRequest.typeSpecific.siteType == 2003) {
+      return {
+        "camping_2003_moreOptions": true,
+        "camping_2003_3011": typeSpecific.waterfront
+
+      }
+    }
+    else if (this.availabilityRequest.typeSpecific.siteType == 10001) {
+      return {
+        "camping_10001_moreOptions": true,
+        "camping_10001_3011": typeSpecific.waterfront
+      }
+    }
+
+    return {}
   }
 
   perform() {
