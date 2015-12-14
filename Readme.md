@@ -21,7 +21,6 @@ Collection of lambda functions that handle requests from the angular app. Will b
 Email notifications to end users
 
 #### TODO
-- Sort by date the availabilities
 - Uncouple from Reserve America
 - Date period ended email
 - Twilio SMS ?

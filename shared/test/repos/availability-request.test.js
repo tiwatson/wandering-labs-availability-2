@@ -100,7 +100,78 @@ describe('AvailabilityRequest', () => {
 
   });
 
+  describe('#availabilitiesNew', ()=> {
+    it('returns only availabilities with active avails not notified', ()=> {
+      const avails = [{ id: 1, avail: true, notified: false, arrivalDate: 0 }];
+      const newAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesNew;
+      expect(newAvails.length).to.equal(1);
+      expect(newAvails[0].id).to.equal(1);
+    });
+
+    it('does not return when already notified', ()=> {
+      const avails = [{ avail: true, notified: true, arrivalDate: 0 }];
+      const newAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesNew;
+      expect(newAvails.length).to.equal(0);
+    });
+
+    it('does not return when not available', ()=> {
+      const avails = [
+        { avail: false, notified: false, arrivalDate: 0 },
+        { avail: false, notified: true, arrivalDate: 0 }
+      ];
+      const newAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesNew;
+      expect(newAvails.length).to.equal(0);
+    });
+
+    it('sorts new availabilities', ()=> {
+      const avails = [
+        { avail: true, notified: false, arrivalDate: 9 },
+        { avail: true, notified: false, arrivalDate: 0 },
+        { avail: true, notified: false, arrivalDate: 1 },
+        { avail: true, notified: false, arrivalDate: 2 }
+      ];
+      const sortedAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesNew;
+      expect(sortedAvails[0].arrivalDate).to.equal(0);
+      expect(sortedAvails[3].arrivalDate).to.equal(9);
+    });
+  });
+
+  describe('#availabilitiesOld', ()=> {
+    it('returns only availabilities with active avails already notified', ()=> {
+      const avails = [{ id: 1, avail: true, notified: true, arrivalDate: 0 }];
+      const oldAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesOld;
+      expect(oldAvails.length).to.equal(1);
+      expect(oldAvails[0].id).to.equal(1);
+    });
+
+    it('does not return when already not yetnotified', ()=> {
+      const avails = [{ avail: true, notified: false, arrivalDate: 0 }];
+      expect(new AvailabilityRequest({ availabilities: avails }).availabilitiesOld.length).to.equal(0);
+    });
+
+    it('does not return when not available', ()=> {
+      const avails = [
+        { avail: false, notified: false, arrivalDate: 0 },
+        { avail: false, notified: true, arrivalDate: 0 }
+      ];
+      expect(new AvailabilityRequest({ availabilities: avails }).availabilitiesOld.length).to.equal(0);
+    });
+
+    it('sorts old availabilities', ()=> {
+      const avails = [
+        { avail: true, notified: true, arrivalDate: 9 },
+        { avail: true, notified: true, arrivalDate: 0 },
+        { avail: true, notified: true, arrivalDate: 1 },
+        { avail: true, notified: true, arrivalDate: 2 }
+      ];
+      const sortedAvails = new AvailabilityRequest({ availabilities: avails }).availabilitiesOld;
+      expect(sortedAvails[0].arrivalDate).to.equal(0);
+      expect(sortedAvails[3].arrivalDate).to.equal(9);
+    });
+  });
 });
+
+
 
 describe('AvailabilityRequestRepo', () => {
 

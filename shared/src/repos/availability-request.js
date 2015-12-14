@@ -93,18 +93,21 @@ class AvailabilityRequest {
   }
 
   get availabilitiesNew() {
-    // TODO add test
-    return _.map(this.availabilities.filter((availability) => {
-      return availability.avail === true && availability.notified === false; // TODO - Check this is tested correctly
-    }), (availability) => {
+    const newAvails = this.availabilities.filter((availability) => {
+      return availability.avail === true && availability.notified === false;
+    });
+
+    return _.map(_.sortByAll(newAvails, ['arrivalDate']), (availability) => {
       return new Availability(availability, this);
     });
   }
 
   get availabilitiesOld() {
-    return _.map(this.availabilities.filter((availability) => {
-      return availability.avail === true && availability.notified === true; // TODO - Check this is tested correctly
-    }), (availability) => {
+    const oldAvails = this.availabilities.filter((availability) => {
+      return availability.avail === true && availability.notified === true;
+    });
+
+    return _.map(_.sortByAll(oldAvails, ['arrivalDate']), (availability) => {
       return new Availability(availability, this);
     });
   }
