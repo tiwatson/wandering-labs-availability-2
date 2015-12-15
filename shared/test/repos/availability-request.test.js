@@ -169,6 +169,27 @@ describe('AvailabilityRequest', () => {
       expect(sortedAvails[3].arrivalDate).to.equal(9);
     });
   });
+
+  describe('#notificationNeeded', ()=> {
+    it('returns false if no availabilities', ()=> {
+      expect(new AvailabilityRequest({}).notificationNeeded()).to.be.false;
+    });
+
+    it('returns false if no availabilities avail', ()=> {
+      const avails = [{ avail: false, notified: false }];
+      expect(new AvailabilityRequest({ availabilities: avails }).notificationNeeded()).to.be.false;
+    });
+
+    it('returns false if already notified', ()=> {
+      const avails = [{ avail: true, notified: true }];
+      expect(new AvailabilityRequest({ availabilities: avails }).notificationNeeded()).to.be.false;
+    });
+
+    it('returns true if availability and not notified', ()=> {
+      const avails = [{ avail: true, notified: false }];
+      expect(new AvailabilityRequest({ availabilities: avails }).notificationNeeded()).to.be.true;
+    });
+  });
 });
 
 

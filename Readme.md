@@ -12,9 +12,9 @@ Collection of lambda functions that handle requests from the angular app. Will b
 
 #### TODO
 - Validation
-- updating
 - tests
 - unpause
+- admin
 
 ## notify
 
@@ -53,7 +53,7 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 
 #### TODO
 - Non-restrict to Reserve America
-- updating
+- admin
 
 ## worker
 
@@ -84,4 +84,5 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 ##### Priorities
 
 - auto pausing
+- admin
 - alert me on errors. Airbrake?

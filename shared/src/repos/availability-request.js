@@ -78,7 +78,7 @@ class AvailabilityRequest {
     let needed = [];
     if (typeof this.availabilities !== 'undefined') {
       needed = this.availabilities.filter((availability) => {
-        return availability.avail === true && availability.notified === false; // TODO - Check this is tested correctly
+        return availability.avail === true && availability.notified === false;
       });
     }
     return needed.length > 0;
