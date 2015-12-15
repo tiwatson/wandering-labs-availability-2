@@ -13,7 +13,7 @@ class Availability {
 
   get reserveUrl() {
     // TODO - Reserve America specific
-    let url = 'http://www.reserveamerica.com/camping/' + this.request.typeSpecific.slug + '/r/campsiteDetails.do?siteId=' + this.siteId + '&contractCode=' + this.request.typeSpecific.code + '&parkId=' + this.request.typeSpecific.parkId + '&offset=0&arvdate=' + this.arrivalDateFormatted;
+    const url = 'http://www.reserveamerica.com/camping/' + this.request.typeSpecific.slug + '/r/campsiteDetails.do?siteId=' + this.siteId + '&contractCode=' + this.request.typeSpecific.code + '&parkId=' + this.request.typeSpecific.parkId + '&offset=0&arvdate=' + this.arrivalDateFormatted;
     return url;
   }
 }
