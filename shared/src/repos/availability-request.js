@@ -5,7 +5,7 @@ import { Sns } from '../utils/sns';
 import uuid from 'node-uuid';
 import { merge } from 'lodash';
 import _ from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
 
 class AvailabilityRequest {
   constructor(attributes) {
@@ -19,8 +19,8 @@ class AvailabilityRequest {
   static tableOptions() {
     return {
       key_schema: { hash: ['id', 'string'] },
-      throughput: { write: 1, read: 1 }
-    }
+      throughput: { write: 1, read: 1 },
+    };
   }
   static columns() {
     return [
@@ -39,7 +39,7 @@ class AvailabilityRequest {
   }
 
   checkable() {
-    let dateLastCheckable = moment.unix(this.dateEnd).subtract(this.daysLength, 'd');
+    const dateLastCheckable = moment.unix(this.dateEnd).subtract(this.daysLength, 'd');
     return moment().isBefore(dateLastCheckable);
   }
 
@@ -52,26 +52,23 @@ class AvailabilityRequest {
 
     this.availabilities.forEach((availability) => {
       availability.avail = false;
-      newAvailabilities.forEach((newAvail, i) => {
+      newAvailabilities.forEach((newAvail, index) => {
         if (typeof newAvail !== 'undefined') {
-          let newAvail = newAvailabilities[i];
-
-          let matchedAvail = (availability.siteId == newAvail.siteId && availability.arrivalDate == newAvail.arrivalDate && availability.daysLength == newAvail.daysLength)
+          const matchedAvail = (availability.siteId === newAvail.siteId && availability.arrivalDate === newAvail.arrivalDate && availability.daysLength === newAvail.daysLength);
           if (matchedAvail) {
             availability.avail = true;
-            newAvailabilities[i] = undefined;
+            newAvailabilities[index] = undefined;
           }
         }
       });
     });
     _.compact(newAvailabilities).forEach((newAvail) => {
-      this.availabilities.push(_.merge(newAvail, {avail: true, notified: false}));
+      this.availabilities.push(_.merge(newAvail, { avail: true, notified: false }));
     });
 
-    if (this.availabilities.length == 0) {
+    if (this.availabilities.length === 0) {
       delete this.availabilities;
     }
-
   }
 
   notificationNeeded() {
@@ -113,7 +110,7 @@ class AvailabilityRequest {
   }
 
   get description() {
-    return `${this.id} for ${this.email} at ${this.typeSpecific.state}:${this.typeSpecific.parkName} staying ${this.lengthOfStay} days between ${this.dateStartFormatted} and ${this.dateEndFormatted}`
+    return `${this.id} for ${this.email} at ${this.typeSpecific.state}:${this.typeSpecific.parkName} staying ${this.lengthOfStay} days between ${this.dateStartFormatted} and ${this.dateEndFormatted}`;
   }
 }
 
@@ -130,10 +127,10 @@ class AvailabilityRequestRepo {
   }
 
   create(obj) {
-    let id = uuid.v1();
-    let insertData = merge({id: id, status: 'active'}, obj);
-    return this.table.insert(insertData).then((resp) => {
-      return new Sns('notify').publish({id: id, type: 'welcome'}).then(() => {
+    const id = uuid.v1();
+    const insertData = merge({ id, status: 'active' }, obj);
+    return this.table.insert(insertData).then(() => {
+      return new Sns('notify').publish({ id, type: 'welcome' }).then(() => {
         return id;
       });
     });
@@ -143,11 +140,6 @@ class AvailabilityRequestRepo {
     return this.table.update(obj.id, _.omit(obj, 'id'));
   }
 
-  updateFromScraper(obj) {
-
-    return this.update(_.merge(obj, { checkedAt: moment().unix(),  checkedCount: checkedCount}));
-  }
-
   cancel(id) {
     return this.table.find(id).then((resp) => {
       return this.update(_.merge(resp, { status: 'canceled' }));
@@ -155,8 +147,8 @@ class AvailabilityRequestRepo {
   }
 
   scan(filters) {
-    return this.table.scan({ attrsGet: AvailabilityRequest.columns(), filters: filters }).then((aRequests) => {
-      return aRequests.map( aRequest => {
+    return this.table.scan({ attrsGet: AvailabilityRequest.columns(), filters }).then((aRequests) => {
+      return aRequests.map(aRequest => {
         return this.wrapResource(aRequest);
       });
     });
@@ -168,25 +160,24 @@ class AvailabilityRequestRepo {
       {
         attrsGet: ['id', 'email', 'status', 'dateEnd', 'dateStart', 'daysLength'],
         filters: [
-          { column: 'status',     value: 'active'},
-          { column: 'dateEnd',   value: moment().unix().toString(), op: 'GE', type: 'N' }
-        ]
-
+          { column: 'status', value: 'active' },
+          { column: 'dateEnd', value: moment().unix().toString(), op: 'GE', type: 'N' },
+        ],
       }
     ).then((aRequests) => {
-        let aRequestsRepo = aRequests.map( aRequest => {
-          return this.wrapResource(aRequest);
-        });
-        return aRequestsRepo.filter((resource) => {
-          return resource.checkable();
-        });
+      const aRequestsRepo = aRequests.map(aRequest => {
+        return this.wrapResource(aRequest);
+      });
+      return aRequestsRepo.filter((resource) => {
+        return resource.checkable();
+      });
     });
   }
 
   updateAvailabilities(availabilityRequest, newAvailabilities) {
     availabilityRequest.mergeAvailabilities(newAvailabilities);
-    let checkedCount = availabilityRequest.checkedCount + 1 || 1;
-    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount: checkedCount }));
+    const checkedCount = availabilityRequest.checkedCount + 1 || 1;
+    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount }));
   }
 
   notifiedAvailabilities(availabilityRequest) {
@@ -205,9 +196,9 @@ class AvailabilityRequestRepo {
 class AvailabilityRequestFilters {
   static byEmail(email) {
     return [
-      { column: 'email',    value: email},
-    ]
+      { column: 'email', value: email },
+    ];
   }
 }
 
-export { AvailabilityRequest, AvailabilityRequestFilters, AvailabilityRequestRepo }
+export { AvailabilityRequest, AvailabilityRequestFilters, AvailabilityRequestRepo };
