@@ -11,6 +11,17 @@
   }
 }
 
+.loading {
+  display: block;
+  text-align: center;
+  font-size: 64px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  @extend .fa;
+  @extend .fa-spinner;
+  @extend .fa-pulse;
+}
+
 .row {
   &.campground {
     margin-bottom: $padding-large-vertical;

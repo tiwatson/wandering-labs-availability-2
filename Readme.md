@@ -54,6 +54,7 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 #### TODO
 - Non-restrict to Reserve America
 - admin
+- loading animation (font awesome)
 
 ## worker
 
@@ -83,6 +84,8 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 
 ##### Priorities
 
+- loading animation
+- two types of cancel - track "I found a site"
 - auto pausing
 - admin
 - alert me on errors. Airbrake?
