@@ -13,8 +13,7 @@ class AvailabilityRequestCreate {
     if (_.isString(this.dateEnd)) {
       this.dateEnd = moment(this.dateEnd, 'YYYY-MM-DD').endOf('day').unix();
     }
-    this.lengthOfStay = parseInt(this.lengthOfStay);
-
+    this.lengthOfStay = parseInt(this.lengthOfStay, 10);
   }
 
   valid() {
@@ -24,17 +23,17 @@ class AvailabilityRequestCreate {
   create() {
     console.log('AvailabilityRequestCreate');
 
-    let availabilityRequest = new AvailabilityRequest(this);
-    let availabilityRequestRepo = new AvailabilityRequestRepo();
+    const availabilityRequest = new AvailabilityRequest(this);
+    const availabilityRequestRepo = new AvailabilityRequestRepo();
 
     return availabilityRequestRepo.create(availabilityRequest).then((id) => {
-      console.log('insert id ', id)
+      console.log('insert id ', id);
       return availabilityRequestRepo.find(id).then((obj) => {
-        console.log('found', obj)
+        console.log('found', obj);
         return obj;
       });
     });
   }
 }
 
-export { AvailabilityRequestCreate }
+export { AvailabilityRequestCreate };

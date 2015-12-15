@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import moment from 'moment';
-
 import { AvailabilityRequestFilters, AvailabilityRequestRepo } from '../../shared/repos/availability-request';
 
 class AvailabilityRequestAll {
@@ -9,11 +6,11 @@ class AvailabilityRequestAll {
   }
 
   all() {
-    let availabilityRequestRepo = new AvailabilityRequestRepo()
-    return availabilityRequestRepo.find(this.id).then((obj)=> {
-      return availabilityRequestRepo.scan( AvailabilityRequestFilters.byEmail(obj.email) );
+    const availabilityRequestRepo = new AvailabilityRequestRepo();
+    return availabilityRequestRepo.find(this.id).then((obj) => {
+      return availabilityRequestRepo.scan(AvailabilityRequestFilters.byEmail(obj.email));
     });
   }
 }
 
-export { AvailabilityRequestAll }
+export { AvailabilityRequestAll };
