@@ -11,13 +11,13 @@ class NotificationsBase {
   }
 
   deliver() {
-    return this._deliver().then((response)=> {
+    return this._deliver().then((response) => {
       return response;
     });
   }
 
   _deliver() {
-    return this.sendgrid.deliver(this._emailParams()).then((response)=> {
+    return this.sendgrid.deliver(this._emailParams()).then((response) => {
       return response;
     });
   }
@@ -36,10 +36,9 @@ class NotificationsBase {
     return {
       to: this.availabilityRequest.email,
       subject: this.subject,
-      html: this._compileTemplate()
-    }
+      html: this._compileTemplate(),
+    };
   }
-
 }
 
 export { NotificationsBase };

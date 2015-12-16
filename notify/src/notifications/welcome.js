@@ -1,5 +1,4 @@
-
-import { NotificationsBase } from './base'
+import { NotificationsBase } from './base';
 
 class NotificationsWelcome extends NotificationsBase {
 

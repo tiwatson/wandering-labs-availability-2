@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 
+import { config } from './shared/utils/config'; //eslint-disable-line
 import { Scraper } from './index';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 

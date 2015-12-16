@@ -1,3 +1,4 @@
+import { config } from './shared/utils/config'; //eslint-disable-line
 import { AvailabilityRequestAll } from './endpoints/availability-requests/all';
 import { AvailabilityRequestCancel } from './endpoints/availability-requests/cancel';
 import { AvailabilityRequestCreate } from './endpoints/availability-requests/create';
