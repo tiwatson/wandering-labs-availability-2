@@ -1,0 +1,7 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb/base",
+  "rules": {
+    "id-length": [2, { "exceptions": ["_", "e", "a", "n"] }]
+  }
+}

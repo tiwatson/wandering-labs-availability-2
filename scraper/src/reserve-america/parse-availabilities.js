@@ -8,27 +8,27 @@ class ParseAvailabilities {
   }
 
   getSiteNumbers() {
-    let siteNumbers = {};
+    const siteNumbers = {};
 
-    this.parsedBody('.siteListLabel > a').each( function(i, el) {
-      let params = queryString.parse(el.attribs.href.replace(/^.*\?/, ''));
-      siteNumbers[ params['siteId'] ] = el.children[0].data;
+    this.parsedBody('.siteListLabel > a').each((index, el) => {
+      const params = queryString.parse(el.attribs.href.replace(/^.*\?/, ''));
+      siteNumbers[params.siteId] = el.children[0].data;
     });
     return siteNumbers;
   }
 
   parse() {
-    let siteNumbers = this.getSiteNumbers();
+    const siteNumbers = this.getSiteNumbers();
 
-    let doc = this.parsedBody;
+    const doc = this.parsedBody;
 
     let avails = [];
-    doc('a.avail').each( function(i, el) {
-      var params = queryString.parse(el.attribs.href.replace(/^.*\?/, ''));
+    doc('a.avail').each((index, el) => {
+      const params = queryString.parse(el.attribs.href.replace(/^.*\?/, ''));
       avails.push({
-        siteId: params['siteId'],
-        siteNumber: siteNumbers[ params['siteId'] ],
-        arrivalDate: params['arvdate']
+        siteId: params.siteId,
+        siteNumber: siteNumbers[params.siteId],
+        arrivalDate: params.arvdate,
       });
     });
 

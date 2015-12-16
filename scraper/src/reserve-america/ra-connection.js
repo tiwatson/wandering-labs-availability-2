@@ -1,55 +1,42 @@
-
 import rp from 'request-promise';
-import toughCookie from 'tough-cookie';
-import cheerio from 'cheerio';
-import chai from 'chai';
 
 const headers = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.32 Safari/537.36'
-}
+  'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.32 Safari/537.36',
+};
 
 class RaConnection {
   constructor(raDetails) {
-    let j = rp.jar()
-    this.rp = rp.defaults({jar: j, headers: headers, followRedirect: true, resolveWithFullResponse: true});
+    const jar = rp.jar();
+    this.rp = rp.defaults({ jar, headers, followRedirect: true, resolveWithFullResponse: true });
     this.raDetails = raDetails;
     this.campingUrl = `http://www.reserveamerica.com/camping/${raDetails.slug}/r/campgroundDetails.do?contractCode=${raDetails.code}&parkId=${raDetails.parkId}`;
   }
 
   setSession() {
-    let options = {
+    const options = {
       url: this.campingUrl,
-      method: 'GET'
+      method: 'GET',
     };
 
-    return this.rp(options).then(function (response) {
-      // console.log('setSession Statuscode', response.statusCode)
-    }).catch(console.error);
-  };
+    return this.rp(options);
+  }
 
   setFilters(filters) {
-    let options = {
+    const options = {
       url: this.campingUrl,
       method: 'POST',
-      form: filters
+      form: filters,
     };
 
-    return this.rp(options).then(function (response) {
-      // console.log('setFilters Statuscode', response.statusCode);
-      // const doc = cheerio.load(response.body);
-      // const lengthOfStay = doc('#lengthOfStay').val();
-      // console.log('lengthOfStay', lengthOfStay);
-      // chai.expect(lengthOfStay).to.equal(filters.lengthOfStay.toString());
-    });
-  };
+    return this.rp(options);
+  }
 
   getNextAvail(nextDate) {
-    let options = {
+    const options = {
       url: `http://www.reserveamerica.com/campsiteCalendar.do?page=calendar&contractCode=${this.raDetails.code}&parkId=${this.raDetails.parkId}&calarvdate=${nextDate}&findavail=next`,
-      method: 'GET'
+      method: 'GET',
     };
 
-    // console.log('getNextAvail', options)
     return this.rp(options);
   }
 

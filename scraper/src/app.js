@@ -1,17 +1,15 @@
-import _ from 'lodash';
 import Promise from 'bluebird';
 
-import { config } from './shared/utils/config';
 import { Scraper } from './index';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 
-exports.handler = function(event,context) {
-  let idsString = event.Records[0].Sns.Message;
-  let ids = idsString.split(',');
+exports.handler = (event, context) => {
+  const idsString = event.Records[0].Sns.Message;
+  const ids = idsString.split(',');
 
   Promise.each(ids, (id) => {
     return new AvailabilityRequestRepo().find(id).then((availabilityRequest) => {
-      console.log('Scraping: ', availabilityRequest.description)
+      console.log('Scraping: ', availabilityRequest.description);
       return new Scraper(availabilityRequest).scrape().then(() => {
         console.log('Scraping Complete');
       }).catch((e) => {
@@ -19,9 +17,8 @@ exports.handler = function(event,context) {
         // TODO - more than just log the error. Alert me.
       });
     });
-  }).then(()=> {
-    console.log('All Scraping complete: ', ids.length)
-    context.done(null, "Done");
+  }).then(() => {
+    console.log('All Scraping complete: ', ids.length);
+    context.done(null, 'Done');
   });
-
 };
