@@ -13,23 +13,24 @@
   "scripts": {
     "postinstall": "if [ -z \"$npm_config_production\" ]; then ln -svf ../../shared/src ./src/shared; fi",
     "start": "babel-node --stage 0 src/app.js",
-    "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register $(find test -name '*.test.js')",
+    "test": "NODE_ENV=test mocha --timeout 15000 --compilers js:babel/register test/maricopa-county-parks/index.test.js",
     "clean": "rm -rf dist",
     "build": "babel src -d dist --source-maps inline"
   },
   "author": "",
   "license": "ISC",
-
   "dependencies": {
+    "bluebird": "2.9.34",
+    "chai": "^3.4.1",
+    "cheerio": "0.19.0",
     "dotenv": "1.2.0",
     "dynasty": "0.2.3",
     "lodash": "3.10.1",
     "moment": "2.10.6",
-    "bluebird": "2.9.34",
-    "cheerio": "0.19.0",
+    "moment-range": "^2.0.3",
     "request-promise": "0.4.2",
     "tough-cookie": "2.0.0",
-    "chai": "^3.4.1"
+    "xml2js": "^0.4.15"
   },
   "devDependencies": {
     "babel": "^5.8.23",
