@@ -3253,7 +3253,10 @@ angular.module('locations.services', [ ]).
             {"name":"Youghiogheny Nrma","slug":"youghiogheny-nrma","parkId":"380758","state":"MD","code":"MD","desc":"MD - Maryland Department of Natural Resources"},
             {"name":"Young Branch Horse Camp","slug":"young-branch-horse-camp","parkId":"74111","state":"TN","code":"NRSO","desc":"TN - US Forest Service"},
             {"name":"Yuba Lake State Park","slug":"yuba-lake-state-park","parkId":"343961","state":"UT","code":"UT","desc":"UT - Utah State Parks and Recreation"},
-            {"name":"Zilpo   Daniel Boone Nat. For.","slug":"zilpo--daniel-boone-nat-for","parkId":"70761","state":"KY","code":"NRSO","desc":"KY - US Forest Service"}
+            {"name":"Zilpo Daniel Boone Nat. For.","slug":"zilpo--daniel-boone-nat-for","parkId":"70761","state":"KY","code":"NRSO","desc":"KY - US Forest Service"},
+            {"name":"Upper Pines","slug":"upper-pines","parkId":"70925","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
+            {"name":"Lower Pines","slug":"lower-pines","parkId":"70928","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
+            {"name":"North Pines","slug":"north-pines","parkId":"70927","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
       ]
 
     }
