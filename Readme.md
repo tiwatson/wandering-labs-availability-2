@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/tiwatson/wandering-labs-availability-2.svg?branch=master)](https://travis-ci.org/tiwatson/wandering-labs-availability-2)
 
-### Current in development and just about production ready.
+### Production ready at: http://reserve.wanderinglabs.com
 
 In 7 parts. Completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
 
 ## api
 
-Collection of lambda functions that handle requests from the angular app. Will be packaged into a single zip and different lambda functions will call a different handler.
+Collection of lambda functions that handle requests from the angular app. Packaged into a single zip with different lambda functions calling different handler functions.
 
 #### TODO
 - Validation
@@ -88,3 +88,4 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 - auto pausing
 - admin
 - alert me on errors. Airbrake?
+- gulp
