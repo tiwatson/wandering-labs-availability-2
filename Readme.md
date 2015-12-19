@@ -52,6 +52,7 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 `bundle exec middleman server`
 
 #### TODO
+- Validation: Make sure dateEnd is X LengthOfStay after dateStart
 - Non-restrict to Reserve America
 - admin
 - loading animation on 2nd requests

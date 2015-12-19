@@ -124,8 +124,8 @@ describe('FilterAvailabilities', () => {
       { siteId: '480', siteNumber: '073', arrivalDate: '6/2/2016' },
       { siteId: '480', siteNumber: '073', arrivalDate: '6/3/2016' },
       { siteId: '500', siteNumber: '074', arrivalDate: '6/7/2016' },
-      { siteId: '500', siteNumber: '074', arrivalDate: '6/8/2016' },
-      { siteId: '500', siteNumber: '074', arrivalDate: '6/9/2016' },
+      { siteId: '500', siteNumber: '074', arrivalDate: '6/10/2016' },
+      { siteId: '500', siteNumber: '074', arrivalDate: '6/11/2016' },
       { siteId: '500', siteNumber: '074', arrivalDate: '6/12/2016' }
     ];
     let filterAvailabilities = FilterAvailabilities.filter(moment('6/9/2016', "M/D/YYYY"),3,toFilter)
@@ -135,5 +135,4 @@ describe('FilterAvailabilities', () => {
     expect(filterAvailabilities[0].siteNumber).to.be.equal('073');
     expect(filterAvailabilities[0].daysLength).to.be.equal(5);
   });
-
-})
+});
