@@ -24,7 +24,7 @@ class ReserveAmerica {
       // availStatus:
       submitSiteForm: true,
       search: 'site',
-      campingDate: 'Wed Dec 30 2015',
+      campingDate: 'Wed Jan 27 2016',
       lengthOfStay: this.availabilityRequest.lengthOfStay,
       // campingDateFlex:
       currentMaximumWindow: 12,
