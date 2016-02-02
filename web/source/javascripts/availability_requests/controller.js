@@ -17,11 +17,13 @@ angular.module('availability_requests.controllers', [])
         }, function(result) {
           availabilityRequestsService.flash = 'Error. Please fix the following and try again: ' + result.data.error;
           availabilityRequestsService.flashClass = 'flash-error';
+          $scope.submitted = false;
         });
       }
       else {
         availabilityRequestsService.flash = 'Error. Please complete all required fields';
         availabilityRequestsService.flashClass = 'flash-error';
+        $scope.submitted = false;
       }
 
     };
