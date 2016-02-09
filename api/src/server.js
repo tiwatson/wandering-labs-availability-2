@@ -24,6 +24,7 @@ class Context {
   }
 
   succeed(obj) {
+    console.log('SECCEEDs', obj)
     this.response.status(200).json(obj).end();
   }
 }
@@ -33,8 +34,15 @@ const handlers = {
     '$post': function(req, res) {
       app.availabilityRequestCreate(req.body, new Context(res));
     },
+    'stats': {
+      '$get': function(req, res) {
+        console.log('STATS...........')
+        app.availabilityRequestStats(req.params, new Context(res));
+      }
+    },
     '{id}': {
       '$get': function(req, res) {
+        console.log('ID')
         app.availabilityRequestFind(req.params, new Context(res));
       },
       'cancel': {

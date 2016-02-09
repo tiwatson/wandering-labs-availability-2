@@ -158,7 +158,7 @@ class AvailabilityRequestRepo {
     // TODO - refactor to use #scan
     return this.table.scan(
       {
-        attrsGet: ['id', 'email', 'status', 'dateEnd', 'dateStart', 'daysLength'],
+        attrsGet: AvailabilityRequest.columns(),
         filters: [
           { column: 'status', value: 'active' },
           { column: 'dateEnd', value: moment().unix().toString(), op: 'GE', type: 'N' },

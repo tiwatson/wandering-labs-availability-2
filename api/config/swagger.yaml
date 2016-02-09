@@ -15,6 +15,11 @@ paths:
       responses:
         '200':
           description: OK
+  '/availability-requests/stats':
+    get:
+      responses:
+        '200':
+          description: OK
   '/availability-requests/{id}':
     get:
       responses:
