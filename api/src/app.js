@@ -4,6 +4,7 @@ import { AvailabilityRequestCancel } from './endpoints/availability-requests/can
 import { AvailabilityRequestCreate } from './endpoints/availability-requests/create';
 import { AvailabilityRequestFind } from './endpoints/availability-requests/find';
 import { AvailabilityRequestStats } from './endpoints/availability-requests/stats';
+import { AvailabilityRequestUnpause } from './endpoints/availability-requests/unpause';
 
 exports.availabilityRequestAll = (event, context) => {
   return new AvailabilityRequestAll(event.id).all().then((objs) => {
@@ -32,5 +33,11 @@ exports.availabilityRequestFind = (event, context) => {
 exports.availabilityRequestStats = (event, context) => {
   return new AvailabilityRequestStats().stats().then((obj) => {
     context.succeed(obj);
+  });
+};
+
+exports.availabilityRequestUnpause = (event, context) => {
+  return new AvailabilityRequestUnpause(event.id).update().then(() => {
+    context.succeed({});
   });
 };

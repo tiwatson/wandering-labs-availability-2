@@ -146,6 +146,12 @@ class AvailabilityRequestRepo {
     });
   }
 
+  status(id, newStatus) {
+    return this.table.find(id).then((resp) => {
+      return this.update(_.merge(resp, { status: newStatus }));
+    });
+  }
+
   scan(filters) {
     return this.table.scan({ attrsGet: AvailabilityRequest.columns(), filters }).then((aRequests) => {
       return aRequests.map(aRequest => {
@@ -177,7 +183,14 @@ class AvailabilityRequestRepo {
   updateAvailabilities(availabilityRequest, newAvailabilities) {
     availabilityRequest.mergeAvailabilities(newAvailabilities);
     const checkedCount = availabilityRequest.checkedCount + 1 || 1;
-    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount }));
+    const status = (checkedCount % 1000 === 0) ? 'paused' : availabilityRequest.status;
+    return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount, status })).then((obj) => {
+      if (status === 'paused') {
+        return new Sns('notify').publish({ id: availabilityRequest.id, type: 'paused' }).then(() => {
+          console.log('User notified.');
+        });
+      }
+    });
   }
 
   notifiedAvailabilities(availabilityRequest) {

@@ -344,6 +344,10 @@ describe('AvailabilityRequestRepo', () => {
           });
         });
       });
+
+      it ('remains active', ()=> {
+        expect(availabilityRequest.status).to.equal('active');
+      });
     });
 
     context('proper unit test', ()=> {
@@ -364,7 +368,7 @@ describe('AvailabilityRequestRepo', () => {
         ]
         let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234, availabilities: existingAvails }) );
 
-        let existingAvailsFalse = _.merge(existingAvails, { avail: false });
+        //let existingAvailsFalse = _.merge(existingAvails, { avail: false });
         let mock = sandbox.mock(availabilityRequestRepo.table)
           .expects('update')
           .once()
@@ -374,7 +378,7 @@ describe('AvailabilityRequestRepo', () => {
         return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
       });
 
-      it('has not availabilities attribute when updating with no availabilities', ()=> {
+      it('has no availabilities attribute when updating with no availabilities', ()=> {
         let availabilityRequestRepo = new AvailabilityRequestRepo()
         let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234 }) );
 
@@ -382,6 +386,32 @@ describe('AvailabilityRequestRepo', () => {
           .expects('update')
           .once()
           .withArgs(1234, sinon.match((obj)=> { return _.isArray(obj.availabilities) === false; }))
+          .returns(Promise.resolve([]));
+
+        return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
+      });
+
+      it('status remains active when checkedCount not reached', ()=> {
+        let availabilityRequestRepo = new AvailabilityRequestRepo()
+        let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234, status: 'active', checkedCount: 998 }) );
+
+        let mock = sandbox.mock(availabilityRequestRepo.table)
+          .expects('update')
+          .once()
+          .withArgs(1234, sinon.match((obj)=> { return obj.status === 'active'; }))
+          .returns(Promise.resolve([]));
+
+        return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
+      });
+
+      it('pauses status when checkedCount limit reached', ()=> {
+        let availabilityRequestRepo = new AvailabilityRequestRepo()
+        let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234, status: 'active', checkedCount: 999 }) );
+
+        let mock = sandbox.mock(availabilityRequestRepo.table)
+          .expects('update')
+          .once()
+          .withArgs(1234, sinon.match((obj)=> { return obj.checkedCount === 1000 && obj.status === 'paused'; }))
           .returns(Promise.resolve([]));
 
         return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
