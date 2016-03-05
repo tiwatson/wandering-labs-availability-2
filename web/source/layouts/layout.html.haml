@@ -18,7 +18,43 @@
             %i.fa.fa-cogs.fa-lg
             WanderingLabs
 
-    = yield
+    .jumbotron
+      .container
+        %h1 Campground Full?
+        %h4 Tell us when and where you want to camp and we will let you know when a site becomes available.
+
+    .container
+      .row
+        .col-md-8
+          = yield
+        .col-md-4.amazon
+          %br/
+          :javascript
+            Array.prototype.shuffle = function() {
+              var i = this.length, j, temp;
+              if ( i == 0 ) return this;
+              while ( --i ) {
+                 j = Math.floor( Math.random() * ( i + 1 ) );
+                 temp = this[i];
+                 this[i] = this[j];
+                 this[j] = temp;
+              }
+              return this;
+            }
+            amzn_ids = ['B00WMFXE5O','B000BUU5WW','B002OUMVWY','B0006IX87S','B0028PJ10K','B001GC2LVM','B002XLHUQG','B00708MDAK' ];
+            amzn_assoc_placement = "adunit0";
+            amzn_assoc_search_bar = "false";
+            amzn_assoc_tracking_id = "wl-reserve-20";
+            amzn_assoc_ad_mode = "manual";
+            amzn_assoc_ad_type = "smart";
+            amzn_assoc_marketplace = "amazon";
+            amzn_assoc_region = "US";
+            amzn_assoc_title = "";
+            amzn_assoc_linkid = "1985e8815610f7bb7b339742e9ee7c1c";
+            amzn_assoc_asins = amzn_ids.shuffle().join(',');
+
+          = javascript_include_tag "http://z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"
+          = javascript_include_tag "http://z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US#assd"
 
     .container
       .row
@@ -39,3 +75,4 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-58156575-1', 'auto');
       ga('send', 'pageview');
+

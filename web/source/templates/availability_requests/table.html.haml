@@ -1,44 +1,38 @@
-.table-responsive
-  %table.table.table-condensed.table-striped
-    %thead
-      %tr
-        %th
-        %th
-        %th Status
-        %th Campground
-        %th Dates
-        %th Nights
-        %th Found
-        %th{ colspan: 2 } Last Checked / Run Count
 
 
+%dl.dl-horizontal{ 'ng-repeat' => "item in items | orderBy: ['status', 'dateStart']" }
+  %dt Status:
+  %dd {{item.status}}
 
-    %tbody
-      %tr{ 'ng-repeat' => "item in items | orderBy: ['status', 'dateStart']" }
-        %td
-          %a{ 'ui-sref' => 'availabilityRequestsCancel({arId:item.id})', 'ng-show' => "item.status == 'active'" }
-            %button.btn.btn-xs.btn-warning
-              Cancel
-        %td
-          %a{ 'ui-sref' => 'availabilityRequest({arId:item.id})', 'ng-hide' => "item.id == ar.id" }
-            %button.btn.btn-xs.btn-success
-              View
+  %dt Campground:
+  %dd
+    {{item.typeSpecific.parkName}}
+    \-
+    {{item.typeSpecific.state}}
 
-        %td {{item.status}}
-        %td
-          {{item.typeSpecific.parkName}}
-          \-
-          {{item.typeSpecific.state}}
-        %td
-          {{item.dateStart | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
-          \-
-          {{item.dateEnd | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
-        %td
-          {{item.lengthOfStay}}
-        %td
-          {{item.availabilities.length || 0}}
-        %td
-          {{item.checkedAt | amFromUnix | amDateFormat:'M/D/YYYY h:mm a'}}
-        %td
-          {{item.checkedCount}}
+  %dt Dates:
+  %dd
+    {{item.dateStart | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
+    \-
+    {{item.dateEnd | amFromUnix | amUtc | amDateFormat:'M/D/YYYY'}}
+  %dt Nights:
+  %dd {{item.lengthOfStay}}
 
+  %dt Found Count:
+  %dd {{item.availabilities.length || 0}}
+
+  %dt Last Checked:
+  %dd {{item.checkedAt | amFromUnix | amDateFormat:'M/D/YYYY h:mm a'}}
+
+  %dt Run Count:
+  %dd {{item.checkedCount}}
+
+  %dt Actions:
+  %dd
+    %a{ 'ui-sref' => 'availabilityRequestsCancel({arId:item.id})', 'ng-show' => "item.status == 'active'" }
+      %button.btn.btn-xs.btn-warning
+        Cancel
+
+    %a{ 'ui-sref' => 'availabilityRequest({arId:item.id})', 'ng-hide' => "item.id == ar.id" }
+      %button.btn.btn-xs.btn-success
+        View

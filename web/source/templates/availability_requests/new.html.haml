@@ -1,124 +1,110 @@
 
-.container
+%form{ novalidate: true, name: 'arform' }
+  %p
+    Start typing the name of the campground you want to stay at. Next select a date range and the number of nights you would like to stay.
+  %p
+    For example you could request a stay at Bahia Honda State Park in Florida for 5 consecutive nights anytime between January 1 and March 1.
+  %p
+    We will check Reserve America every few minutes to see if any sites become available. If any do, we will email you.
 
-  %form{ novalidate: true, name: 'arform' }
-    .row
-      .col-md-8
+  .flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
 
-        %p
-          Start typing the name of the campground you want to stay at. Next select a date range and the number of nights you would like to stay.
-        %p
-          For example you could request a stay at Bahia Honda State Park in Florida for 5 consecutive nights anytime between January 1 and March 1.
-        %p
-          We will check Reserve America every few minutes to see if any sites become available. If any do, we will email you.
+  .panel.panel-default
+    .panel-body
 
-        .flash{ 'ng-bind' => 'ar.flash', 'ng-class' => 'ar.flashClass' }
+      .row.campground
+        .col-md-12
+          .form-group.form-group-lg{ 'ng-class' => "{'has-error': submitted && ar.location === undefined}"}
+            %label.control-label.required{ for: 'campground' }Where do you want to camp?
+            %angucomplete-alt{  :id => "campground",
+                                      :'input-class' => "form-control",
+                                      :placeholder => "Select Campground",
+                                      :pause => 0,
+                                      :minlength => 1,
+                                      :'match-class' => "highlight",
+                                      :'selected-object' => "ar.location",
+                                      :'local-data' => "ar.locations",
+                                      :'search-fields' => "name",
+                                      :'title-field' => "name",
+                                      :'description-field' => "desc",
+                                      :limit => 10 }
+      .row
+        .col-sm-3
+          .form-group{ 'ng-class' => "{'has-error': submitted && ar.dateStart === undefined}"}
+            %label.control-label.required{ for: 'dateStart' }Date Start
+            %quick-datepicker{ 'ng-model' => 'ar.dateStart', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
 
-        .panel.panel-default
-          .panel-body
+        .col-sm-3
+          .form-group{ 'ng-class' => "{'has-error': submitted && ar.dateEnd === undefined}"}
+            %label.control-label.required{ for: 'dateEnd' }Date End
+            %quick-datepicker{ 'class' => '', 'ng-model' => 'ar.dateEnd', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
 
-            .row.campground
-              .col-md-12
-                .form-group.form-group-lg{ 'ng-class' => "{'has-error': submitted && ar.location === undefined}"}
-                  %label.control-label.required{ for: 'campground' }Where do you want to camp?
-                  %angucomplete-alt{  :id => "campground",
-                                            :'input-class' => "form-control",
-                                            :placeholder => "Select Campground",
-                                            :pause => 0,
-                                            :minlength => 1,
-                                            :'match-class' => "highlight",
-                                            :'selected-object' => "ar.location",
-                                            :'local-data' => "ar.locations",
-                                            :'search-fields' => "name",
-                                            :'title-field' => "name",
-                                            :'description-field' => "desc",
-                                            :limit => 10 }
-            .row
-              .col-sm-3
-                .form-group{ 'ng-class' => "{'has-error': submitted && ar.dateStart === undefined}"}
-                  %label.control-label.required{ for: 'dateStart' }Date Start
-                  %quick-datepicker{ 'ng-model' => 'ar.dateStart', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateStartFilter', 'on-change' => 'dateChange()' }
+        .col-sm-3
+          .form-group{ 'ng-class' => "{'has-error': (submitted || arform.lengthOfStay.$touched) && arform.lengthOfStay.$invalid}" }
+            %label.control-label.required{ for: 'lengthOfStay' }# of nights
+            %input.form-control#lengthOfStay{ type: 'text', name: 'lengthOfStay', 'ng-model' => 'ar.lengthOfStay', required: true }
 
-              .col-sm-3
-                .form-group{ 'ng-class' => "{'has-error': submitted && ar.dateEnd === undefined}"}
-                  %label.control-label.required{ for: 'dateEnd' }Date End
-                  %quick-datepicker{ 'class' => '', 'ng-model' => 'ar.dateEnd', 'placeholder' => 'Select Date', 'disable-timepicker' => 'true', 'date-filter' => 'dateEndFilter', 'on-change' => 'dateChange()' }
+        .col-sm-3
+          .form-group
+            %label.control-label.required{ for: 'siteType' }Site Type
+            %select.form-control{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
 
-              .col-sm-3
-                .form-group{ 'ng-class' => "{'has-error': (submitted || arform.lengthOfStay.$touched) && arform.lengthOfStay.$invalid}" }
-                  %label.control-label.required{ for: 'lengthOfStay' }# of nights
-                  %input.form-control#lengthOfStay{ type: 'text', name: 'lengthOfStay', 'ng-model' => 'ar.lengthOfStay', required: true }
+      .row{ 'ng-show' => 'siteOptionsCollapsed'}
+        .col-sm-12
+          %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
+            Additional Campsite Options
 
-              .col-sm-3
-                .form-group
-                  %label.control-label.required{ for: 'siteType' }Site Type
-                  %select.form-control{ 'ng-model' => 'ar.siteType', 'ng-options' => 'siteType.name for siteType in ar.siteTypes track by siteType.value', 'ng-init' => 'ar.siteType = ar.siteTypes[0]' }
+      .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
+        .row
+          .col-md-3
+            .form-group
+              %label.control-label{ for: 'eqLen' }RV Length (ft)
+              %input#eqLen.form-control{ type: 'text', 'ng-model' => 'ar.eqLen' }
 
-            .row{ 'ng-show' => 'siteOptionsCollapsed'}
-              .col-sm-12
-                %a.expander-trigger{ href: '#', 'ng-click' => 'siteOptionsCollapsed = !siteOptionsCollapsed', 'ng-class' => "(siteOptionsCollapsed) ? 'expander-hidden' : '' "}
-                  Additional Campsite Options
+          .col-md-3
+            .form-group
+              %label.control-label{ for: 'electric' }Electric
+              %select.form-control{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
+                %option{:value => "", :selected => "selected"}
 
-            .site-options{ 'ng-show' => '!siteOptionsCollapsed'}
-              .row
-                .col-md-3
-                  .form-group
-                    %label.control-label{ for: 'eqLen' }RV Length (ft)
-                    %input#eqLen.form-control{ type: 'text', 'ng-model' => 'ar.eqLen' }
-
-                .col-md-3
-                  .form-group
-                    %label.control-label{ for: 'electric' }Electric
-                    %select.form-control{ 'ng-model' => 'ar.electric', 'ng-options' => 'electricType.name for electricType in ar.electricTypes track by electricType.value' }
-                      %option{:value => "", :selected => "selected"}
-
-                .col-md-3.col-xs-6
-                  .form-checkboxes
-                    .half
-                      %label
-                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
-                          Water
-                    .half
-                      %label
-                        %input#sewer{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
-                          Sewer
+          .col-md-3.col-xs-6
+            .form-checkboxes
+              .half
+                %label
+                  %input#water{ type: 'checkbox', 'ng-model' => 'ar.water'}
+                    Water
+              .half
+                %label
+                  %input#sewer{ type: 'checkbox', 'ng-model' => 'ar.sewer'}
+                    Sewer
 
 
-                .col-md-3.col-xs-6
-                  .form-checkboxes
-                    .half
-                      %label
-                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
-                          Pull-Thru
-                    .half
-                      %label
-                        %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
-                          Waterfront
+          .col-md-3.col-xs-6
+            .form-checkboxes
+              .half
+                %label
+                  %input#water{ type: 'checkbox', 'ng-model' => 'ar.pullthru'}
+                    Pull-Thru
+              .half
+                %label
+                  %input#water{ type: 'checkbox', 'ng-model' => 'ar.waterfront'}
+                    Waterfront
 
-            .row.contact-row
-              .col-sm-6
-                .form-group{ 'ng-class' => "{ 'has-error': (submitted || arform.email.$touched) && arform.email.$invalid }" }
-                  %label.control-label.required{ for: 'user_email' }Email Address
-                  %input.form-control#user_email{ name: 'email', type: 'email', 'ng-model' => 'ar.email', required: true }
+      .row.contact-row
+        .col-sm-6
+          .form-group{ 'ng-class' => "{ 'has-error': (submitted || arform.email.$touched) && arform.email.$invalid }" }
+            %label.control-label.required{ for: 'user_email' }Email Address
+            %input.form-control#user_email{ name: 'email', type: 'email', 'ng-model' => 'ar.email', required: true }
 
-              .col-sm-6
-                .form-group
-                  .hide{style: 'display: none'}
-                    %label{ for: 'user_phone' }Phone (for txt msg)
-                    %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
+        .col-sm-6
+          .form-group
+            .hide{style: 'display: none'}
+              %label{ for: 'user_phone' }Phone (for txt msg)
+              %input#user_email{ type: 'text', 'ng-model' => 'ar.phone' }
 
 
 
 
-            .row
-              .col-sm-3
-                %button.btn.btn-success{ 'ng-click' => 'newRequest()', 'ng-disabled' => "submitted" } Submit
-      .col-md-4
-
-
-        .panel.panel-default
-          .panel-body
-            %h4
-              12/13/2015 - We are back.
-            %p
-              The campsite scraper is up and running. Please be kind to Reserve America and only create requests for which you are truly interested.
+      .row
+        .col-sm-3
+          %button.btn.btn-success{ 'ng-click' => 'newRequest()', 'ng-disabled' => "submitted" } Submit

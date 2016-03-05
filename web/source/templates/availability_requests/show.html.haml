@@ -1,35 +1,35 @@
-.container
-  .row
-    .col-md-12
-      %a.pull-right{ 'ui-sref' => 'availabilityRequestNew' }
-        %button.btn.btn-success
-          Create a new request
-      %h3 Review Request:
-      %div{ 'ng-repeat' => "items in [ ar_array ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }
 
-  .row{ 'ng-show' => "ar.availabilities.length > 0" }
-    .col-md-6
-      %h3 Found Availabilities
+.row
+  .col-md-12
+    %a{ 'ui-sref' => 'availabilityRequestNew' }
+      %button.btn.btn-success
+        Create a new request
+    %h3 Review Request:
+    %div{ 'ng-repeat' => "items in [ ar_array ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }
 
-      .table-responsive
-        %table.table.table-striped
-          %thead
-            %tr
-              %th Available?
-              %th Arrival Date
-              %th Nights
-              %th Site #
-          %tbody
-            %tr{ 'ng-repeat' => "avail in ar.availabilities | orderBy: ['-avail', 'arrivalDate']", 'ng-class' => "{'text-muted': avail.avail == false}"}
-              %td
-                %a{ 'ng-show' => 'avail.avail == true', href: "http://www.reserveamerica.com/camping/{{ar.typeSpecific.slug}}/r/campsiteDetails.do?siteId={{avail.siteId}}&contractCode={{ar.typeSpecific.code}}&parkId={{ar.typeSpecific.parkId}}&offset=0&arvdate={{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY'}}", target: 'BLANK' }
-                  %button.btn.btn-sm.btn-success
-                    Reserve Now
-              %td {{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY  h:mm a'}}
-              %td {{avail.daysLength}}
-              %td {{avail.siteNumber}}
+.row{ 'ng-show' => "ar.availabilities.length > 0" }
+  .col-md-12
+    %h3 Found Availabilities
 
-  .row
-    .col-md-12
-      %h3 Your Other Requests:
-      %div{ 'ng-repeat' => "items in [ all_requests ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }
+    .table-responsive
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Available?
+            %th Arrival Date
+            %th Nights
+            %th Site #
+        %tbody
+          %tr{ 'ng-repeat' => "avail in ar.availabilities | orderBy: ['-avail', 'arrivalDate']", 'ng-class' => "{'text-muted': avail.avail == false}"}
+            %td
+              %a{ 'ng-show' => 'avail.avail == true', href: "http://www.reserveamerica.com/camping/{{ar.typeSpecific.slug}}/r/campsiteDetails.do?siteId={{avail.siteId}}&contractCode={{ar.typeSpecific.code}}&parkId={{ar.typeSpecific.parkId}}&offset=0&arvdate={{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY'}}", target: 'BLANK' }
+                %button.btn.btn-sm.btn-success
+                  Reserve Now
+            %td {{avail.arrivalDate | amFromUnix | amUtc | amDateFormat:'MM/DD/YYYY  h:mm a'}}
+            %td {{avail.daysLength}}
+            %td {{avail.siteNumber}}
+
+.row
+  .col-md-12
+    %h3 Your Other Requests:
+    %div{ 'ng-repeat' => "items in [ all_requests ]", 'ng-include' => "'/templates/availability_requests/table.html'"  }
