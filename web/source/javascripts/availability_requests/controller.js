@@ -55,5 +55,8 @@ angular.module('availability_requests.controllers', [])
     availabilityRequestsService.cancel(availabilityRequest.id);
   }])
 
+  .controller('AvailabilityRequestUnpauseController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
+    availabilityRequestsService.unpause(availabilityRequest.id);
+  }])
 
   ;

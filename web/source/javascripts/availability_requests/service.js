@@ -73,6 +73,10 @@ angular.module('availability_requests.services', [ ]).
         return service.base.customPOST({}, id + '/cancel');
       },
 
+      unpause: function(id) {
+        return service.base.customPOST({}, id + '/unpause');
+      },
+
       put: function(item) {
         return item.put().then(function(results) {
 
