@@ -174,6 +174,27 @@ ol li {
   width: 100%;
 }
 
+.button {
+  color: #FFF;
+  text-decoration: none;
+  line-height: 2;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 12px;
+  background-color: #77b57a;
+  margin: 6px 0;
+  border-color: #77b57a;
+  border-style: solid;
+  border-width: 2px 12px;
+}
+
+.button a {
+  color: #FFF;
+  text-decoration: none;
+}
+
 </style>
 </head>
 
@@ -191,22 +212,14 @@ ol li {
         <tr>
           <td>
             <p>Hi there,</p>
-            <p>This email is an email confirming that we are now checking over and over in hopes of finding you a campsite at {{typeSpecific.parkName}} for {{lengthOfStay}} nights sometime between {{dateStartFormatted}} and {{dateEndFormatted}}.</p>
+            <p>Your current request for a campsite reservation has been paused. We do this every once and a while to save resources. Running this service costs up a few bucks and we also want to be kind to Reserve America by not running unneeded requests. If you still are looking for a campsite just click the button below and we will get right back on checking for an open reservation.
 
-            <h2>Review:</h2>
-            <p>You can check in on this request using the link below. It will show the last time we checked for open campsites and how many times we have checked over all. In fact you can review all your different requests from this url. Bookmark it if you like.
-
-            <h3>
-              <a href="http://reserve.wanderinglabs.com/{{{id}}}">http://reserve.wanderinglabs.com/{{{id}}}</a>
+            <h3 class="button">
+              <a href="http://reserve.wanderinglabs.com/{{{id}}}/unpause">Yes. Keep Checking for me!!</a>
             </h3>
 
-            <h2>No longer looking for a campsite?</h2>
-            <p>We want to be as kind to Reserve America as possible, so please cancel this request if it is no longer needed.</p>
-            <!-- button -->
-            <h3>
-              <a href="http://reserve.wanderinglabs.com/{{{id}}}/cancel">Cancel this request</a>
-            </h3>
-            <!-- /button -->
+            <p>You wanted to find a campsite at {{typeSpecific.parkName}} for {{lengthOfStay}} nights sometime between {{dateStartFormatted}} and {{dateEndFormatted}}.</p>
+
             <p>Got questions?</p>
             <p><a href="http://mail:info@wanderinglabs.com">info@wanderinglabs.com</a></p>
           </td>

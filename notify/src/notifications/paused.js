@@ -7,7 +7,7 @@ class NotificationsPaused extends NotificationsBase {
   }
 
   get subject() {
-    return `Campsite Availability Request Confirmed: ${this.availabilityRequest.typeSpecific.parkName}`;
+    return `Request Paused - Action Required: ${this.availabilityRequest.typeSpecific.parkName}`;
   }
 
 }
