@@ -33,6 +33,10 @@
       %button.btn.btn-xs.btn-warning
         Cancel
 
+    %a{ 'ui-sref' => 'availabilityRequestsUnpause({arId:item.id})', 'ng-show' => "item.status == 'unpause'" }
+      %button.btn.btn-xs.btn-warning
+        Unpause
+
     %a{ 'ui-sref' => 'availabilityRequest({arId:item.id})', 'ng-hide' => "item.id == ar.id" }
       %button.btn.btn-xs.btn-success
         View
