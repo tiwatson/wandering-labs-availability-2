@@ -19,6 +19,10 @@
     {
       "functionName": "wl-ar-api-availability-requests-find",
       "handler": "app.availabilityRequestFind"
+    },
+    {
+      "functionName": "wl-ar-api-availability-requests-unpause",
+      "handler": "app.availabilityRequestUnpause"
     }
   ],
   "scripts": {
