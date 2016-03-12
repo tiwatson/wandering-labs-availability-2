@@ -183,7 +183,7 @@ class AvailabilityRequestRepo {
   updateAvailabilities(availabilityRequest, newAvailabilities) {
     availabilityRequest.mergeAvailabilities(newAvailabilities);
     const checkedCount = availabilityRequest.checkedCount + 1 || 1;
-    const status = (checkedCount % 1000 === 0) ? 'paused' : availabilityRequest.status;
+    const status = ((availabilityRequest.premium !== true) && (checkedCount % 1000 === 0)) ? 'paused' : availabilityRequest.status;
     return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount, status })).then((obj) => {
       if (status === 'paused') {
         return new Sns('notify').publish({ id: availabilityRequest.id, type: 'paused' }).then(() => {

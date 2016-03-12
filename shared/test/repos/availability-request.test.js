@@ -417,6 +417,19 @@ describe('AvailabilityRequestRepo', () => {
         return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
       });
 
+      it('doesnt pause premium flagged accounts', ()=> {
+        let availabilityRequestRepo = new AvailabilityRequestRepo()
+        let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({ id: 1234, status: 'active', checkedCount: 999, premium: true }) );
+
+        let mock = sandbox.mock(availabilityRequestRepo.table)
+          .expects('update')
+          .once()
+          .withArgs(1234, sinon.match((obj)=> { return obj.checkedCount === 1000 && obj.status === 'active'; }))
+          .returns(Promise.resolve([]));
+
+        return availabilityRequestRepo.updateAvailabilities(availabilityRequest, []);
+      });
+
     });
 
 
