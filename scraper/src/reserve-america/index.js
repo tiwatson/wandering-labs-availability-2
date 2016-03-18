@@ -45,7 +45,7 @@ class ReserveAmerica {
       return {
         camping_2001_moreOptions: true,
         camping_2001_3013: typeSpecific.eqLen,
-        camping_2001_218: typeSpecific.electric,
+        camping_2001_218: typeSpecific.electric.value,
         camping_2001_3006: typeSpecific.water,
         camping_2001_3007: typeSpecific.sewer,
         camping_2001_3008: typeSpecific.pullthru,
