@@ -288,7 +288,7 @@ describe('AvailabilityRequestRepo', () => {
     it('returns empty if AR end date is closer then days_length', () => {
       let attrs = {
         dateEnd: moment().add(6, 'd').unix(),
-        daysLength: 7
+        lengthOfStay: 7
       }
 
       return Factory.availabilityRequestRepo(attrs).then((factoryObj) => {
