@@ -3,8 +3,10 @@ import Promise from 'bluebird';
 import { config } from './shared/utils/config'; //eslint-disable-line
 import { Scraper } from './index';
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
+import { Slack } from './shared/utils/slack';
 
 exports.handler = (event, context) => {
+  const slack = new Slack();
   const idsString = event.Records[0].Sns.Message;
   const ids = idsString.split(',');
 
@@ -13,6 +15,8 @@ exports.handler = (event, context) => {
       console.log('Scraping: ', availabilityRequest.description);
       return new Scraper(availabilityRequest).scrape().then(() => {
         console.log('Scraping Complete');
+        return slack.notify(`Scraping Complete: ${id}`);
+
       }).catch((e) => {
         console.log('Scraping Error:', e);
         // TODO - more than just log the error. Alert me.
