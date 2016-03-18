@@ -39,7 +39,7 @@ class AvailabilityRequest {
   }
 
   checkable() {
-    const dateLastCheckable = moment.unix(this.dateEnd).subtract(this.daysLength, 'd');
+    const dateLastCheckable = moment.unix(this.dateEnd).subtract(this.lengthOfStay, 'd');
     return moment().isBefore(dateLastCheckable);
   }
 

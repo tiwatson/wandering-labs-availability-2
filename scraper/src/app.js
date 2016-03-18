@@ -19,6 +19,7 @@ exports.handler = (event, context) => {
 
       }).catch((e) => {
         console.log('Scraping Error:', e);
+        return slack.notify(`Scraping Error: ${id} - ${e}`);
         // TODO - more than just log the error. Alert me.
       });
     });

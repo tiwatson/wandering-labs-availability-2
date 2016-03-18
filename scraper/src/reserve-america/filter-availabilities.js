@@ -9,7 +9,7 @@ class FilterAvailabilities {
 
     avails.forEach((avail) => {
       const arrivalDate = moment(avail.arrivalDate, 'M/D/YYYY');
-      if (arrivalDate.isBefore(dateEndPlusOne)) {
+      if (arrivalDate.isBefore(dateEnd)) {
         siteNumbers[avail.siteId] = avail.siteNumber;
         if (typeof bySiteId[avail.siteId] === 'undefined') {
           bySiteId[avail.siteId] = [];
