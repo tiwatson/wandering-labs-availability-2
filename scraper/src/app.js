@@ -14,7 +14,7 @@ exports.handler = (event, context) => {
       console.log('Scraping: ', availabilityRequest.description);
       return new Scraper(availabilityRequest).scrape().then(() => {
         console.log('Scraping Complete');
-        return Slack.notify(`Scraping Complete: ${availabilityRequest.description}`);
+        // return Slack.notify(`Scraping Complete: ${availabilityRequest.description}`);
 
       }).catch((e) => {
         console.log('Scraping Error:', e);

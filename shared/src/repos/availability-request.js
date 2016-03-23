@@ -6,6 +6,7 @@ import uuid from 'node-uuid';
 import { merge } from 'lodash';
 import _ from 'lodash';
 import moment from 'moment';
+import Promise from 'bluebird';
 
 class AvailabilityRequest {
   constructor(attributes) {
@@ -153,29 +154,40 @@ class AvailabilityRequestRepo {
   }
 
   scan(filters) {
-    return this.table.scan({ attrsGet: AvailabilityRequest.columns(), filters }).then((aRequests) => {
-      return aRequests.map(aRequest => {
-        return this.wrapResource(aRequest);
+    console.log("START SCAN")
+    const scanLoop = (key) => {
+      console.log('SCAN LOOP', key)
+      return new Promise(resolve => {
+        return this.table.scan({ ExclusiveStartKey: key, attrsGet: AvailabilityRequest.columns(), filters }).then((scanResults) => {
+          console.log('SCAN RESULTS - ', (scanResults.items || []).length, scanResults.lastEvaluatedKey)
+          const aRequests = (scanResults.items || []).map(aRequest => {
+            return this.wrapResource(aRequest);
+          });
+
+          if (typeof scanResults.lastEvaluatedKey !== 'undefined') {
+            scanLoop(scanResults.lastEvaluatedKey).then((av) => {
+              resolve(aRequests.concat(av));
+            });
+          }
+          else {
+            resolve(aRequests);
+          }
+        });
       });
-    });
+    }
+    return scanLoop(null);
   }
 
   active() {
-    // TODO - refactor to use #scan
-    return this.table.scan(
-      {
-        attrsGet: AvailabilityRequest.columns(),
-        filters: [
-          { column: 'status', value: 'active' },
-          { column: 'dateEnd', value: moment().unix().toString(), op: 'GE', type: 'N' },
-        ],
-      }
-    ).then((aRequests) => {
-      const aRequestsRepo = aRequests.map(aRequest => {
-        return this.wrapResource(aRequest);
-      });
-      return aRequestsRepo.filter((resource) => {
-        return resource.checkable();
+    return this.scan(AvailabilityRequestFilters.active()).filter((resource) => {
+      return resource.checkable();
+    });
+  }
+
+  activeIds() {
+    return this.active().then((results) => {
+      return _.map(results, (availabilityRequest) => {
+        return availabilityRequest.id;
       });
     });
   }
@@ -210,6 +222,13 @@ class AvailabilityRequestFilters {
   static byEmail(email) {
     return [
       { column: 'email', value: email },
+    ];
+  }
+
+  static active() {
+    return [
+      { column: 'status', value: 'active' },
+      { column: 'dateEnd', value: moment().unix().toString(), op: 'GE', type: 'N' },
     ];
   }
 }

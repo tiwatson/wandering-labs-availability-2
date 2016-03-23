@@ -32,7 +32,7 @@ class DbHelpers {
 
   static clean() {
     return db.table(AvailabilityRequest.tableName()).scan().then((resp) => {
-      return Promise.map(resp, (obj) => {
+      return Promise.map(resp.items, (obj) => {
         return db.table(AvailabilityRequest.tableName()).remove(obj.id);
       });
     });

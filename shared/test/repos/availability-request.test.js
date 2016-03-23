@@ -190,8 +190,25 @@ describe('AvailabilityRequest', () => {
       expect(new AvailabilityRequest({ availabilities: avails }).notificationNeeded()).to.be.true;
     });
   });
-});
 
+  describe('#checkable', ()=>{
+    it('returns true if checkable', ()=> {
+      const attrs = {
+        "dateEnd": moment().add(3, 'd').unix(),
+        "lengthOfStay": 2,
+      }
+      expect(new AvailabilityRequest(attrs).checkable()).to.be.true;
+    });
+    it('returns false if not checkable', ()=> {
+      const attrs = {
+        "dateEnd": moment().add(3, 'd').unix(),
+        "lengthOfStay": 5,
+      }
+      expect(new AvailabilityRequest(attrs).checkable()).to.be.false;
+    });
+  })
+
+})
 
 
 describe('AvailabilityRequestRepo', () => {
@@ -470,7 +487,7 @@ describe('AvailabilityRequestRepo', () => {
 
     it('makes a db scan call', ()=> {
       let availabilityRequestRepo = new AvailabilityRequestRepo()
-      let mock = sandbox.mock(availabilityRequestRepo.table).expects('scan').once().withArgs({ attrsGet: AvailabilityRequest.columns(), filters: AvailabilityRequestFilters.byEmail('test@example.com') }).returns(Promise.resolve([]));
+      let mock = sandbox.mock(availabilityRequestRepo.table).expects('scan').once().withArgs({ ExclusiveStartKey: null, attrsGet: AvailabilityRequest.columns(), filters: AvailabilityRequestFilters.byEmail('test@example.com') }).returns(Promise.resolve([]));
 
       return availabilityRequestRepo.scan(AvailabilityRequestFilters.byEmail('test@example.com'));
     })

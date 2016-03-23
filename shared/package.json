@@ -11,7 +11,7 @@
     "aws-sdk": "^2.2.20",
     "bluebird": "3.0.5",
     "dotenv": "1.2.0",
-    "dynasty": "0.2.3",
+    "dynasty": "git://github.com/tiwatson/dynasty.git",
     "lodash": "3.10.1",
     "moment": "2.10.6",
     "node-uuid": "1.4.7",

@@ -8,7 +8,7 @@ class Slack {
 
     const options = {
       method: 'POST',
-      url: process.env.SLACK_HOOK,
+      url: process.env.SLACK_HOOK || 'http://example.com',
     };
 
     return request(_.merge(options, { form: deliverParams }));
