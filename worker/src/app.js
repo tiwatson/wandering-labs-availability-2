@@ -4,6 +4,7 @@ import Promise from 'bluebird';
 import { config } from './shared/utils/config'; //eslint-disable-line
 import { AvailabilityRequestRepo } from './shared/repos/availability-request';
 import { Sns } from './shared/utils/sns';
+import { Slack } from './shared/utils/slack';
 
 exports.handler = (event, context) => {
   return new AvailabilityRequestRepo().active().then((availabilityRequests) => {
@@ -17,7 +18,9 @@ exports.handler = (event, context) => {
           console.log('Sent SNS for:', idsString);
         });
       }).then(() => {
-        context.succeed('sent active requests');
+        return Slack.notify(`Active Requests: ${ids.length}`).then(() => {
+          context.succeed('sent active requests');
+        });
       });
     } else {
       context.succeed('No active requests');
