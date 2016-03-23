@@ -5,11 +5,10 @@ class FilterAvailabilities {
   static filter(dateEnd, daysLength, avails) {
     const bySiteId = {};
     const siteNumbers = {};
-    const dateEndPlusOne = dateEnd.add(1, 'd'); // TODO - remove after front end validation
 
     avails.forEach((avail) => {
-      const arrivalDate = moment(avail.arrivalDate, 'M/D/YYYY');
-      if (arrivalDate.isBefore(dateEnd)) {
+      const arrivalDate = moment(avail.arrivalDate, 'M/D/YYYY').endOf('day');
+      if (arrivalDate.isBefore(dateEnd.endOf('day'))) {
         siteNumbers[avail.siteId] = avail.siteNumber;
         if (typeof bySiteId[avail.siteId] === 'undefined') {
           bySiteId[avail.siteId] = [];

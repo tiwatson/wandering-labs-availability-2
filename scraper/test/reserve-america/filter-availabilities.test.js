@@ -135,4 +135,13 @@ describe('FilterAvailabilities', () => {
     expect(filterAvailabilities[0].siteNumber).to.be.equal('073');
     expect(filterAvailabilities[0].daysLength).to.be.equal(5);
   });
+
+  it ('rejects avails that arrive on same day as dateEnd', () => {
+    const dateEnd = moment.unix(1459123199);
+    let toFilter = [
+      { siteId: 1, siteNumber: 1, arrivalDate: '3/27/2016' },
+    ]
+    let filterAvailabilities = FilterAvailabilities.filter(dateEnd,1,toFilter)
+    expect(filterAvailabilities.length).to.be.equal(0);
+  });
 });
