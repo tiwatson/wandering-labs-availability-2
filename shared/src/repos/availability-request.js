@@ -1,6 +1,7 @@
 import db, { DbHelpers } from '../utils/db';
 import { Availability } from './availability';
 import { Sns } from '../utils/sns';
+import { User } from './user';
 
 import uuid from 'node-uuid';
 import { merge } from 'lodash';
@@ -129,7 +130,8 @@ class AvailabilityRequestRepo {
 
   create(obj) {
     const id = uuid.v1();
-    const insertData = merge({ id, status: 'active' }, obj);
+    const premium = User.isPremium(obj.email)
+    const insertData = merge({ id, premium, status: 'active' }, obj);
     return this.table.insert(insertData).then(() => {
       return new Sns('notify').publish({ id, type: 'welcome' }).then(() => {
         return id;

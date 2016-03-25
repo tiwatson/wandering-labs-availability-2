@@ -216,13 +216,31 @@ describe('AvailabilityRequestRepo', () => {
   describe('#create', () => {
     it ('should insert a new record', () => {
       let availabilityRequest = new AvailabilityRequest({})
-
       return new AvailabilityRequestRepo().create(availabilityRequest).then((id) => {
         expect(id).to.have.length(36)
       });
+    });
 
-    })
-  })
+    it ('Should not be premium', () => {
+      let availabilityRequest = new AvailabilityRequest({email: 'Notpremium@example.com'})
+      return new AvailabilityRequestRepo().create(availabilityRequest).then((id) => {
+        return new AvailabilityRequestRepo().find(id).then((obj) => {
+          expect(obj.premium).to.equal(false);
+        });
+      });
+    });
+
+    it ('Should be premium', () => {
+      process.env.PREMIUM = 'premium@example.com'
+      let availabilityRequest = new AvailabilityRequest({email: 'premium@example.com'})
+      return new AvailabilityRequestRepo().create(availabilityRequest).then((id) => {
+        return new AvailabilityRequestRepo().find(id).then((obj) => {
+          expect(obj.premium).to.equal(true);
+        });
+      });
+    });
+
+  });
 
   describe('#find', () => {
     var arId;
