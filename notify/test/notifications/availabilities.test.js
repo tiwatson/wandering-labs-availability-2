@@ -13,6 +13,9 @@ describe('NotificationsAvailabilities', ()=> {
 
   before(() => {
     let existingAvails = [
+      { siteNumber: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: false },
+      { siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: false },
+      { siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: false },
       { siteId: 100, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: false },
       { siteId: 101, arrivalDate: moment().unix(), daysLength: 7, avail: true, notified: true }
     ]

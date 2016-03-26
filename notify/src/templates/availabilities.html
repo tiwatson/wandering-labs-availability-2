@@ -4,7 +4,7 @@
     <td >{{daysLength}}</td>
     <td >{{siteNumber}}</td>
     <td >
-      <a href="{{{reserveUrl}}}" class="reserve">Reserve Now</a>
+      <a href="{{{reserveUrl}}}" class="reserve">Reserve</a>
     </td>
   </tr>
 {{/inline}}
@@ -143,7 +143,7 @@ h3 {
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 200;
   line-height: 1.2em;
-  margin: 40px 0 10px;
+  margin: 0 0 10px;
 }
 
 h1 {
@@ -178,7 +178,7 @@ ol li {
 .container {
   clear: both !important;
   display: block !important;
-  Margin: 0 auto !important;
+  margin: 0 auto !important;
   max-width: 600px !important;
 }
 
@@ -228,17 +228,17 @@ ol li {
 .reserve {
   color: #FFF;
   text-decoration: none;
-  line-height: 2;
+  line-height: 1.6em;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
   display: inline-block;
-  border-radius: 12px;
+  border-radius: 6px;
   background-color: #77b57a;
   margin: 3px 0;
   border-color: #77b57a;
   border-style: solid;
-  border-width: 2px 12px;
+  border-width: 2px 6px;
 }
 
 .availHeader {
@@ -252,6 +252,9 @@ ol li {
   margin-bottom: 12px;
 }
 
+.availTable td {
+  font-size: 85%;
+}
 
 </style>
 </head>
