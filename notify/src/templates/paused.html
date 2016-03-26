@@ -195,6 +195,10 @@ ol li {
   text-decoration: none;
 }
 
+.inline {
+  display: inline;
+}
+
 </style>
 </head>
 
@@ -212,13 +216,24 @@ ol li {
         <tr>
           <td>
             <p>Hi there,</p>
-            <p>Your current request for a campsite reservation has been paused. We do this every once and a while to save resources. Running this service costs up a few bucks and we also want to be kind to Reserve America by not running unneeded requests. If you still are looking for a campsite just click the button below and we will get right back on checking for an open reservation.
+            <p>Your current request for a campsite reservation has been paused. We do this every 1,000 attempts (a little over a week) to save resources. Running this service costs us a few bucks and we also want to be kind to Reserve America by not running unneeded requests. If you still are looking for a campsite just click the button below and we will get right back on checking for an open reservation.
 
             <h3 class="button">
               <a href="http://reserve.wanderinglabs.com/{{{id}}}/unpause">Yes. Keep Checking for me!!</a>
             </h3>
 
             <p>You wanted to find a campsite at {{typeSpecific.parkName}} for {{lengthOfStay}} nights sometime between {{dateStartFormatted}} and {{dateEndFormatted}}.</p>
+
+            <h4>Never get paused again!</h4>
+            <p>Become a premium member by sending a few bucks our way and we will never pause your requests again. Plus we will check Reserve America for you even more frequently. </p>
+            <p>Any amount will get you premium status. Send what you think this service is worth.</p>
+
+            <h3 class="button inline">
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=10%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$10</a>
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=20%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$20</a>
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=25%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$25</a>
+              <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=50%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$50</a>
+            </h3>
 
             <p>Got questions?</p>
             <p><a href="http://mail:info@wanderinglabs.com">info@wanderinglabs.com</a></p>
