@@ -28,6 +28,7 @@ describe('NotificationsAvailabilities', ()=> {
 
     before(() => {
       html = notificationsAvailabilities._compileTemplate();
+      // fs.writeFile('availabilities.html', html);
     });
 
     it('compiles the template', ()=> {
