@@ -45,6 +45,10 @@ class AvailabilityRequest {
     return moment().isBefore(dateLastCheckable);
   }
 
+  get isPremium() {
+    return this.premium === true || User.isPremium(this.email)
+  }
+
   // this should probably be immutable but it is not.
   // also needs a good refactor.
   mergeAvailabilities(newAvailabilities) {
@@ -197,7 +201,7 @@ class AvailabilityRequestRepo {
   updateAvailabilities(availabilityRequest, newAvailabilities) {
     availabilityRequest.mergeAvailabilities(newAvailabilities);
     const checkedCount = availabilityRequest.checkedCount + 1 || 1;
-    const status = ((availabilityRequest.premium !== true) && (checkedCount % 1000 === 0)) ? 'paused' : availabilityRequest.status;
+    const status = (!availabilityRequest.isPremium && (checkedCount % 1000 === 0)) ? 'paused' : availabilityRequest.status;
     return this.update(_.merge(availabilityRequest, { checkedAt: moment().unix(), checkedCount, status })).then((obj) => {
       if (status === 'paused') {
         return new Sns('notify').publish({ id: availabilityRequest.id, type: 'paused' }).then(() => {
