@@ -24,6 +24,14 @@ class NotificationsBase {
 
   // TODO - refactor out into its own utility
   _compileTemplate() {
+    const headerFilename = __dirname + '/../templates/_layout_header.html';
+    const headerFile = fs.readFileSync(headerFilename, { encoding: 'utf8' });
+    Handlebars.registerPartial('header', headerFile)
+
+    const footerFilename = __dirname + '/../templates/_layout_footer.html';
+    const footerFile = fs.readFileSync(footerFilename, { encoding: 'utf8' });
+    Handlebars.registerPartial('footer', footerFile)
+
     const templateFilename = __dirname + '/../templates/' + this.template;
     const templateFile = fs.readFileSync(templateFilename, { encoding: 'utf8' });
     const compiledTemplate = Handlebars.compile(templateFile);
