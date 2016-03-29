@@ -17,15 +17,19 @@
         <a href="http://reserve.wanderinglabs.com/{{{id}}}/cancel" class="link">Cancel this request</a>
       </p>
 
+      {{#if isPremium}}
+        <h4>You are a supporter!!</h4>
+        <p>Thanks for being a premium member.</p>
+      {{else}}
+        <h4>Help out and become a Premium Member</h4>
+        <p>Become a premium member by sending a few bucks our way and we will upgrade your request to never pause; plus we will check Reserve America for you even more frequently. </p>
+        <p>Any amount will get you premium status. Send what you think this service is worth.</p>
 
-      <h4>Help out and become a Premium Member</h4>
-      <p>Become a premium member by sending a few bucks our way and we will upgrade your request to never pause; plus we will check Reserve America for you even more frequently. </p>
-      <p>Any amount will get you premium status. Send what you think this service is worth.</p>
-
-      <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=10%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$10</a></h3>
-      <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=20%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$20</a></h3>
-      <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=25%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$25</a></h3>
-      <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=50%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$50</a></h3>
+        <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=10%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$10</a></h3>
+        <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=20%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$20</a></h3>
+        <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=25%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$25</a></h3>
+        <h3 class="button buttonInline"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=50%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted">$50</a></h3>
+      {{/if}}
 
     </td>
   </tr>
