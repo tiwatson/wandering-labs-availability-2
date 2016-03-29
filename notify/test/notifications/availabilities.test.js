@@ -34,13 +34,9 @@ describe('NotificationsAvailabilities', ()=> {
       // fs.writeFile('availabilities.html', html);
     });
 
-    it('compiles the template', ()=> {
-      expect(html).to.include(availabilityRequest.email);
-    });
-
     it('includes the reserve link', ()=> {
       expect(html).to.include('http://www.reserveamerica.com/camping/bahia-honda-sp/r/campsiteDetails.do?siteId=101');
-    })
+    });
 
   });
 
