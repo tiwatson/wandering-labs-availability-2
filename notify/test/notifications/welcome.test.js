@@ -23,6 +23,7 @@ describe('NotificationsWelcome', ()=> {
 
     before(() => {
       html = notificationsWelcome._compileTemplate();
+      fs.writeFile('welcome.html', html);
     });
 
     it('compiles the template', ()=> {
