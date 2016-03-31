@@ -10,39 +10,18 @@ In 7 parts. Completely hosted serverless on Amazon AWS using a combination of La
 
 Collection of lambda functions that handle requests from the angular app. Packaged into a single zip with different lambda functions calling different handler functions.
 
-#### TODO
-- Validation
-- tests
-- unpause
-- admin
-
 ## notify
 
 Email notifications to end users
-
-#### TODO
-- Uncouple from Reserve America
-- Date period ended email
-- Twilio SMS ?
 
 ## scraper
 
 Scrapers is a lambda function that grabs web pages and parses them for matching campsite availabilities.
 
-#### TODO
-- pause request after X amount of availabilites found
-- handle errors better
-
 ## shared
 
 Collection of code that may be required in the other three parts. DB connection, models.. etc
 Included into the other parts codebase via symbolic links created via script in package.json
-
-#### TODO
-- User model/repo
-- DB envinronment config
-- RA subclass
-- Validation
 
 ## web
 
@@ -51,18 +30,9 @@ Uses middleman ruby gem to allow for haml and sass and easy deployment to S3.
 
 `bundle exec middleman server`
 
-#### TODO
-- Validation: Make sure dateEnd is X LengthOfStay after dateStart
-- Non-restrict to Reserve America
-- admin
-- loading animation on 2nd requests
-
 ## worker
 
 Worker is a scheduled lambda function that filters the availability requests in the database and sends off SNS notifications for scrapers to be run.
-
-#### TODO
-
 
 ***
 
@@ -81,12 +51,3 @@ Amazons DynamoDBLocal app can be used for local development and testing.
 ```
 [~/Development/tools/dynamodb] java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 ```
-
-
-##### Priorities
-
-- two types of cancel - track "I found a site"
-- auto pausing
-- admin
-- alert me on errors. Airbrake?
-- gulp
