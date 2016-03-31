@@ -27,31 +27,16 @@
       .row
         .col-md-8
           = yield
-        .col-md-4.amazon
-          %br/
-          :javascript
+        .col-md-4.premium
+          %h3.text-success Premium Membership
+          %p Become a premium member by sending a few bucks our way and we will upgrade your request to never pause; plus we will check Reserve America for you even more frequently.
+          %p Any amount will get you premium status. Send what you think this service is worth.
 
-            values = ['rv gear', 'camping', 'camping chairs', 'camping equipment', 'rv equipment', 'rv accessories', 'camping cookware'];
+          %a.btn.btn-success{ href: "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=10%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted"}$10
+          %a.btn.btn-success{ href: "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=20%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted"}$20
+          %a.btn.btn-success{ href: "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=25%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted"}$25
+          %a.btn.btn-success{ href: "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=HXY8SDLP6JP3N&lc=US&item_name=Premium%3a%20reserve%2ewanderinglabs%2ecom&amount=50%2e00&currency_code=USD&button_subtype=services&bn=PP%2dBuyNowBF%3abtn_buynowCC_LG%2egif%3aNonHosted"}$50
 
-            amzn_assoc_placement = "adunit0";
-            amzn_assoc_enable_interest_ads = "true";
-            amzn_assoc_tracking_id = "wl-reserve-20";
-            amzn_assoc_ad_mode = "auto";
-            amzn_assoc_ad_type = "smart";
-            amzn_assoc_marketplace = "amazon";
-            amzn_assoc_region = "US";
-            amzn_assoc_linkid = "e22acabde2981a9e8410f05f6ea76b7c";
-            amzn_assoc_fallback_mode = {"type":"search","value": values[Math.floor(Math.random() * values.length)]};
-            amzn_assoc_default_category = "All";
-            amzn_assoc_default_category = "SportingGoods";
-            amzn_assoc_emphasize_categories = "3375251";
-            amzn_assoc_search_bar = "true";
-            amzn_assoc_title = "";
-
-          = javascript_include_tag "http://z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"
-
-          / amzn_assoc_ad_mode = "manual";
-          / amzn_assoc_asins = 'B00WMFXE5O,B000BUU5WW,B002OUMVWY,B0006IX87S,B0028PJ10K,B001GC2LVM,B002XLHUQG,B00708MDAK';
 
     .container
       .row
