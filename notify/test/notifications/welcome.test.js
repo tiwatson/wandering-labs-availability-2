@@ -53,6 +53,51 @@ describe('NotificationsWelcome', ()=> {
     });
   });
 
+  describe('premium member #2', ()=> {
+    let notificationsWelcome;
+    let availabilityRequest;
+
+    before(() => {
+      process.env.PREMIUM = 'welcome@example.com'
+      availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({id: '1234-asdf', email: 'welcome@example.com'}) );
+      notificationsWelcome = new NotificationsWelcome(availabilityRequest);
+    });
+
+    describe('#compileTemplate', ()=> {
+      let html;
+
+      before(() => {
+        html = notificationsWelcome._compileTemplate();
+        //fs.writeFile('welcome.html', html);
+      });
+
+      it('compiles the template', ()=> {
+        expect(html).to.include(availabilityRequest.typeSpecific.parkName);
+      });
+
+      it('includes the view link', ()=> {
+        expect(html).to.include('http://reserve.wanderinglabs.com/' + availabilityRequest.id + '/cancel');
+      });
+
+      it('adjusts content if you are a premium member', ()=> {
+        expect(html).to.include('You are a supporter')
+      });
+
+    });
+
+    describe('#deliver', ()=> {
+      before(() => {
+        Nocks.sendgrid();
+      });
+
+      it('delivers the email', ()=> {
+        return notificationsWelcome.deliver().then((response)=> {
+          expect(response.message).to.equal('success');
+        });
+      });
+    });
+  });
+
   describe('non premium member', ()=> {
     let notificationsWelcome;
     let availabilityRequest;
