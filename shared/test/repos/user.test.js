@@ -17,5 +17,10 @@ describe('User', () => {
       process.env.PREMIUM = 'someotheremail@example.com'
       expect(User.isPremium('test@example.com')).to.equal(false);
     });
+
+    it('returns true when it includes the mixed case email', ()=> {
+      process.env.PREMIUM = 'testupper@example.com'
+      expect(User.isPremium('testUpper@example.com')).to.equal(true);
+    });
   });
 });
