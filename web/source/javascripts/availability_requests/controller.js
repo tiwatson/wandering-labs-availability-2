@@ -39,8 +39,8 @@ angular.module('availability_requests.controllers', [])
 
   }])
 
-  .controller('AvailabilityRequestController', ['$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($scope, $state, availabilityRequestsService, availabilityRequest) {
-    console.log('controller - ', availabilityRequest)
+  .controller('AvailabilityRequestController', ['$rootScope', '$scope', '$state', 'availabilityRequestsService', 'availabilityRequest', function($rootScope, $scope, $state, availabilityRequestsService, availabilityRequest) {
+    $rootScope.isPremium = availabilityRequest.isPremium;
     $scope.ar = availabilityRequest;
     $scope.ar_array = [availabilityRequest];
 
