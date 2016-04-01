@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 class User {
   static isPremium(email) {
-    return _.includes((process.env.PREMIUM || '').split(','), email.toLowerCase());
+    return _.includes((process.env.PREMIUM || '').split(','), (email || '').toLowerCase());
   }
 }
 
