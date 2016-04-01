@@ -8,6 +8,15 @@ import { AvailabilityRequest, AvailabilityRequestRepo, AvailabilityRequestFilter
 import db, { DbHelpers } from '../../src/utils/db';
 
 describe('AvailabilityRequest', () => {
+
+  describe('#toJSON', ()=> {
+    process.env.PREMIUM = 'json@example.com'
+    let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({email: 'json@example.com'}) );
+    it('includes isPremium attribute', ()=> {
+      expect(availabilityRequest.toJSON().isPremium).to.equal(true);
+    });
+  });
+
   describe('#description', ()=> {
     let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
     it('includes the email', ()=> {

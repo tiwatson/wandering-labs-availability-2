@@ -40,6 +40,17 @@ class AvailabilityRequest {
     ];
   }
 
+  toJSON() {
+    let columns = AvailabilityRequest.columns();
+    columns.push.apply(columns, ['isPremium']);
+
+    let jsonObj = {};
+    columns.forEach((n,index) => {
+      jsonObj[n] = this[n];
+    });
+    return jsonObj;
+  }
+
   checkable() {
     const dateLastCheckable = moment.unix(this.dateEnd).subtract(this.lengthOfStay, 'd');
     return moment().isBefore(dateLastCheckable);
