@@ -1,3 +1,4 @@
+import config from '../utils/config';
 import db, { DbHelpers } from '../utils/db';
 import { Availability } from './availability';
 import { Sns } from '../utils/sns';
@@ -201,8 +202,14 @@ class AvailabilityRequestRepo {
     });
   }
 
+  activeForScraping() {
+    return this.active().filter((resource) => {
+      return config.scrapeAll() || resource.isPremium;
+    });
+  }
+
   activeIds() {
-    return this.active().then((results) => {
+    return this.activeForScraping().then((results) => {
       return _.map(results, (availabilityRequest) => {
         return availabilityRequest.id;
       });

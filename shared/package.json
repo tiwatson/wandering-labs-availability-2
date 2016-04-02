@@ -21,10 +21,11 @@
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
     "babel-eslint": "^5.0.0-beta6",
+    "chai": "^3.3.0",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
-    "chai": "^3.3.0",
     "mocha": "^2.3.3",
+    "mockdate": "^1.0.4",
     "nock": "^3.3.2",
     "sinon": "^1.17.2"
   }
