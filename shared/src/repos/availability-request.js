@@ -38,6 +38,7 @@ class AvailabilityRequest {
       'type',
       'typeSpecific',
       'availabilities',
+      'premium',
     ];
   }
 

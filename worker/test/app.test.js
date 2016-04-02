@@ -15,7 +15,7 @@ describe('Worker', () => {
 
     before(()=> {
       spy = sinon.spy(testHelper.context, 'succeed');
-      return Factory.availabilityRequestRepo().then((factoryObj) => {
+      return Factory.availabilityRequestRepo({ premium: true }).then((factoryObj) => {
         availabilityRequest = factoryObj.id;
       });
 
