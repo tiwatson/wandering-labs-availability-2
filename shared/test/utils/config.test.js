@@ -4,10 +4,10 @@ import Mockdate from 'mockdate';
 import { testHelper, Factory, ModelData, Nocks } from '../test-helper';
 import { config } from '../../src/utils/config';
 
-describe.only('config', () => {
+describe('config', () => {
 
-  after(()=> {
-    Mockdate.reset();
+  afterEach(()=> {
+    return Mockdate.reset();
   })
 
   it('scrapeAll is false on 00', ()=> {

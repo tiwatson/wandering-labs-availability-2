@@ -1,4 +1,4 @@
-import config from '../utils/config';
+import { config } from '../utils/config';
 import db, { DbHelpers } from '../utils/db';
 import { Availability } from './availability';
 import { Sns } from '../utils/sns';
