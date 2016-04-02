@@ -23,7 +23,7 @@ describe('#handler', ()=> {
   });
 
   it('calls the correct class', ()=> {
-    let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest() );
+    let availabilityRequest = new AvailabilityRequest( ModelData.availabilityRequest({premium: true}) );
     let event = { Records: [ { Sns: { Message: JSON.stringify({id: '1234', type: 'availabilities'}) } } ] };
     let stub = sandbox.stub(AvailabilityRequestRepo.prototype, 'find').onCall(0).returns( Promise.resolve(availabilityRequest) )
 
