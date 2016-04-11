@@ -3257,6 +3257,7 @@ angular.module('locations.services', [ ]).
             {"name":"Upper Pines","slug":"upper-pines","parkId":"70925","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
             {"name":"Lower Pines","slug":"lower-pines","parkId":"70928","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
             {"name":"North Pines","slug":"north-pines","parkId":"70927","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
+            {"name":"Schoodic Woods Campground","slug":"schoodic-woods-campground","parkId":"74299","state":"ME","code":"NRSO","desc":"ME - Acadia National Park"},
       ]
 
     }
