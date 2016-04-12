@@ -2270,6 +2270,7 @@ angular.module('locations.services', [ ]).
             {"name":"Pillsbury State Park","slug":"pillsbury-state-park","parkId":"270065","state":"NH","code":"NH","desc":"NH - New Hampshire Division of Parks and Recreation"},
             {"name":"Pilot Knob State Park","slug":"pilot-knob-state-park","parkId":"610140","state":"IA","code":"IA","desc":"IA - Iowa"},
             {"name":"Pilot Mountain State Park","slug":"pilot-mountain-state-park","parkId":"552860","state":"NC","code":"NC","desc":"NC - North Carolina State Parks"},
+            {"name":"Pinnacles Campground","slug":"pinnacles-campground","parkId":"73984","state":"CA","code":"NRSO","desc":"CA - Pinnacles National Park"},
             {"name":"Pine Creek Campground","slug":"pine-creek-campground","parkId":"73862","state":"MT","code":"NRSO","desc":"MT - US Forest Service"},
             {"name":"Pine Creek Cove","slug":"pine-creek-cove","parkId":"73342","state":"OK","code":"NRSO","desc":"OK - US Army Corps of Engineers"},
             {"name":"Pine Flat Campground West","slug":"pine-flat-campground-west","parkId":"70645","state":"AZ","code":"NRSO","desc":"AZ - US Forest Service"},
