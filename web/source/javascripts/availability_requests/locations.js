@@ -1829,6 +1829,7 @@ angular.module('locations.services', [ ]).
             {"name":"Mann Creek Campground","slug":"mann-creek-campground","parkId":"75515","state":"ID","code":"NRSO","desc":"ID - US Forest Service"},
             {"name":"Manresa Sb","slug":"manresa-sb","parkId":"120053","state":"CA","code":"CA","desc":"CA - California Department of Parks and Recreation"},
             {"name":"Manti Community","slug":"manti-community","parkId":"70816","state":"UT","code":"NRSO","desc":"UT - US Forest Service"},
+            {"name":"Many Glacier Campground","slug":"many-glacier-campground","parkId":"136190","state":"MT","code":"NRSO","desc":"MT - National Park Service"},
             {"name":"Manzanita","slug":"manzanita","parkId":"75143","state":"AZ","code":"NRSO","desc":"AZ - US Forest Service"},
             {"name":"Manzano Mountains","slug":"manzano-mountains","parkId":"430018","state":"NM","code":"NM","desc":"NM - New Mexico State Parks"},
             {"name":"Maple Canyon","slug":"maple-canyon","parkId":"70822","state":"UT","code":"NRSO","desc":"UT - US Forest Service"},
