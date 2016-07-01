@@ -3260,6 +3260,8 @@ angular.module('locations.services', [ ]).
             {"name":"Lower Pines","slug":"lower-pines","parkId":"70928","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
             {"name":"North Pines","slug":"north-pines","parkId":"70927","state":"CA","code":"NRSO","desc":"CA - Yosemite National Park"},
             {"name":"Schoodic Woods Campground","slug":"schoodic-woods-campground","parkId":"74299","state":"ME","code":"NRSO","desc":"ME - Acadia National Park"},
+            {"name":"Sol Duc Hot Springs Resort","slug":"sol-duc-hot-springs-resort","parkId":"139890","state":"WA","code":"NRSO","desc":"WA - Olympic National Park"},
+            {"name":"Kirby Cove Campground","slug":"kirby-cove-campground","parkId":"70972","state":"CA","code":"NRSO","desc":"CA - Golden Gate National Recreation Area"},
       ]
 
     }
