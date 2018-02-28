@@ -2710,6 +2710,7 @@ angular.module('locations.services', [ ]).
             {"name":"South Abutment Recreation Area","slug":"south-abutment-recreation-area","parkId":"73495","state":"MS","code":"NRSO","desc":"MS - US Army Corps of Engineers"},
             {"name":"South Bass Island State Park","slug":"south-bass-island-state-park","parkId":"960101","state":"OH","code":"OH","desc":"OH - Ohio State Parks"},
             {"name":"South Beach State Park","slug":"south-beach-state-park","parkId":"402165","state":"OR","code":"OR","desc":"OR - Oregon Parks and Recreation Department"},
+            {"name":"South Campground","slug":"south-campground-ut","parkId":"157390","state":"UT","code":"NRSO","desc":"UT - National Park Service"}
             {"name":"South Carlsbad Sb","slug":"south-carlsbad-sb","parkId":"120090","state":"CA","code":"CA","desc":"CA - California Department of Parks and Recreation"},
             {"name":"South Cove County Park","slug":"south-cove-county-park","parkId":"920013","state":"SC","code":"OCSC","desc":"SC - County"},
             {"name":"South Dickey Lake","slug":"south-dickey-lake","parkId":"75342","state":"MT","code":"NRSO","desc":"MT - US Forest Service"},
