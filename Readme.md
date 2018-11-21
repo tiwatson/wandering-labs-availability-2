@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tiwatson/wandering-labs-availability-2.svg?branch=master)](https://travis-ci.org/tiwatson/wandering-labs-availability-2)
 
-### Production ready at: http://reserve.wanderinglabs.com
+### No longer in production. See newest code at: https://github.com/tiwatson/reserve.wanderinglabs
 
 In 7 parts. Completely hosted serverless on Amazon AWS using a combination of Lambda, DynamoDB, SNS, S3 and API Gateway.
 
