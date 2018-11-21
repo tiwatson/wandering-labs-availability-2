@@ -1,6 +1,5 @@
 # Notification system for campsite availabilities
 
-[![Build Status](https://travis-ci.org/tiwatson/wandering-labs-availability-2.svg?branch=master)](https://travis-ci.org/tiwatson/wandering-labs-availability-2)
 
 ### No longer in production. See newest code at: https://github.com/tiwatson/reserve.wanderinglabs
 
